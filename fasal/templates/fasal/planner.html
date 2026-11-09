@@ -1,0 +1,115 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare fictional farm-to-market trips and sale proceeds for a potato shipment.">
+  <title>Trip planner · Fasal Ki Raah</title>
+  <link rel="stylesheet" href="{% static 'fasal/planner.css' %}">
+</head>
+<body>
+  <a class="skip" href="#shipment">Skip to shipment form</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{% url 'planner' %}" aria-label="Fasal Ki Raah home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M6 25c6 0 7-6 7-11 0-4 3-7 9-7v5c0 6-4 9-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 25h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span>Fasal Ki Raah<small lang="ur" dir="rtl">فصل کی راہ</small></span>
+      </a>
+      <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="intro" aria-labelledby="intro-title">
+      <div>
+        <p class="eyebrow">FARM TO MANDI / POTATO SHIPMENT</p>
+        <h1 id="intro-title">Find a trip for your crop.</h1>
+        <p>See which vehicles have space on your route, then compare what you could take home from each option.</p>
+      </div>
+      <div class="route" aria-label="Example: Okara collection point to Sahiwal mandi">
+        <span class="route-dot" aria-hidden="true"></span><span>Okara<br><small>Collection point</small></span>
+        <span class="route-line" aria-hidden="true"></span>
+        <span class="route-dot end" aria-hidden="true"></span><span>Sahiwal<br><small>Mandi</small></span>
+      </div>
+    </section>
+    <div class="demo-note">Example only. Routes, vehicle capacity and prices are fictional. No bookings are made.</div>
+
+    <div class="workspace">
+      <section class="panel shipment" id="shipment" aria-labelledby="shipment-title">
+        <div class="section-head">
+          <span class="step" aria-hidden="true">01</span>
+          <div><h2 id="shipment-title">Your shipment</h2><p>Potatoes · one demo day · Pakistan time</p></div>
+        </div>
+        <form method="post" action="{% url 'planner' %}#results">
+          {% csrf_token %}
+          {% if form_invalid %}<p class="form-alert" role="alert">Check the fields marked below and try again.</p>{% endif %}
+          <div class="fields">
+            {% for field in shipment_fields %}
+              <div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+            {% endfor %}
+          </div>
+          <fieldset>
+            <legend>Sale assumptions</legend>
+            <p class="form-hint">Use example prices to compare the same load. The trip quote is deducted separately.</p>
+            <div class="fields">
+              {% for field in price_fields %}
+                <div class="field {% if forloop.last %}full{% endif %}">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+              {% endfor %}
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <button type="submit">Find trips <span aria-hidden="true">→</span></button>
+            <a href="{% url 'planner' %}">Reset example</a>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel results" id="results" aria-labelledby="results-title">
+        <div class="section-head">
+          <span class="step" aria-hidden="true">02</span>
+          <div><h2 id="results-title">Compare your options</h2><p>{% if is_example %}Example results · change the form to try your own numbers{% else %}Trip fit and estimated sale proceeds{% endif %}</p></div>
+        </div>
+        {% if shipment %}
+          <div class="baseline">
+            <div><strong>Farm-gate sale</strong><small>Buyer collects the whole load</small></div>
+            <strong>PKR {{ farm_net|floatformat:"2g" }}</strong>
+          </div>
+          {% if matches %}
+            <p class="results-count">{{ matches|length }} compatible trip{{ matches|length|pluralize }} · highest estimated proceeds first</p>
+            <div class="trips">
+              {% for result in matches %}
+                <article class="trip">
+                  <div class="trip-head"><h3>{{ result.trip.name }}</h3><span class="fit">Route fits</span></div>
+                  <p>Arrives {{ result.arrival|time:"H:i" }} · {{ result.trip.spare_kg }} kg spare · PKR {{ result.trip.quote }} freight</p>
+                  <div class="trip-estimate">
+                    <div><small>Estimated mandi proceeds</small><strong>PKR {{ result.mandi_net|floatformat:"2g" }}</strong></div>
+                    <span class="delta {% if result.difference < 0 %}lower{% endif %}">{% if result.difference > 0 %}+{% endif %}{{ result.difference|floatformat:"2g" }} vs farm gate</span>
+                  </div>
+                </article>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="empty">No demo trips fit this shipment. Check the route, try a smaller load, or adjust the deadline.</p>
+          {% endif %}
+          {% if rejections %}
+            <details class="rejected">
+              <summary>{{ rejections|length }} excluded trip{{ rejections|length|pluralize }} · see why</summary>
+              <ul>
+                {% for result in rejections %}
+                  <li><strong>{{ result.trip.name }}</strong><span>{{ result.rejection }}</span></li>
+                {% endfor %}
+              </ul>
+            </details>
+          {% endif %}
+          <p class="calculation-note">Mandi estimate = whole-load sale value − freight − loading and market fees. Assumes the whole load sells. Production costs, spoilage and buyer availability are outside this estimate.</p>
+        {% else %}
+          <p class="empty">Correct the shipment details to see a comparison.</p>
+        {% endif %}
+      </section>
+    </div>
+  </main>
+  <footer class="wrap footer"><span>Fasal Ki Raah · Student prototype</span><span lang="ur" dir="rtl">کھیت سے منڈی تک، مشترکہ سفر</span></footer>
+</body>
+</html>
