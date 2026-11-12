@@ -20,10 +20,10 @@ If the browser cannot connect, make sure the server command is still running and
 
 ## Try three scenarios
 
-1. Start with the 120 kg example. Two trips fit. The morning van leaves an estimated PKR 1,150 from a mandi sale versus PKR 960 at the farm gate. The shared pickup fits the trip rules but comes out PKR 110 below the farm-gate example after fees.
-2. Enter 20 kg in **Expected unsold at mandi**. The morning van estimate drops to PKR 850, now PKR 110 below the farm-gate offer. It still needs capacity for the full 120 kg.
-3. Reset the example, then change the weight to 400 kg and the deadline to 12:00. Only the shared pickup fits.
-4. Change the weight to 900 kg. No demo trip has enough space. Expand the excluded trips section to see the reasons.
+1. Start with **Punjab · mandi**. A 150 kg load uses 30% of a dedicated 500 kg pickup. The morning van's illustrative PKR 10/kg rate gives PKR 1,500 freight versus the editable PKR 5,000 dedicated quote.
+2. Enter 20 kg in **Expected unsold after transport**. The morning van estimate drops from PKR 2,050 to PKR 1,550 after freight and fees. Freight still uses all 150 kg.
+3. Switch to **Punjab · warehouse** for a storage drop-off, or **Sindh · mandi** for a separate Karachi–Hyderabad scenario. See the [freight benchmarks](FREIGHT-BENCHMARKS.md) for the origin and limits of the quotes.
+4. Select **Prepare carrier message** on a matching trip. Copy the inquiry, or enter a known carrier's number to prepare a WhatsApp draft. The demo has no assigned drivers.
 
 These are example inputs and quotes. The farm-gate offer assumes a buyer collects and pays for the full load. The mandi estimate applies the entered price only to the weight expected to sell; it still deducts the full freight and fees. The planner does not look up market rates, find buyers, reserve space, or confirm delivery.
 
@@ -32,7 +32,7 @@ These are example inputs and quotes. The farm-gate offer assumes a buyer collect
 1. The form in **fasal/templates/fasal/planner.html** sends the shipment.
 2. **fasal/forms.py** checks the input, then **fasal/views.py** creates a Shipment.
 3. **fasal/matching.py** calls the original Python route check and adds weight, deadline and sale calculations.
-4. The template shows the outcomes. Change an example quote in **fasal/demo_data.py**, predict the difference, and check the result.
+4. The template shows the outcomes. Change an example shared rate in **fasal/demo_data.py**, predict the difference, and check the result. The contact script prepares a draft locally; it does not send or book.
 
 ## Checks
 

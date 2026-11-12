@@ -34,7 +34,16 @@
         <span class="route-dot end" aria-hidden="true"></span><span>Sahiwal<br><small>Mandi</small></span>
       </div>
     </section>
-    <div class="demo-note">Example only. Routes, vehicle capacity and prices are fictional. No bookings are made.</div>
+    <div class="demo-note">Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+    <nav class="example-links" aria-label="Shipment examples">
+      <a href="?example=punjab" data-example="punjab">Punjab · mandi</a>
+      <a href="?example=warehouse" data-example="warehouse">Punjab · warehouse</a>
+      <a href="?example=sindh" data-example="sindh">Sindh · mandi</a>
+    </nav>
+    <details class="rate-notes">
+      <summary>Where do the price examples come from?</summary>
+      <p>Sindh: <a href="https://goodstransport.pk/suzuki-pickup-for-rent/">published Karachi–Hyderabad benchmark</a> of PKR 8,000–10,000 for a pickup class up to one tonne. Punjab: a <a href="https://talalgoods.com/2025-updated-rate-list/">2025 rate list</a> shows PKR 15,000 for a one-tonne Suzuki from Lahore to Okara or Sahiwal. Neither is a confirmed 500 kg farm quote. Shared rates are fictional; replace the dedicated estimate with your own quote.</p>
+    </details>
 
     <div class="workspace">
       <section class="panel shipment" id="shipment" aria-labelledby="shipment-title">
@@ -79,18 +88,34 @@
             <div><strong>Farm-gate sale</strong><small>Buyer collects the whole load</small></div>
             <strong>PKR {{ farm_net|floatformat:"2g" }}</strong>
           </div>
-          <p class="sale-weight">{{ shipment.saleable_kg|floatformat:"-2g" }} kg expected to sell at the mandi · {{ shipment.unsold_kg|floatformat:"-2g" }} kg unsold</p>
+          <p class="sale-weight">{{ shipment.saleable_kg|floatformat:"-2g" }} kg expected to sell · {{ shipment.unsold_kg|floatformat:"-2g" }} kg unsold</p>
+          {% if shipment.hire_quote is not None %}
+            <div class="hire-box">
+              <strong>Whole 500 kg pickup · PKR {{ shipment.hire_quote|floatformat:"2g" }}</strong>
+              {% if shipment.weight_kg <= 500 %}
+                <span>This load uses {{ used_percent|floatformat:"-1g" }}% of capacity. {{ unused_kg|floatformat:"-2g" }} kg of capacity would be unused.</span>
+              {% else %}
+                <span>A 500 kg pickup cannot carry this load in one trip. No hire savings are calculated.</span>
+              {% endif %}
+            </div>
+          {% endif %}
           {% if matches %}
             <p class="results-count">{{ matches|length }} compatible trip{{ matches|length|pluralize }} · highest estimated proceeds first</p>
             <div class="trips">
               {% for result in matches %}
                 <article class="trip">
                   <div class="trip-head"><h3>{{ result.trip.name }}</h3><span class="fit">Route fits</span></div>
-                  <p>Arrives {{ result.arrival|time:"H:i" }} · {{ result.trip.spare_kg }} kg spare · PKR {{ result.trip.quote }} freight</p>
+                  <p>Arrives {{ result.arrival|time:"H:i" }} · {{ result.trip.spare_kg }} kg spare</p>
+                  <p><strong>PKR {{ result.freight|floatformat:"2g" }} shared freight</strong> · PKR {{ result.trip.rate_per_kg }}/kg
+                    {% if result.hire_saving is not None %}
+                      <br>{% if result.hire_saving > 0 %}PKR {{ result.hire_saving|floatformat:"2g" }} less than whole hire{% elif result.hire_saving == 0 %}Same cost as whole hire{% else %}Shared freight costs more than whole hire{% endif %}
+                    {% endif %}
+                  </p>
                   <div class="trip-estimate">
-                    <div><small>Estimated mandi proceeds</small><strong>PKR {{ result.mandi_net|floatformat:"2g" }}</strong></div>
+                    <div><small>Estimated proceeds after transport</small><strong>PKR {{ result.mandi_net|floatformat:"2g" }}</strong></div>
                     <span class="delta {% if result.difference < 0 %}lower{% endif %}">{% if result.difference > 0 %}+{% endif %}{{ result.difference|floatformat:"2g" }} vs farm gate</span>
                   </div>
+                  <button class="contact-button" type="button" data-contact data-pickup="{{ shipment.pickup }}" data-dropoff="{{ shipment.dropoff }}" data-weight="{{ shipment.weight_kg }}" data-arrival="{{ shipment.latest_arrival|time:'H:i' }}">Prepare carrier message</button>
                 </article>
               {% endfor %}
             </div>
@@ -107,7 +132,7 @@
               </ul>
             </details>
           {% endif %}
-          <p class="calculation-note">Mandi estimate = value of sold produce − freight − loading and market fees. Freight covers the whole load. Production costs and buyer availability are outside this estimate.</p>
+          <p class="calculation-note">Estimate = value of sold produce − freight − fees. Freight covers the whole load. The warehouse case assumes a later sale; include storage fees if applicable. Production costs and buyer availability are outside this estimate.</p>
         {% else %}
           <p class="empty">Correct the shipment details to see a comparison.</p>
         {% endif %}
@@ -115,5 +140,21 @@
     </div>
   </main>
   <footer class="wrap footer"><span>Fasal Ki Raah · Student prototype</span><span lang="ur" dir="rtl">کھیت سے منڈی تک، مشترکہ سفر</span></footer>
+  <dialog id="carrier-dialog" aria-labelledby="carrier-title">
+    <h2 id="carrier-title">Contact a carrier</h2>
+    <p>Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
+    <form id="carrier-form">
+      <label for="carrier-message">Shipment inquiry</label>
+      <textarea id="carrier-message" rows="5" required></textarea>
+      <button type="button" id="copy-inquiry">Copy inquiry</button>
+      <p id="copy-status" role="status"></p>
+      <label for="carrier-number">Carrier’s Pakistan WhatsApp number</label>
+      <input id="carrier-number" type="tel" placeholder="+92 3XX XXXXXXX" required>
+      <button type="submit">Prepare WhatsApp link</button>
+      <a id="carrier-link" target="_blank" rel="noopener noreferrer" hidden>Open WhatsApp draft</a>
+      <button type="button" id="close-carrier">Close</button>
+    </form>
+  </dialog>
+  <script src="{% static 'fasal/contact.js' %}" defer></script>
 </body>
 </html>

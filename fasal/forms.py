@@ -22,15 +22,20 @@ class ShipmentForm(forms.Form):
         label="Farm-gate offer (PKR/kg)", min_value=0, max_digits=8, decimal_places=2,
     )
     mandi_price = forms.DecimalField(
-        label="Expected mandi price (PKR/kg)", min_value=0, max_digits=8, decimal_places=2,
+        label="Expected sale price (PKR/kg)", min_value=0, max_digits=8, decimal_places=2,
     )
     handling_fees = forms.DecimalField(
-        label="Loading and market fees (PKR total)", min_value=0, max_digits=10, decimal_places=2,
+        label="Loading, market or storage fees (PKR)", min_value=0, max_digits=10, decimal_places=2,
     )
     unsold_kg = forms.DecimalField(
-        label="Expected unsold at mandi (kg)", min_value=0, max_value=10000,
+        label="Expected unsold after transport (kg)", min_value=0, max_value=10000,
         max_digits=7, decimal_places=2, required=False,
         help_text="Include damaged, rejected, or unsold produce that earns nothing.",
+    )
+    hire_quote = forms.DecimalField(
+        label="Whole 500 kg pickup quote (PKR)", min_value=0, max_digits=10,
+        decimal_places=2, required=False,
+        help_text="Example only. Replace it with a quote for the same route and load.",
     )
 
     def clean(self):

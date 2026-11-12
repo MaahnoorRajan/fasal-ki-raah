@@ -97,6 +97,7 @@ Revenue and commissions are hypotheses until tested. No emissions savings will b
 - [Run and learn from the local Django prototype](docs/RUN-DEMO.md)
 - [Discovery and interview kit](docs/DISCOVERY.md)
 - [Potato case study: Punjab, January–February 2026](docs/POTATO-CASE.md)
+- [Freight benchmarks and the 150 kg example](docs/FREIGHT-BENCHMARKS.md)
 - [Decision log](docs/DECISIONS.md)
 
 ## Learning and attribution
