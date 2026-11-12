@@ -52,10 +52,13 @@
           </div>
           <fieldset>
             <legend>Sale assumptions</legend>
-            <p class="form-hint">Use example prices to compare the same load. The trip quote is deducted separately.</p>
+            <p class="form-hint">Enter the price per kilo and the weight you might not sell. The trip quote is deducted separately.</p>
             <div class="fields">
               {% for field in price_fields %}
-                <div class="field {% if forloop.last %}full{% endif %}">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+                <div class="field {% if forloop.last %}full{% endif %}">
+                  {{ field.label_tag }}{{ field }}{{ field.errors }}
+                  {% if field.help_text %}<small class="field-hint" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{% endif %}
+                </div>
               {% endfor %}
             </div>
           </fieldset>
@@ -76,6 +79,7 @@
             <div><strong>Farm-gate sale</strong><small>Buyer collects the whole load</small></div>
             <strong>PKR {{ farm_net|floatformat:"2g" }}</strong>
           </div>
+          <p class="sale-weight">{{ shipment.saleable_kg|floatformat:"-2g" }} kg expected to sell at the mandi · {{ shipment.unsold_kg|floatformat:"-2g" }} kg unsold</p>
           {% if matches %}
             <p class="results-count">{{ matches|length }} compatible trip{{ matches|length|pluralize }} · highest estimated proceeds first</p>
             <div class="trips">
@@ -103,7 +107,7 @@
               </ul>
             </details>
           {% endif %}
-          <p class="calculation-note">Mandi estimate = whole-load sale value − freight − loading and market fees. Assumes the whole load sells. Production costs, spoilage and buyer availability are outside this estimate.</p>
+          <p class="calculation-note">Mandi estimate = value of sold produce − freight − loading and market fees. Freight covers the whole load. Production costs and buyer availability are outside this estimate.</p>
         {% else %}
           <p class="empty">Correct the shipment details to see a comparison.</p>
         {% endif %}

@@ -21,10 +21,11 @@ If the browser cannot connect, make sure the server command is still running and
 ## Try three scenarios
 
 1. Start with the 120 kg example. Two trips fit. The morning van leaves an estimated PKR 1,150 from a mandi sale versus PKR 960 at the farm gate. The shared pickup fits the trip rules but comes out PKR 110 below the farm-gate example after fees.
-2. Change the weight to 400 kg and the deadline to 12:00. Only the shared pickup fits.
-3. Change the weight to 900 kg. No demo trip has enough space. Expand the excluded trips section to see the reasons.
+2. Enter 20 kg in **Expected unsold at mandi**. The morning van estimate drops to PKR 850, now PKR 110 below the farm-gate offer. It still needs capacity for the full 120 kg.
+3. Reset the example, then change the weight to 400 kg and the deadline to 12:00. Only the shared pickup fits.
+4. Change the weight to 900 kg. No demo trip has enough space. Expand the excluded trips section to see the reasons.
 
-These are example inputs and quotes. The planner assumes that the whole load sells at the entered price. It does not look up market rates, find buyers, reserve space, or confirm delivery.
+These are example inputs and quotes. The farm-gate offer assumes a buyer collects and pays for the full load. The mandi estimate applies the entered price only to the weight expected to sell; it still deducts the full freight and fees. The planner does not look up market rates, find buyers, reserve space, or confirm delivery.
 
 ## Learn by tracing one request
 

@@ -22,7 +22,7 @@ def planner(request):
         "shipment": shipment,
         "is_example": is_example,
         "shipment_fields": [form[name] for name in ("pickup", "dropoff", "weight_kg", "latest_arrival")],
-        "price_fields": [form[name] for name in ("farm_price", "mandi_price", "handling_fees")],
+        "price_fields": [form[name] for name in ("farm_price", "mandi_price", "handling_fees", "unsold_kg")],
     }
     if shipment:
         evaluations = [evaluate_trip(shipment, trip) for trip in DEMO_TRIPS]

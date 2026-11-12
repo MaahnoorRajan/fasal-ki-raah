@@ -8,6 +8,7 @@
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+  const kilos = new Intl.NumberFormat("en-PK", {maximumFractionDigits: 2});
   const number = (value) => currency.format(value / 10000);
   const scaled = (value) => Math.round(Number(value) * 100);
 
@@ -23,7 +24,7 @@
     else if (data.weight > trip.spare_kg * 100) rejection = "Not enough spare weight capacity.";
     else if (trip.stops[dropoff].arrival > data.deadline) rejection = "Reaches the destination after your deadline.";
     if (rejection) return {trip, rejection};
-    const mandi = data.weight * data.mandiPrice - trip.quote * 10000 - data.handling * 100;
+    const mandi = data.saleable * data.mandiPrice - trip.quote * 10000 - data.handling * 100;
     return {trip, arrival: trip.stops[dropoff].arrival, mandi, difference: mandi - data.farmNet};
   }
 
@@ -46,19 +47,24 @@
     summary.innerHTML = `
       <div class="baseline"><div><strong>Farm-gate sale</strong><small>Buyer collects the whole load</small></div>
       <strong>PKR ${number(data.farmNet)}</strong></div>
+      <p class="sale-weight">${kilos.format(data.saleable / 100)} kg expected to sell at the mandi · ${kilos.format(data.unsold / 100)} kg unsold</p>
       ${matches.length ? `<p class="results-count">${count(matches.length)} fit · highest estimated proceeds first</p>
       <div class="trips">${matches.map(tripCard).join("")}</div>` :
       '<p class="empty">No demo trips fit this shipment. Check the route, try a smaller load, or adjust the deadline.</p>'}
       ${rejected.length ? `<details class="rejected"><summary>${count(rejected.length)} excluded · see why</summary><ul>
       ${rejected.map(({trip, rejection}) => `<li><strong>${trip.name}</strong><span>${rejection}</span></li>`).join("")}
       </ul></details>` : ""}
-      <p class="calculation-note">Mandi estimate = whole-load sale value − freight − loading and market fees. Assumes the whole load sells.</p>`;
+      <p class="calculation-note">Mandi estimate = value of sold produce − freight − loading and market fees. Freight covers the whole load. Production costs and buyer availability are outside this estimate.</p>`;
   }
 
   const dropoffInput = form.elements.dropoff;
   const clearError = () => dropoffInput.setCustomValidity("");
   form.elements.pickup.addEventListener("change", clearError);
   dropoffInput.addEventListener("change", clearError);
+  const unsoldInput = form.elements.unsold_kg;
+  const clearWeightError = () => unsoldInput.setCustomValidity("");
+  unsoldInput.addEventListener("input", clearWeightError);
+  form.elements.weight_kg.addEventListener("input", clearWeightError);
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const fields = new FormData(form);
@@ -68,11 +74,19 @@
       return;
     }
     const weight = scaled(fields.get("weight_kg"));
+    const unsold = scaled(fields.get("unsold_kg") || 0);
+    if (unsold > weight) {
+      unsoldInput.setCustomValidity("Unsold weight cannot exceed the load weight.");
+      unsoldInput.reportValidity();
+      return;
+    }
     showResults({
       pickup: fields.get("pickup"),
       dropoff: fields.get("dropoff"),
       deadline: fields.get("latest_arrival"),
       weight,
+      unsold,
+      saleable: weight - unsold,
       farmNet: weight * scaled(fields.get("farm_price")),
       mandiPrice: scaled(fields.get("mandi_price")),
       handling: scaled(fields.get("handling_fees")),

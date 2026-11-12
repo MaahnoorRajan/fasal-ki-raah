@@ -20,6 +20,13 @@ class MatchingTests(SimpleTestCase):
         self.assertEqual(result.rejection, "")
         self.assertEqual(result.difference, Decimal("-110"))
 
+    def test_unsold_crop_reduces_revenue_not_the_weight_to_transport(self):
+        shipment = replace(DEMO_SHIPMENT, unsold_kg=Decimal("50"))
+        result = evaluate_trip(shipment, DEMO_TRIPS[0])
+        self.assertEqual(result.mandi_net, Decimal("400"))
+        self.assertEqual(result.difference, Decimal("-560"))
+        self.assertIn("weight", evaluate_trip(shipment, DEMO_TRIPS[2]).rejection)
+
     def test_rejections_explain_distinct_constraints(self):
         for trip, reason in zip(DEMO_TRIPS[2:], ("weight", "deadline", "before the pickup")):
             with self.subTest(trip=trip.name):
@@ -51,6 +58,25 @@ class PlannerTests(SimpleTestCase):
         response = self.client.post("/", self.form_values(weight_kg="900"))
         self.assertContains(response, "No demo trips fit this shipment")
         self.assertEqual(response.context["matches"], [])
+
+    def test_entered_unsold_weight_changes_the_comparison(self):
+        response = self.client.post("/", self.form_values(unsold_kg="20"))
+        self.assertEqual(response.context["farm_net"], Decimal("960"))
+        self.assertEqual(response.context["matches"][0].mandi_net, Decimal("850"))
+        self.assertContains(response, "100 kg expected to sell at the mandi")
+
+    def test_all_unsold_still_leaves_trip_costs(self):
+        response = self.client.post("/", self.form_values(unsold_kg="120"))
+        self.assertEqual(response.context["matches"][0].mandi_net, Decimal("-650"))
+
+    def test_unsold_weight_cannot_exceed_load(self):
+        response = self.client.post("/", self.form_values(unsold_kg="120.01"))
+        self.assertContains(response, "Unsold weight cannot exceed the load weight.")
+        self.assertNotContains(response, "Estimated mandi proceeds")
+
+    def test_blank_unsold_weight_defaults_to_zero(self):
+        response = self.client.post("/", self.form_values(unsold_kg=""))
+        self.assertEqual(response.context["matches"][0].mandi_net, Decimal("1150"))
 
     def test_invalid_data_preserves_form_errors_without_results(self):
         response = self.client.post("/", self.form_values(dropoff=OKARA, weight_kg="0"))

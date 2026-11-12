@@ -2,7 +2,7 @@
 
 Working Urdu name for ReturnRoad. A student project by Maahnoor Rajan exploring whether smallholder farmers in rural Sindh and Punjab can keep more of their crop earnings by sharing spare space in goods vehicles already heading to the same mandi or collection point.
 
-**Stage: local demo and discovery.** The [Django trip planner](docs/RUN-DEMO.md) checks stop order, spare weight, and arrival time against fictional potato trips. It compares estimated sale proceeds after fees. No real shipments, customer interviews, validated demand, revenue, or environmental savings are claimed.
+**Stage: local demo and discovery.** The [Django trip planner](docs/RUN-DEMO.md) checks stop order, spare weight, and arrival time against fictional potato trips. It compares estimated sale proceeds after freight, fees, and produce that may go unsold at the mandi. No real shipments, customer interviews, validated demand, revenue, or environmental savings are claimed.
 
 **Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) from GitHub and open the downloaded file in a browser. The offline demo works without Python. For the Django version, follow the [local setup instructions](docs/RUN-DEMO.md).
 

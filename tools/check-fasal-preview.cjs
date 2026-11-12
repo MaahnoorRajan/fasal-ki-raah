@@ -14,8 +14,9 @@ const dropoff = {
   reportValidity() {},
   addEventListener() {},
 };
+const unsold = {...dropoff};
 const form = {
-  elements: {dropoff, pickup: {addEventListener() {}}},
+  elements: {dropoff, unsold_kg: unsold, pickup: {addEventListener() {}}, weight_kg: {addEventListener() {}}},
   addEventListener(event, callback) { handlers[event] = callback; },
 };
 const summary = {innerHTML: ""};
@@ -39,6 +40,18 @@ submit();
 assert.match(summary.innerHTML, /\+190\.00/);
 assert.match(summary.innerHTML, /-110\.00/);
 assert.match(summary.innerHTML, /2 trips fit/);
+fields.set("unsold_kg", "20");
+submit();
+assert.match(summary.innerHTML, /100 kg expected to sell at the mandi/);
+assert.match(summary.innerHTML, /PKR 850\.00/);
+assert.match(summary.innerHTML, /PKR 960\.00/);
+fields.set("unsold_kg", "120");
+submit();
+assert.match(summary.innerHTML, /PKR -650\.00/);
+fields.set("unsold_kg", "120.01");
+submit();
+assert.match(unsold.message, /cannot exceed the load weight/);
+fields.set("unsold_kg", "");
 fields.set("weight_kg", "400");
 fields.set("latest_arrival", "12:00");
 submit();
@@ -50,4 +63,4 @@ assert.match(summary.innerHTML, /No demo trips fit/);
 fields.set("dropoff", fields.get("pickup"));
 submit();
 assert.match(dropoff.message, /different from the pickup/);
-console.log("Standalone HTML checks passed: example, deadline and capacity filters, no match, and invalid route.");
+console.log("Standalone HTML checks passed: example, unsold weight, deadline and capacity filters, no match, and invalid input.");

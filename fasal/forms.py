@@ -27,9 +27,19 @@ class ShipmentForm(forms.Form):
     handling_fees = forms.DecimalField(
         label="Loading and market fees (PKR total)", min_value=0, max_digits=10, decimal_places=2,
     )
+    unsold_kg = forms.DecimalField(
+        label="Expected unsold at mandi (kg)", min_value=0, max_value=10000,
+        max_digits=7, decimal_places=2, required=False,
+        help_text="Include damaged, rejected, or unsold produce that earns nothing.",
+    )
 
     def clean(self):
         data = super().clean()
         if data.get("pickup") and data["pickup"] == data.get("dropoff"):
             self.add_error("dropoff", "Choose a destination different from the pickup point.")
+        if "unsold_kg" in data:
+            data["unsold_kg"] = data["unsold_kg"] or Decimal("0")
+            weight = data.get("weight_kg")
+            if weight is not None and data["unsold_kg"] > weight:
+                self.add_error("unsold_kg", "Unsold weight cannot exceed the load weight.")
         return data

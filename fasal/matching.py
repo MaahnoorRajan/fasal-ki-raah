@@ -16,6 +16,11 @@ class Shipment:
     farm_price: Decimal
     mandi_price: Decimal
     handling_fees: Decimal
+    unsold_kg: Decimal = Decimal("0")
+
+    @property
+    def saleable_kg(self) -> Decimal:
+        return self.weight_kg - self.unsold_kg
 
 
 @dataclass(frozen=True)
@@ -56,5 +61,5 @@ def evaluate_trip(shipment: Shipment, trip: Trip) -> Evaluation:
 
     # A quote covers this whole demo shipment, not each kilogram.
     farm_net = shipment.weight_kg * shipment.farm_price
-    mandi_net = shipment.weight_kg * shipment.mandi_price - trip.quote - shipment.handling_fees
+    mandi_net = shipment.saleable_kg * shipment.mandi_price - trip.quote - shipment.handling_fees
     return Evaluation(trip, arrival=arrival, mandi_net=mandi_net, difference=mandi_net - farm_net)
