@@ -1,0 +1,36 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}Your trips{% endblock %}
+{% block content %}
+<div class="driver-head">
+  <h1>Your trips</h1>
+  <form method="post" action="{% url 'driver-logout' %}">
+    {% csrf_token %}<button type="submit">Sign out</button>
+  </form>
+</div>
+<div class="workspace">
+  <section class="panel">
+    <h2>Post spare capacity</h2>
+    <p>List a journey you already plan to make. Times are in Pakistan time.</p>
+    <form method="post" class="driver-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Post trip</button>
+    </form>
+  </section>
+  <section class="panel">
+    <h2>Your listings</h2>
+    {% for trip in trips %}
+      <article class="trip">
+        <h3>{{ trip.pickup }} → {{ trip.dropoff }}</h3>
+        <p>{{ trip.departure|date:"j M Y, H:i" }} · {{ trip.spare_kg }} kg spare · PKR {{ trip.rate_per_kg }}/kg</p>
+        {% if trip.active %}
+          <p>{% if trip.share_phone %}WhatsApp sharing enabled{% else %}No WhatsApp number shared{% endif %}</p>
+          <form method="post" action="{% url 'withdraw-trip' trip.pk %}">
+            {% csrf_token %}<button type="submit">Withdraw listing</button>
+          </form>
+        {% else %}<p>Withdrawn</p>{% endif %}
+      </article>
+    {% empty %}<p>No trips posted yet.</p>{% endfor %}
+  </section>
+</div>
+{% endblock %}

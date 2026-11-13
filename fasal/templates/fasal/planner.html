@@ -19,6 +19,7 @@
         <span>Fasal Ki Raah<small lang="ur" dir="rtl">فصل کی راہ</small></span>
       </a>
       <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
+      {% if not offline %}<a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a driver trip{% endif %}</a>{% endif %}
     </div>
   </header>
   <main class="wrap">
@@ -34,7 +35,11 @@
         <span class="route-dot end" aria-hidden="true"></span><span>Sahiwal<br><small>Mandi</small></span>
       </div>
     </section>
-    <div class="demo-note">Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+    {% if travel_date %}
+      <div class="demo-note">Driver listings for {{ travel_date|date:"j M Y" }}. Confirm availability and rates directly. No bookings are made.</div>
+    {% else %}
+      <div class="demo-note">Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+    {% endif %}
     <nav class="example-links" aria-label="Shipment examples">
       <a href="?example=punjab" data-example="punjab">Punjab · mandi</a>
       <a href="?example=warehouse" data-example="warehouse">Punjab · warehouse</a>
@@ -56,7 +61,7 @@
           {% if form_invalid %}<p class="form-alert" role="alert">Check the fields marked below and try again.</p>{% endif %}
           <div class="fields">
             {% for field in shipment_fields %}
-              <div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}</div>
+              <div class="field">{{ field.label_tag }}{{ field }}{{ field.errors }}{% if field.help_text %}<small class="field-hint" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{% endif %}</div>
             {% endfor %}
           </div>
           <fieldset>
@@ -115,12 +120,14 @@
                     <div><small>Estimated proceeds after transport</small><strong>PKR {{ result.mandi_net|floatformat:"2g" }}</strong></div>
                     <span class="delta {% if result.difference < 0 %}lower{% endif %}">{% if result.difference > 0 %}+{% endif %}{{ result.difference|floatformat:"2g" }} vs farm gate</span>
                   </div>
-                  <button class="contact-button" type="button" data-contact data-pickup="{{ shipment.pickup }}" data-dropoff="{{ shipment.dropoff }}" data-weight="{{ shipment.weight_kg }}" data-arrival="{{ shipment.latest_arrival|time:'H:i' }}">Prepare carrier message</button>
+                  {% if not result.trip.is_listing or result.trip.contact_phone %}
+                    <button class="contact-button" type="button" data-contact data-pickup="{{ shipment.pickup }}" data-dropoff="{{ shipment.dropoff }}" data-weight="{{ shipment.weight_kg }}" data-arrival="{{ shipment.latest_arrival|time:'H:i' }}"{% if result.trip.contact_phone %} data-phone="{{ result.trip.contact_phone }}" data-date="{{ travel_date|date:'Y-m-d' }}"{% endif %}>{% if result.trip.is_listing %}Contact driver{% else %}Prepare carrier message{% endif %}</button>
+                  {% else %}<p>This driver has not shared a contact number.</p>{% endif %}
                 </article>
               {% endfor %}
             </div>
           {% else %}
-            <p class="empty">No demo trips fit this shipment. Check the route, try a smaller load, or adjust the deadline.</p>
+            <p class="empty">No {% if travel_date %}driver listings{% else %}demo trips{% endif %} fit this shipment. Check the route, try a smaller load, or adjust the deadline.</p>
           {% endif %}
           {% if rejections %}
             <details class="rejected">
@@ -142,7 +149,7 @@
   <footer class="wrap footer"><span>Fasal Ki Raah · Student prototype</span><span lang="ur" dir="rtl">کھیت سے منڈی تک، مشترکہ سفر</span></footer>
   <dialog id="carrier-dialog" aria-labelledby="carrier-title">
     <h2 id="carrier-title">Contact a carrier</h2>
-    <p>Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
+    <p id="carrier-note">Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
     <form id="carrier-form">
       <label for="carrier-message">Shipment inquiry</label>
       <textarea id="carrier-message" rows="5" required></textarea>

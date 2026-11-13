@@ -75,7 +75,7 @@ const control = (name) => ({
 });
 const carrierIds = Object.fromEntries(
   ["carrier-dialog", "carrier-form", "carrier-message", "carrier-number", "carrier-link",
-    "copy-status", "close-carrier", "copy-inquiry"].map((name) => [name, control(name)]),
+    "copy-status", "close-carrier", "copy-inquiry", "carrier-note"].map((name) => [name, control(name)]),
 );
 carrierIds["carrier-form"].reset = () => {};
 carrierIds["carrier-dialog"].showModal = () => {};
@@ -101,4 +101,14 @@ assert.match(carrierIds["carrier-link"].href, /^https:\/\/wa\.me\/923000000000\?
 carrierEvents["carrier-message:input"]();
 assert.equal(carrierIds["carrier-link"].hidden, true);
 assert.equal(carrierIds["carrier-link"].href, undefined);
+carrierEvents.click({target: {closest: () => ({dataset: {
+  weight: "150", pickup: "Okara collection point", dropoff: "Sahiwal mandi",
+  arrival: "14:00", phone: "923000000000", date: "2026-11-14",
+}})}});
+assert.equal(carrierIds["carrier-number"].value, "923000000000");
+assert.equal(carrierIds["carrier-number"].readOnly, true);
+assert.match(carrierIds["carrier-message"].value, /2026-11-14/);
+assert.equal(carrierIds["carrier-link"].hidden, true);
+submitCarrier();
+assert.match(carrierIds["carrier-link"].href, /^https:\/\/wa\.me\/923000000000\?text=/);
 console.log("Offline checks passed: price comparison, load filters, and editable carrier inquiry and link validation.");

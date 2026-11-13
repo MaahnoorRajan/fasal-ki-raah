@@ -11,6 +11,7 @@ Open a terminal in the project folder. With Python 3.10 or newer available on yo
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe manage.py migrate
 .\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8765
 ```
 
@@ -26,6 +27,16 @@ If the browser cannot connect, make sure the server command is still running and
 4. Select **Prepare carrier message** on a matching trip. Copy the inquiry, or enter a known carrier's number to prepare a WhatsApp draft. The demo has no assigned drivers.
 
 These are example inputs and quotes. The farm-gate offer assumes a buyer collects and pays for the full load. The mandi estimate applies the entered price only to the weight expected to sell; it still deducts the full freight and fees. The planner does not look up market rates, find buyers, reserve space, or confirm delivery.
+
+## Try driver posting in Django
+
+1. Choose **Post a driver trip** and create a fictional account.
+2. Post a future same-day trip in Pakistan time with capacity and a rate. Use Okara collection point → Sahiwal mandi to match the default shipment. If testing contact sharing, use a fictional number and stop at the draft.
+3. In the shipment planner, enter the trip date and an arrival deadline at or after the posted arrival. Leave the date blank to see fictional examples instead.
+4. **Contact driver** appears only when the driver opts in. The number is then visible to anyone who finds the listing. Contact opens a draft for review; the app does not send or reserve anything.
+5. Return to **Your driver trips** and withdraw the listing. It is removed from search and the stored number is cleared. Withdrawal cannot retract numbers already seen.
+
+The offline demo still runs without Django and contains no driver listings. Django stores accounts and trips in an ignored SQLite database. This is a local prototype with self-registered accounts and no carrier identity or phone verification.
 
 ## Learn by tracing one request
 

@@ -36,6 +36,8 @@ class Trip:
     stops: tuple[Stop, ...]
     spare_kg: int
     rate_per_kg: int
+    contact_phone: str = ""
+    is_listing: bool = False
 
 
 @dataclass(frozen=True)

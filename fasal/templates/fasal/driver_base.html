@@ -1,0 +1,17 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Drivers{% endblock %} · Fasal Ki Raah</title>
+  <link rel="stylesheet" href="{% static 'fasal/planner.css' %}">
+</head>
+<body>
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="{% url 'planner' %}">Fasal Ki Raah</a>
+    <a href="{% url 'planner' %}">Shipment planner</a>
+  </div></header>
+  <main class="wrap driver-page">{% block content %}{% endblock %}</main>
+</body>
+</html>

@@ -94,6 +94,14 @@ legend { padding-right: 9px; font-weight: 750; }
 .contact-button { margin-top: 10px; min-height: 42px; font-weight: 700; cursor: pointer; }
 .hire-box { margin-top: 10px; padding: 10px; border-radius: 8px; background: var(--sand); font-size: .85rem; }
 .hire-box span { display: block; margin-top: 3px; }
+.driver-page { padding-block: 24px; }
+.driver-page h1 { font-size: clamp(2rem, 6vw, 3rem); }
+.driver-auth { max-width: 580px; }
+.driver-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.driver-form label { display: block; font-weight: 700; margin-bottom: 4px; }
+.driver-form input:not([type=checkbox]) { width: 100%; padding: 8px; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; }
+.driver-form button, .driver-page button { padding: 9px 12px; border: 1px solid var(--green); border-radius: 8px; background: var(--white); color: var(--green); cursor: pointer; }
+.driver-form .helptext, .driver-form ul { font-size: .85rem; }
 #carrier-dialog { width: min(480px, calc(100% - 26px)); max-height: 90vh; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); padding: 20px; }
 #carrier-dialog::backdrop { background: #13271fb3; }
 #carrier-form { display: grid; gap: 8px; }

@@ -4,7 +4,7 @@ Working Urdu name for ReturnRoad. A student project by Maahnoor Rajan exploring 
 
 **Stage: local demo and discovery.** The [Django trip planner](docs/RUN-DEMO.md) checks stop order, spare weight, and arrival time against fictional potato trips. It compares estimated sale proceeds after freight, fees, and produce that may go unsold at the mandi. No real shipments, customer interviews, validated demand, revenue, or environmental savings are claimed.
 
-**Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) from GitHub and open the downloaded file in a browser. The offline demo works without Python. For the Django version, follow the [local setup instructions](docs/RUN-DEMO.md).
+**Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) and open it in a browser for the fictional examples. In the [local Django app](docs/RUN-DEMO.md), drivers can create accounts, post dated trips, opt in to sharing a WhatsApp number, and withdraw listings. Farmers can search by date, route, weight and deadline. Contact opens a draft; capacity is not reserved.
 
 ## Project constraints
 

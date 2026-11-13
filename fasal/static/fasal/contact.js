@@ -5,6 +5,8 @@
   const phone = document.getElementById("carrier-number");
   const link = document.getElementById("carrier-link");
   const status = document.getElementById("copy-status");
+  const note = document.getElementById("carrier-note");
+  const demoNote = note.textContent;
   function clearLink() {
     link.hidden = true;
     link.removeAttribute("href");
@@ -13,11 +15,14 @@
   document.addEventListener("click", (event) => {
     const button = event.target.closest("[data-contact]");
     if (!button) return;
-    const {pickup, dropoff, weight, arrival} = button.dataset;
+    const {pickup, dropoff, weight, arrival, phone: listedPhone, date} = button.dataset;
     form.reset();
     clearLink();
     status.textContent = "";
-    message.value = `Assalam-o-alaikum. Do you have room for ${weight} kg of potatoes from ${pickup} to ${dropoff}? I need arrival by ${arrival} Pakistan time. Please confirm the date, available space, pickup point and total freight in PKR, including any loading charges.`;
+    phone.value = listedPhone || "";
+    phone.readOnly = Boolean(listedPhone);
+    note.textContent = listedPhone ? "This driver chose to share their number. Review your inquiry before opening WhatsApp." : demoNote;
+    message.value = `Assalam-o-alaikum. Do you have room for ${weight} kg of potatoes from ${pickup} to ${dropoff}? I need arrival by ${arrival} Pakistan time${date ? " on " + date : ""}. Please confirm the date, available space, pickup point and total freight in PKR, including any loading charges.`;
     dialog.showModal();
   });
   document.getElementById("close-carrier").addEventListener("click", () => dialog.close());

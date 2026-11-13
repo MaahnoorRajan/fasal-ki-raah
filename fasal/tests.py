@@ -1,11 +1,15 @@
 from dataclasses import asdict, replace
-from datetime import time
+from datetime import time, timedelta
 from decimal import Decimal
 
-from django.test import Client, SimpleTestCase
+from django.contrib.auth import get_user_model
+from django.test import Client, SimpleTestCase, TestCase
+from django.urls import reverse
+from django.utils import timezone
 
 from .demo_data import DEMO_SHIPMENT, DEMO_TRIPS, OKARA
 from .matching import evaluate_trip
+from .models import DriverTrip
 
 
 class MatchingTests(SimpleTestCase):
@@ -104,3 +108,76 @@ class PlannerTests(SimpleTestCase):
     def test_post_requires_csrf_token(self):
         response = Client(enforce_csrf_checks=True).post("/", self.form_values())
         self.assertEqual(response.status_code, 403)
+
+
+class DriverListingTests(TestCase):
+    def setUp(self):
+        self.owner = get_user_model().objects.create_user(username="driver-example")
+        self.other = get_user_model().objects.create_user(username="another-driver")
+        tomorrow = timezone.localdate() + timedelta(days=1)
+        self.day = tomorrow.isoformat()
+        self.trip_data = {
+            "pickup": DEMO_SHIPMENT.pickup, "dropoff": DEMO_SHIPMENT.dropoff,
+            "departure": self.day + "T08:00", "arrival": self.day + "T10:30",
+            "spare_kg": "200", "rate_per_kg": "7",
+            "phone": "0300 0000000", "share_phone": "on",
+        }
+
+    def search(self, **updates):
+        data = {**asdict(DEMO_SHIPMENT), "latest_arrival": "14:00", "travel_date": self.day}
+        return self.client.post("/", {**data, **updates})
+
+    def test_signup_and_sign_in(self):
+        password = "example-grain-warehouse-51"
+        response = self.client.post(reverse("driver-signup"), {
+            "username": "grower-driver", "password1": password, "password2": password,
+        })
+        self.assertRedirects(response, reverse("driver-trips"))
+        self.client.post(reverse("driver-logout"))
+        self.assertRedirects(self.client.post(reverse("driver-login"), {
+            "username": "grower-driver", "password": password,
+        }), reverse("driver-trips"))
+
+    def test_post_contact_search_and_withdraw(self):
+        self.assertEqual(self.client.post(reverse("driver-trips"), self.trip_data).status_code, 302)
+        self.assertFalse(DriverTrip.objects.exists())
+        self.client.force_login(self.owner)
+        self.assertRedirects(self.client.post(reverse("driver-trips"), self.trip_data), reverse("driver-trips"))
+        trip = DriverTrip.objects.get(driver=self.owner)
+        self.client.logout()
+        response = self.search()
+        self.assertContains(response, 'data-phone="923000000000"')
+        self.assertContains(response, "Contact driver")
+        self.assertContains(response, "1,050.00")
+        self.assertContains(self.search(weight_kg="201"), "No driver listings fit")
+        self.assertContains(self.search(latest_arrival="10:00"), "No driver listings fit")
+        self.assertContains(self.search(travel_date=(timezone.localdate() + timedelta(days=2)).isoformat()),
+                            "No driver listings fit")
+        self.assertNotContains(self.client.get("/"), 'data-phone="923000000000"')
+        self.client.force_login(self.other)
+        withdraw = reverse("withdraw-trip", args=[trip.pk])
+        self.assertEqual(self.client.post(withdraw).status_code, 404)
+        self.client.force_login(self.owner)
+        self.assertEqual(self.client.get(withdraw).status_code, 405)
+        self.assertRedirects(self.client.post(withdraw), reverse("driver-trips"))
+        trip.refresh_from_db()
+        self.assertEqual(trip.phone, "")
+        self.assertNotContains(self.search(), "923000000000")
+        self.assertContains(self.search(), "No driver listings fit")
+
+    def test_opt_in_required_to_retain_or_display_number(self):
+        self.client.force_login(self.owner)
+        data = {key: value for key, value in self.trip_data.items() if key != "share_phone"}
+        self.assertRedirects(self.client.post(reverse("driver-trips"), data), reverse("driver-trips"))
+        self.assertEqual(DriverTrip.objects.get().phone, "")
+        self.assertContains(self.search(), "This driver has not shared a contact number.")
+        self.assertNotContains(self.search(), "Contact driver")
+
+    def test_invalid_phone_or_arrival_cannot_post(self):
+        self.client.force_login(self.owner)
+        response = self.client.post(reverse("driver-trips"), {
+            **self.trip_data, "phone": "123", "arrival": self.day + "T07:00",
+        })
+        self.assertIn("phone", response.context["form"].errors)
+        self.assertIn("arrival", response.context["form"].errors)
+        self.assertFalse(DriverTrip.objects.exists())

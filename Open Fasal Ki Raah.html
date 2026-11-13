@@ -103,6 +103,14 @@ legend { padding-right: 9px; font-weight: 750; }
 .contact-button { margin-top: 10px; min-height: 42px; font-weight: 700; cursor: pointer; }
 .hire-box { margin-top: 10px; padding: 10px; border-radius: 8px; background: var(--sand); font-size: .85rem; }
 .hire-box span { display: block; margin-top: 3px; }
+.driver-page { padding-block: 24px; }
+.driver-page h1 { font-size: clamp(2rem, 6vw, 3rem); }
+.driver-auth { max-width: 580px; }
+.driver-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.driver-form label { display: block; font-weight: 700; margin-bottom: 4px; }
+.driver-form input:not([type=checkbox]) { width: 100%; padding: 8px; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; }
+.driver-form button, .driver-page button { padding: 9px 12px; border: 1px solid var(--green); border-radius: 8px; background: var(--white); color: var(--green); cursor: pointer; }
+.driver-form .helptext, .driver-form ul { font-size: .85rem; }
 #carrier-dialog { width: min(480px, calc(100% - 26px)); max-height: 90vh; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); padding: 20px; }
 #carrier-dialog::backdrop { background: #13271fb3; }
 #carrier-form { display: grid; gap: 8px; }
@@ -133,6 +141,7 @@ legend { padding-right: 9px; font-weight: 750; }
         <span>Fasal Ki Raah<small lang="ur" dir="rtl">فصل کی راہ</small></span>
       </a>
       <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
+      
     </div>
   </header>
   <main class="wrap">
@@ -148,7 +157,9 @@ legend { padding-right: 9px; font-weight: 750; }
         <span class="route-dot end" aria-hidden="true"></span><span>Sahiwal<br><small>Mandi</small></span>
       </div>
     </section>
-    <div class="demo-note">Offline demo. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+    
+      <div class="demo-note">Offline demo. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+    
     <nav class="example-links" aria-label="Shipment examples">
       <a href="?example=punjab" data-example="punjab">Punjab · mandi</a>
       <a href="?example=warehouse" data-example="warehouse">Punjab · warehouse</a>
@@ -279,7 +290,9 @@ legend { padding-right: 9px; font-weight: 750; }
                     <div><small>Estimated proceeds after transport</small><strong>PKR 2,050.00</strong></div>
                     <span class="delta ">+850.00 vs farm gate</span>
                   </div>
-                  <button class="contact-button" type="button" data-contact data-pickup="Okara collection point" data-dropoff="Sahiwal mandi" data-weight="150" data-arrival="14:00">Prepare carrier message</button>
+                  
+                    <button class="contact-button" type="button" data-contact data-pickup="Okara collection point" data-dropoff="Sahiwal mandi" data-weight="150" data-arrival="14:00">Prepare carrier message</button>
+                  
                 </article>
               
                 <article class="trip">
@@ -294,7 +307,9 @@ legend { padding-right: 9px; font-weight: 750; }
                     <div><small>Estimated proceeds after transport</small><strong>PKR 1,750.00</strong></div>
                     <span class="delta ">+550.00 vs farm gate</span>
                   </div>
-                  <button class="contact-button" type="button" data-contact data-pickup="Okara collection point" data-dropoff="Sahiwal mandi" data-weight="150" data-arrival="14:00">Prepare carrier message</button>
+                  
+                    <button class="contact-button" type="button" data-contact data-pickup="Okara collection point" data-dropoff="Sahiwal mandi" data-weight="150" data-arrival="14:00">Prepare carrier message</button>
+                  
                 </article>
               
             </div>
@@ -323,7 +338,7 @@ legend { padding-right: 9px; font-weight: 750; }
   <footer class="wrap footer"><span>Fasal Ki Raah · Student prototype</span><span lang="ur" dir="rtl">کھیت سے منڈی تک، مشترکہ سفر</span></footer>
   <dialog id="carrier-dialog" aria-labelledby="carrier-title">
     <h2 id="carrier-title">Contact a carrier</h2>
-    <p>Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
+    <p id="carrier-note">Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
     <form id="carrier-form">
       <label for="carrier-message">Shipment inquiry</label>
       <textarea id="carrier-message" rows="5" required></textarea>
@@ -344,6 +359,8 @@ legend { padding-right: 9px; font-weight: 750; }
   const phone = document.getElementById("carrier-number");
   const link = document.getElementById("carrier-link");
   const status = document.getElementById("copy-status");
+  const note = document.getElementById("carrier-note");
+  const demoNote = note.textContent;
   function clearLink() {
     link.hidden = true;
     link.removeAttribute("href");
@@ -352,11 +369,14 @@ legend { padding-right: 9px; font-weight: 750; }
   document.addEventListener("click", (event) => {
     const button = event.target.closest("[data-contact]");
     if (!button) return;
-    const {pickup, dropoff, weight, arrival} = button.dataset;
+    const {pickup, dropoff, weight, arrival, phone: listedPhone, date} = button.dataset;
     form.reset();
     clearLink();
     status.textContent = "";
-    message.value = `Assalam-o-alaikum. Do you have room for ${weight} kg of potatoes from ${pickup} to ${dropoff}? I need arrival by ${arrival} Pakistan time. Please confirm the date, available space, pickup point and total freight in PKR, including any loading charges.`;
+    phone.value = listedPhone || "";
+    phone.readOnly = Boolean(listedPhone);
+    note.textContent = listedPhone ? "This driver chose to share their number. Review your inquiry before opening WhatsApp." : demoNote;
+    message.value = `Assalam-o-alaikum. Do you have room for ${weight} kg of potatoes from ${pickup} to ${dropoff}? I need arrival by ${arrival} Pakistan time${date ? " on " + date : ""}. Please confirm the date, available space, pickup point and total freight in PKR, including any loading charges.`;
     dialog.showModal();
   });
   document.getElementById("close-carrier").addEventListener("click", () => dialog.close());
@@ -388,7 +408,7 @@ legend { padding-right: 9px; font-weight: 750; }
 })();
 
 </script>
-<script type="application/json" id="demo-trips">[{"name": "Morning goods van", "stops": [{"name": "Okara collection point", "arrival": "08:00"}, {"name": "Sahiwal mandi", "arrival": "10:30"}, {"name": "Sahiwal warehouse", "arrival": "11:00"}], "spare_kg": 500, "rate_per_kg": 10}, {"name": "Shared pickup", "stops": [{"name": "Depalpur collection point", "arrival": "08:00"}, {"name": "Okara collection point", "arrival": "09:00"}, {"name": "Sahiwal mandi", "arrival": "12:00"}], "spare_kg": 600, "rate_per_kg": 12}, {"name": "Small van", "stops": [{"name": "Okara collection point", "arrival": "09:00"}, {"name": "Sahiwal mandi", "arrival": "11:00"}], "spare_kg": 75, "rate_per_kg": 9}, {"name": "Afternoon goods van", "stops": [{"name": "Okara collection point", "arrival": "14:00"}, {"name": "Sahiwal mandi", "arrival": "15:30"}], "spare_kg": 500, "rate_per_kg": 8}, {"name": "Return pickup", "stops": [{"name": "Sahiwal mandi", "arrival": "09:00"}, {"name": "Okara collection point", "arrival": "11:00"}], "spare_kg": 250, "rate_per_kg": 8}, {"name": "Hyderabad shared pickup", "stops": [{"name": "Karachi collection point", "arrival": "08:00"}, {"name": "Hyderabad mandi", "arrival": "12:30"}], "spare_kg": 500, "rate_per_kg": 20}]</script>
+<script type="application/json" id="demo-trips">[{"name": "Morning goods van", "stops": [{"name": "Okara collection point", "arrival": "08:00"}, {"name": "Sahiwal mandi", "arrival": "10:30"}, {"name": "Sahiwal warehouse", "arrival": "11:00"}], "spare_kg": 500, "rate_per_kg": 10, "contact_phone": "", "is_listing": false}, {"name": "Shared pickup", "stops": [{"name": "Depalpur collection point", "arrival": "08:00"}, {"name": "Okara collection point", "arrival": "09:00"}, {"name": "Sahiwal mandi", "arrival": "12:00"}], "spare_kg": 600, "rate_per_kg": 12, "contact_phone": "", "is_listing": false}, {"name": "Small van", "stops": [{"name": "Okara collection point", "arrival": "09:00"}, {"name": "Sahiwal mandi", "arrival": "11:00"}], "spare_kg": 75, "rate_per_kg": 9, "contact_phone": "", "is_listing": false}, {"name": "Afternoon goods van", "stops": [{"name": "Okara collection point", "arrival": "14:00"}, {"name": "Sahiwal mandi", "arrival": "15:30"}], "spare_kg": 500, "rate_per_kg": 8, "contact_phone": "", "is_listing": false}, {"name": "Return pickup", "stops": [{"name": "Sahiwal mandi", "arrival": "09:00"}, {"name": "Okara collection point", "arrival": "11:00"}], "spare_kg": 250, "rate_per_kg": 8, "contact_phone": "", "is_listing": false}, {"name": "Hyderabad shared pickup", "stops": [{"name": "Karachi collection point", "arrival": "08:00"}, {"name": "Hyderabad mandi", "arrival": "12:30"}], "spare_kg": 500, "rate_per_kg": 20, "contact_phone": "", "is_listing": false}]</script>
 <script type="application/json" id="demo-cases">{"punjab": {"pickup": "Okara collection point", "dropoff": "Sahiwal mandi", "weight_kg": "150", "latest_arrival": "14:00", "farm_price": "8", "mandi_price": "25", "handling_fees": "200", "unsold_kg": "0", "hire_quote": "5000"}, "warehouse": {"pickup": "Okara collection point", "dropoff": "Sahiwal warehouse", "weight_kg": "150", "latest_arrival": "14:00", "farm_price": "8", "mandi_price": "25", "handling_fees": "200", "unsold_kg": "0", "hire_quote": "5000"}, "sindh": {"pickup": "Karachi collection point", "dropoff": "Hyderabad mandi", "weight_kg": "150", "latest_arrival": "14:00", "farm_price": "8", "mandi_price": "35", "handling_fees": "200", "unsold_kg": "0", "hire_quote": "9000"}}</script>
 <script id="offline-planner">
 (() => {

@@ -1,0 +1,15 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}{% if signup %}Driver registration{% else %}Driver sign-in{% endif %}{% endblock %}
+{% block content %}
+<section class="panel driver-auth">
+  <h1>{% if signup %}Create a driver account{% else %}Driver sign-in{% endif %}</h1>
+  <form method="post" class="driver-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    <button type="submit">{% if signup %}Create account{% else %}Sign in{% endif %}</button>
+  </form>
+  {% if signup %}<p><a href="{% url 'driver-login' %}">Already have an account? Sign in</a></p>
+  {% else %}<p><a href="{% url 'driver-signup' %}">Create a driver account</a></p>{% endif %}
+</section>
+{% endblock %}

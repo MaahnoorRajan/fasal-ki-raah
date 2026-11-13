@@ -14,12 +14,16 @@ sys.path.insert(0, str(PROJECT))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fasal.settings")
 
 import django
-from django.test import Client
+from django.test import RequestFactory
 
 django.setup()
+from django.contrib.auth.models import AnonymousUser
 from fasal.demo_data import DEMO_CASES, DEMO_TRIPS
+from fasal.views import planner
 
-response = Client().get("/")
+request = RequestFactory().get("/")
+request.user = AnonymousUser()
+response = planner(request, offline=True)
 assert response.status_code == 200
 html = response.content.decode()
 css = (PROJECT / "fasal/static/fasal/planner.css").read_text(encoding="utf-8-sig")
