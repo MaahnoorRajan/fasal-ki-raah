@@ -1,4 +1,4 @@
-{% load static %}
+{% load static l10n %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -120,8 +120,11 @@
                     <div><small>Estimated proceeds after transport</small><strong>PKR {{ result.mandi_net|floatformat:"2g" }}</strong></div>
                     <span class="delta {% if result.difference < 0 %}lower{% endif %}">{% if result.difference > 0 %}+{% endif %}{{ result.difference|floatformat:"2g" }} vs farm gate</span>
                   </div>
-                  {% if not result.trip.is_listing or result.trip.contact_phone %}
-                    <button class="contact-button" type="button" data-contact data-pickup="{{ shipment.pickup }}" data-dropoff="{{ shipment.dropoff }}" data-weight="{{ shipment.weight_kg }}" data-arrival="{{ shipment.latest_arrival|time:'H:i' }}"{% if result.trip.contact_phone %} data-phone="{{ result.trip.contact_phone }}" data-date="{{ travel_date|date:'Y-m-d' }}"{% endif %}>{% if result.trip.is_listing %}Contact driver{% else %}Prepare carrier message{% endif %}</button>
+                  {% if result.trip.listing_id %}
+                    <p><a href="{% url 'request-space' result.trip.listing_id %}?weight={{ shipment.weight_kg|unlocalize }}">Request space</a></p>
+                  {% endif %}
+                  {% if not result.trip.listing_id or result.trip.contact_phone %}
+                    <button class="contact-button" type="button" data-contact data-pickup="{{ shipment.pickup }}" data-dropoff="{{ shipment.dropoff }}" data-weight="{{ shipment.weight_kg }}" data-arrival="{{ shipment.latest_arrival|time:'H:i' }}"{% if result.trip.contact_phone %} data-phone="{{ result.trip.contact_phone }}" data-date="{{ travel_date|date:'Y-m-d' }}"{% endif %}>{% if result.trip.listing_id %}Contact driver{% else %}Prepare carrier message{% endif %}</button>
                   {% else %}<p>This driver has not shared a contact number.</p>{% endif %}
                 </article>
               {% endfor %}

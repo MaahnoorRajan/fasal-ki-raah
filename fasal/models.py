@@ -25,5 +25,17 @@ class DriverTrip(models.Model):
              Stop(self.dropoff, localtime(self.arrival).time())),
             self.spare_kg, self.rate_per_kg,
             contact_phone=self.phone if self.share_phone else "",
-            is_listing=True,
+            listing_id=self.pk,
         )
+
+
+class SpaceRequest(models.Model):
+    trip = models.ForeignKey(DriverTrip, on_delete=models.CASCADE, related_name="space_requests")
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    weight_kg = models.DecimalField(max_digits=7, decimal_places=2)
+    status = models.CharField(max_length=16, default="pending")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["trip", "sender"], name="one_space_request_per_trip"),
+        ]

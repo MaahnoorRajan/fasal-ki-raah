@@ -37,7 +37,16 @@ These are example inputs and quotes. The farm-gate offer assumes a buyer collect
 5. Return to **Your driver trips → Edit listing**. Change the spare capacity from 200 kg to 100 kg and save. A new search for 150 kg should no longer show that trip; a search for 100 kg should still find it.
 6. Withdraw the listing from **Your driver trips**. It is removed from search, the stored number is cleared, and the listing can no longer be edited. Withdrawal cannot retract numbers already seen.
 
-The offline demo still runs without Django and contains no driver listings. Django stores accounts and trips in an ignored SQLite database. This is a local prototype with self-registered accounts and no carrier identity or phone verification.
+The offline demo still runs without Django and contains no driver listings. Django stores accounts, trips and space requests in an ignored SQLite database. This is a local prototype with self-registered accounts and no carrier identity or phone verification.
+
+## Try a space request in Django
+
+1. As the driver, post a future trip with 200 kg spare at PKR 7/kg. Leave WhatsApp sharing off and sign out.
+2. Search for 150 kg on the same date and route. Select **Request space** on the matching listing and create a second account for the farmer.
+3. Submit the 150 kg request and check that the page shows **Pending**. Refresh to see the same request.
+4. In the same browser, follow **Shipment planner → Your driver trips** and sign out. Sign in as the original driver and look for the farmer's username and 150 kg request under **Your listings**.
+
+A pending request leaves the full 200 kg available. If the driver withdraws the trip or it departs, existing requests display **Closed**.
 
 ## Learn by tracing one request
 

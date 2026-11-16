@@ -9,6 +9,13 @@ from .demo_data import LOCATIONS
 STOPS = [(place, place) for place in LOCATIONS]
 
 
+class SpaceRequestForm(forms.Form):
+    weight_kg = forms.DecimalField(
+        label="Load weight (kg)", min_value=Decimal("0.01"), max_value=10000,
+        max_digits=7, decimal_places=2,
+    )
+
+
 class ShipmentForm(forms.Form):
     travel_date = forms.DateField(
         label="Trip date (optional)", required=False,

@@ -1,10 +1,11 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from .views import driver_signup, driver_trips, edit_trip, planner, withdraw_trip
+from .views import driver_signup, driver_trips, edit_trip, planner, request_space, withdraw_trip
 
 urlpatterns = [
     path("", planner, name="planner"),
+    path("trips/<int:pk>/request/", request_space, name="request-space"),
     path("drivers/signup/", driver_signup, name="driver-signup"),
     path("drivers/login/", auth_views.LoginView.as_view(
         template_name="fasal/driver_auth.html", next_page="driver-trips",

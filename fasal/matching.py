@@ -37,7 +37,7 @@ class Trip:
     spare_kg: int
     rate_per_kg: int
     contact_phone: str = ""
-    is_listing: bool = False
+    listing_id: int | None = None
 
 
 @dataclass(frozen=True)

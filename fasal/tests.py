@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from .demo_data import DEMO_SHIPMENT, DEMO_TRIPS, OKARA
 from .matching import evaluate_trip
-from .models import DriverTrip
+from .models import DriverTrip, SpaceRequest
 
 
 class MatchingTests(SimpleTestCase):
@@ -60,6 +60,7 @@ class PlannerTests(SimpleTestCase):
         self.assertContains(response, "2,050.00")
         self.assertContains(response, "350 kg of capacity would be unused")
         self.assertContains(response, "Prepare carrier message", count=2)
+        self.assertNotContains(response, "Request space")
 
     def test_submission_uses_form_weight_and_deadline(self):
         response = self.client.post("/", self.form_values(weight_kg="550", latest_arrival="12:00"))
@@ -226,3 +227,66 @@ class DriverListingTests(TestCase):
         self.assertIn("spare_kg", response.context["form"].errors)
         trip.refresh_from_db()
         self.assertEqual(trip.spare_kg, 200)
+
+    def test_farmer_requests_space_and_only_trip_owner_sees_it_on_dashboard(self):
+        self.client.force_login(self.owner)
+        data = {key: value for key, value in self.trip_data.items() if key != "share_phone"}
+        self.client.post(reverse("driver-trips"), data)
+        trip = DriverTrip.objects.get()
+        url = reverse("request-space", args=[trip.pk])
+        self.client.logout()
+        self.assertContains(self.search(), f'href="{url}?weight=150"')
+        self.assertContains(self.client.get(url + "?weight=150"), "create an account")
+        self.client.post(url, {"weight_kg": "150"})
+        self.assertFalse(SpaceRequest.objects.exists())
+
+        signup = self.client.post(reverse("driver-signup"), {
+            "username": "grower-example", "password1": "example-sack-warehouse-42",
+            "password2": "example-sack-warehouse-42", "next": url + "?weight=150",
+        })
+        self.assertRedirects(signup, url + "?weight=150")
+        self.assertContains(self.client.get(url + "?weight=150"), 'value="150"')
+        response = self.client.post(url, {"weight_kg": "150"}, follow=True)
+        self.assertContains(response, "Pending")
+        saved = SpaceRequest.objects.get()
+        self.assertEqual(saved.sender.username, "grower-example")
+        self.assertEqual(saved.weight_kg, Decimal("150"))
+        self.assertEqual(saved.status, "pending")
+        self.assertContains(self.client.post(url, {"weight_kg": "125"}), "150.00 kg requested")
+        self.assertEqual(SpaceRequest.objects.count(), 1)
+        self.assertContains(self.search(weight_kg="200"), "Request space")
+        self.assertNotContains(self.client.get(reverse("driver-trips")), "Space requests")
+
+        self.client.force_login(self.other)
+        self.assertNotContains(self.client.get(reverse("driver-trips")), "grower-example")
+        self.assertNotContains(self.client.get(url), "150.00 kg requested")
+        self.client.force_login(self.owner)
+        dashboard = self.client.get(reverse("driver-trips"))
+        self.assertContains(dashboard, "grower-example")
+        self.assertContains(dashboard, "150.00 kg · Pending")
+
+    def test_request_rechecks_capacity_and_rejects_own_or_closed_trip(self):
+        trip, edit = self.post_trip_for_edit()
+        url = reverse("request-space", args=[trip.pk])
+        self.assertContains(self.client.post(url, {"weight_kg": "150"}), "This is your listing")
+        self.client.post(edit, {**self.trip_data, "spare_kg": "100"})
+        self.client.force_login(self.other)
+        response = self.client.post(url, {"weight_kg": "100.01"})
+        self.assertContains(response, "This trip does not have enough spare capacity")
+        self.assertFalse(SpaceRequest.objects.exists())
+        self.assertRedirects(self.client.post(url, {"weight_kg": "100"}), url)
+
+        self.client.force_login(self.owner)
+        self.client.post(reverse("withdraw-trip", args=[trip.pk]))
+        self.assertContains(self.client.get(reverse("driver-trips")), "100.00 kg · Closed")
+        self.client.force_login(self.other)
+        self.assertContains(self.client.get(url), "Closed")
+        self.client.logout()
+        self.assertEqual(self.client.get(url).status_code, 404)
+
+    def test_signup_rejects_offsite_return_url(self):
+        response = self.client.post(reverse("driver-signup"), {
+            "username": "local-farmer", "password1": "example-sack-warehouse-42",
+            "password2": "example-sack-warehouse-42", "next": "https://example.com/",
+        })
+        self.assertRedirects(response, reverse("driver-trips"))
