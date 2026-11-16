@@ -34,7 +34,8 @@ These are example inputs and quotes. The farm-gate offer assumes a buyer collect
 2. Post a future same-day trip in Pakistan time with capacity and a rate. Use Okara collection point → Sahiwal mandi to match the default shipment. If testing contact sharing, use a fictional number and stop at the draft.
 3. In the shipment planner, enter the trip date and an arrival deadline at or after the posted arrival. Leave the date blank to see fictional examples instead.
 4. **Contact driver** appears only when the driver opts in. The number is then visible to anyone who finds the listing. Contact opens a draft for review; the app does not send or reserve anything.
-5. Return to **Your driver trips** and withdraw the listing. It is removed from search and the stored number is cleared. Withdrawal cannot retract numbers already seen.
+5. Return to **Your driver trips → Edit listing**. Change the spare capacity from 200 kg to 100 kg and save. A new search for 150 kg should no longer show that trip; a search for 100 kg should still find it.
+6. Withdraw the listing from **Your driver trips**. It is removed from search, the stored number is cleared, and the listing can no longer be edited. Withdrawal cannot retract numbers already seen.
 
 The offline demo still runs without Django and contains no driver listings. Django stores accounts and trips in an ignored SQLite database. This is a local prototype with self-registered accounts and no carrier identity or phone verification.
 

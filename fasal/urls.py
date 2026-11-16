@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from .views import driver_signup, driver_trips, planner, withdraw_trip
+from .views import driver_signup, driver_trips, edit_trip, planner, withdraw_trip
 
 urlpatterns = [
     path("", planner, name="planner"),
@@ -11,5 +11,6 @@ urlpatterns = [
     ), name="driver-login"),
     path("drivers/logout/", auth_views.LogoutView.as_view(next_page="planner"), name="driver-logout"),
     path("drivers/trips/", driver_trips, name="driver-trips"),
+    path("drivers/trips/<int:pk>/edit/", edit_trip, name="edit-trip"),
     path("drivers/trips/<int:pk>/withdraw/", withdraw_trip, name="withdraw-trip"),
 ]

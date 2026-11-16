@@ -4,6 +4,7 @@ from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
@@ -88,7 +89,29 @@ def driver_trips(request):
     return render(request, "fasal/driver_trips.html", {
         "form": form,
         "trips": DriverTrip.objects.filter(driver=request.user).order_by("-departure"),
+        "now": timezone.now(),
     })
+
+
+@never_cache
+@login_required
+@require_http_methods(["GET", "POST"])
+def edit_trip(request, pk):
+    trip = get_object_or_404(
+        DriverTrip, pk=pk, driver=request.user, active=True, departure__gt=timezone.now(),
+    )
+    form = DriverTripForm(
+        request.POST if request.method == "POST" else None,
+        initial={name: getattr(trip, name) for name in DriverTripForm.base_fields},
+    )
+    if request.method == "POST" and form.is_valid():
+        updated = DriverTrip.objects.filter(
+            pk=trip.pk, driver=request.user, active=True, departure__gt=timezone.now(),
+        ).update(**form.cleaned_data)
+        if not updated:
+            raise Http404("This listing can no longer be edited.")
+        return redirect("driver-trips")
+    return render(request, "fasal/driver_trip_edit.html", {"form": form})
 
 
 @login_required

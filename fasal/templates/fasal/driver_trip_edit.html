@@ -1,0 +1,14 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}Edit listing{% endblock %}
+{% block content %}
+<section class="panel driver-auth">
+  <h1>Edit listing</h1>
+  <p>Update the trip details or change whether your WhatsApp number is shared.</p>
+  <form method="post" class="driver-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+    <a href="{% url 'driver-trips' %}">Cancel</a>
+  </form>
+</section>
+{% endblock %}

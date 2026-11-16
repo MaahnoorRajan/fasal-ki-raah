@@ -181,3 +181,48 @@ class DriverListingTests(TestCase):
         self.assertIn("phone", response.context["form"].errors)
         self.assertIn("arrival", response.context["form"].errors)
         self.assertFalse(DriverTrip.objects.exists())
+
+    def post_trip_for_edit(self):
+        self.client.force_login(self.owner)
+        self.assertRedirects(self.client.post(reverse("driver-trips"), self.trip_data), reverse("driver-trips"))
+        trip = DriverTrip.objects.get()
+        return trip, reverse("edit-trip", args=[trip.pk])
+
+    def test_edit_reuses_listing_and_updates_search_and_contact(self):
+        trip, edit = self.post_trip_for_edit()
+        self.assertContains(self.client.get(reverse("driver-trips")), f'href="{edit}"')
+        self.assertContains(self.client.get(edit), f'value="{self.day}T08:00"')
+        self.assertContains(self.search(), "1,050.00")
+        changes = {**self.trip_data, "spare_kg": "100", "rate_per_kg": "8"}
+        del changes["share_phone"]
+        self.assertRedirects(self.client.post(edit, changes), reverse("driver-trips"))
+        trip.refresh_from_db()
+        self.assertEqual(DriverTrip.objects.count(), 1)
+        self.assertEqual(trip.spare_kg, 100)
+        self.assertEqual(trip.phone, "")
+        self.assertContains(self.search(), "No driver listings fit")
+        smaller = self.search(weight_kg="100")
+        self.assertContains(smaller, "800.00")
+        self.assertNotContains(smaller, "Contact driver")
+
+    def test_only_owner_may_edit_and_withdrawn_listing_cannot_be_edited(self):
+        trip, edit = self.post_trip_for_edit()
+        self.client.logout()
+        self.assertEqual(self.client.get(edit).status_code, 302)
+        self.client.force_login(self.other)
+        self.assertEqual(self.client.get(edit).status_code, 404)
+        self.assertEqual(self.client.post(edit, self.trip_data).status_code, 404)
+        self.client.force_login(self.owner)
+        self.client.post(reverse("withdraw-trip", args=[trip.pk]))
+        self.assertEqual(self.client.get(edit).status_code, 404)
+        self.assertEqual(self.client.post(edit, self.trip_data).status_code, 404)
+        trip.refresh_from_db()
+        self.assertFalse(trip.active)
+        self.assertEqual(trip.phone, "")
+
+    def test_invalid_edit_keeps_original_capacity(self):
+        trip, edit = self.post_trip_for_edit()
+        response = self.client.post(edit, {**self.trip_data, "spare_kg": "0"})
+        self.assertIn("spare_kg", response.context["form"].errors)
+        trip.refresh_from_db()
+        self.assertEqual(trip.spare_kg, 200)

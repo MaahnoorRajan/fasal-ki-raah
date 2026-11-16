@@ -61,10 +61,14 @@ class DriverTripForm(forms.Form):
     pickup = forms.ChoiceField(label="Pickup point", choices=STOPS)
     dropoff = forms.ChoiceField(label="Destination", choices=STOPS)
     departure = forms.DateTimeField(
-        label="Departure (Pakistan time)", widget=forms.DateTimeInput(attrs={"type": "datetime-local"}),
+        label="Departure (Pakistan time)", widget=forms.DateTimeInput(
+            format="%Y-%m-%dT%H:%M", attrs={"type": "datetime-local"},
+        ),
     )
     arrival = forms.DateTimeField(
-        label="Arrival (Pakistan time)", widget=forms.DateTimeInput(attrs={"type": "datetime-local"}),
+        label="Arrival (Pakistan time)", widget=forms.DateTimeInput(
+            format="%Y-%m-%dT%H:%M", attrs={"type": "datetime-local"},
+        ),
     )
     spare_kg = forms.IntegerField(label="Spare capacity (kg)", min_value=1, max_value=10000)
     rate_per_kg = forms.IntegerField(label="Freight rate (PKR/kg)", min_value=1, max_value=10000)
