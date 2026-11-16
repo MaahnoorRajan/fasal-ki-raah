@@ -46,7 +46,10 @@ The offline demo still runs without Django and contains no driver listings. Djan
 3. Submit the 150 kg request and check that the page shows **Pending**. Refresh to see the same request.
 4. In the same browser, follow **Shipment planner → Your driver trips** and sign out. Sign in as the original driver and look for the farmer's username and 150 kg request under **Your listings**.
 
-A pending request leaves the full 200 kg available. If the driver withdraws the trip or it departs, existing requests display **Closed**.
+5. Select **Accept request**. The driver should see **150 kg reserved** and **50 kg available**. A fresh search for 50 kg should find the trip; a search for 51 kg should skip it.
+6. Sign in as the farmer and open **Your requests** from the shipment planner. The 150 kg request should show **Accepted**.
+
+Pending requests leave capacity available. An accepted request reserves weight for the whole trip. With a reservation in place, drivers can still change total capacity within the reserved limit and update WhatsApp sharing. The route, times and rate are locked, and withdrawal is unavailable until after departure. Pending requests display **Closed** when a trip is withdrawn or departs.
 
 ## Learn by tracing one request
 

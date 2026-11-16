@@ -290,3 +290,68 @@ class DriverListingTests(TestCase):
             "password2": "example-sack-warehouse-42", "next": "https://example.com/",
         })
         self.assertRedirects(response, reverse("driver-trips"))
+
+    def test_accepting_reserves_capacity_once_and_updates_both_dashboards(self):
+        trip, edit = self.post_trip_for_edit()
+        grower = get_user_model().objects.create_user(username="first-grower")
+        first = trip.space_requests.create(sender=grower, weight_kg=Decimal("150"))
+        second = trip.space_requests.create(sender=self.other, weight_kg=Decimal("50.01"))
+        accept_first = reverse("accept-space-request", args=[trip.pk, first.pk])
+        accept_second = reverse("accept-space-request", args=[trip.pk, second.pk])
+        self.assertEqual(self.client.get(accept_first).status_code, 405)
+        self.client.force_login(self.other)
+        self.assertEqual(self.client.post(accept_first).status_code, 404)
+        self.client.force_login(self.owner)
+        self.assertContains(self.client.get(reverse("driver-trips")), "Accept request", count=2)
+        self.assertRedirects(self.client.post(accept_first), reverse("driver-trips"))
+        self.assertRedirects(self.client.post(accept_first), reverse("driver-trips"))
+        first.refresh_from_db()
+        self.assertEqual(first.status, SpaceRequest.ACCEPTED)
+        self.assertContains(self.client.get(reverse("driver-trips")), "50 kg available")
+        self.assertContains(self.client.post(accept_second), "not enough remaining capacity", status_code=409)
+        second.refresh_from_db()
+        self.assertEqual(second.status, SpaceRequest.PENDING)
+        self.assertContains(self.search(weight_kg="50.01"), "No driver listings fit")
+        self.assertContains(self.search(weight_kg="50"), "Request space")
+
+        self.assertContains(self.client.post(edit, {**self.trip_data, "spare_kg": "149"}), "weight already reserved")
+        self.assertContains(self.client.post(edit, {**self.trip_data, "rate_per_kg": "8"}), "rate are fixed")
+        self.assertContains(self.client.post(reverse("withdraw-trip", args=[trip.pk])),
+                            "cannot be withdrawn", status_code=409)
+        changes = {**self.trip_data, "spare_kg": "210", "share_phone": ""}
+        self.assertRedirects(self.client.post(edit, changes), reverse("driver-trips"))
+        self.assertContains(self.client.get(reverse("driver-trips")), "60 kg available")
+
+        self.client.force_login(grower)
+        self.assertContains(self.client.get(reverse("my-requests")), "150.00 kg · Accepted")
+        self.assertNotContains(self.client.get(reverse("my-requests")), "50.01")
+        self.assertContains(self.client.get(reverse("request-space", args=[trip.pk])),
+                            "reserved 150.00 kg for your load")
+
+    def test_fractional_requests_can_fill_the_last_hundredth_of_a_kg(self):
+        trip, _ = self.post_trip_for_edit()
+        grower = get_user_model().objects.create_user(username="fractional-grower")
+        first = trip.space_requests.create(sender=grower, weight_kg=Decimal("199.99"))
+        self.assertRedirects(
+            self.client.post(reverse("accept-space-request", args=[trip.pk, first.pk])), reverse("driver-trips"),
+        )
+        self.client.force_login(self.other)
+        self.assertContains(self.search(weight_kg="0.01"), "Request space")
+        receipt = reverse("request-space", args=[trip.pk])
+        self.assertRedirects(self.client.post(receipt, {"weight_kg": "0.01"}), receipt)
+        last = trip.space_requests.get(sender=self.other)
+        self.client.force_login(self.owner)
+        self.assertRedirects(
+            self.client.post(reverse("accept-space-request", args=[trip.pk, last.pk])), reverse("driver-trips"),
+        )
+        self.assertContains(self.search(weight_kg="0.01"), "No driver listings fit")
+        self.assertContains(self.client.get(reverse("driver-trips")), "0 kg available")
+
+    def test_cannot_accept_request_after_withdrawal(self):
+        trip, _ = self.post_trip_for_edit()
+        item = trip.space_requests.create(sender=self.other, weight_kg=Decimal("150"))
+        self.client.post(reverse("withdraw-trip", args=[trip.pk]))
+        accept = reverse("accept-space-request", args=[trip.pk, item.pk])
+        self.assertContains(self.client.post(accept), "This trip has closed", status_code=409)
+        item.refresh_from_db()
+        self.assertEqual(item.status, SpaceRequest.PENDING)

@@ -4,7 +4,7 @@ Working Urdu name for ReturnRoad. A student project by Maahnoor Rajan exploring 
 
 **Stage: local demo and discovery.** The [Django trip planner](docs/RUN-DEMO.md) checks stop order, spare weight, and arrival time against fictional potato trips. It compares estimated sale proceeds after freight, fees, and produce that may go unsold at the mandi. No real shipments, customer interviews, validated demand, revenue, or environmental savings are claimed.
 
-**Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) and open it in a browser for the fictional examples. In the [local Django app](docs/RUN-DEMO.md), drivers can create accounts, post and edit upcoming trips, opt in to sharing a WhatsApp number, and withdraw listings. Farmers can search by date, route, weight and deadline, then sign in to send a space request. Drivers see pending requests on their dashboard. Capacity stays available at this stage.
+**Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) for the fictional examples. In the [local Django app](docs/RUN-DEMO.md), drivers can post trips and accept requests from their dashboard. Farmers can search by date, route, weight and deadline, then sign in to request space and check its status. Acceptance reserves the requested weight for the whole trip.
 
 ## Project constraints
 
@@ -48,7 +48,7 @@ The first prototype will use a fixed ordered list of stops for one corridor. It 
 - Capacity must be available on every overlapping trip leg; shipments on separate legs may reuse space only if the model explicitly supports that.
 - Cancellation releases a reservation exactly once.
 
-For the earliest version, reserving capacity for the whole trip is a simpler conservative alternative. Choose and document one approach before implementation.
+The local prototype reserves weight for the whole trip. Per-leg reservations and cancellations remain future work.
 
 ## Proposed technology, subject to a small learning exercise
 

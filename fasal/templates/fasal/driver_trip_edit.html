@@ -3,7 +3,11 @@
 {% block content %}
 <section class="panel driver-auth">
   <h1>Edit listing</h1>
-  <p>Update the trip details or change whether your WhatsApp number is shared.</p>
+  {% if reserved_kg %}
+    <p>{{ reserved_kg|floatformat:"-2" }} kg is reserved. You can update total capacity and WhatsApp sharing. The route, times and rate are fixed.</p>
+  {% else %}
+    <p>Update the trip details or change whether your WhatsApp number is shared.</p>
+  {% endif %}
   <form method="post" class="driver-form">
     {% csrf_token %}
     {{ form.as_p }}

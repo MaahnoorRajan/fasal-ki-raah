@@ -7,6 +7,7 @@
     {% csrf_token %}<button type="submit">Sign out</button>
   </form>
 </div>
+{% if booking_error %}<p role="alert">{{ booking_error }}</p>{% endif %}
 <div class="workspace">
   <section class="panel">
     <h2>Post spare capacity</h2>
@@ -22,22 +23,34 @@
     {% for trip in trips %}
       <article class="trip">
         <h3>{{ trip.pickup }} → {{ trip.dropoff }}</h3>
-        <p>{{ trip.departure|date:"j M Y, H:i" }} · {{ trip.spare_kg }} kg spare · PKR {{ trip.rate_per_kg }}/kg</p>
+        <p>{{ trip.departure|date:"j M Y, H:i" }} · {{ trip.remaining_kg|floatformat:"-2" }} kg available · PKR {{ trip.rate_per_kg }}/kg</p>
+        {% if trip.reserved_kg %}<p>{{ trip.reserved_kg|floatformat:"-2" }} kg reserved out of {{ trip.spare_kg }} kg</p>{% endif %}
         {% if trip.active %}
           <p>{% if trip.share_phone %}WhatsApp sharing enabled{% else %}No WhatsApp number shared{% endif %}</p>
           {% if trip.departure > now %}
             <p><a href="{% url 'edit-trip' trip.pk %}">Edit listing</a></p>
           {% else %}<p>Departed</p>{% endif %}
-          <form method="post" action="{% url 'withdraw-trip' trip.pk %}">
-            {% csrf_token %}<button type="submit">Withdraw listing</button>
-          </form>
+          {% if not trip.reserved_kg or trip.departure <= now %}
+            <form method="post" action="{% url 'withdraw-trip' trip.pk %}">
+              {% csrf_token %}<button type="submit">Withdraw listing</button>
+            </form>
+          {% endif %}
         {% else %}<p>Withdrawn</p>{% endif %}
         {% with requests=trip.space_requests.all %}
           {% if requests %}
             <h4>Space requests</h4>
             <ul>
               {% for space_request in requests %}
-                <li>{{ space_request.sender.username }} · {{ space_request.weight_kg }} kg · {% if trip.active and trip.departure > now %}{{ space_request.status|capfirst }}{% else %}Closed{% endif %}</li>
+                <li>
+                  {{ space_request.sender.username }} · {{ space_request.weight_kg }} kg · {% if space_request.status == "accepted" or trip.active and trip.departure > now %}{{ space_request.status|capfirst }}{% else %}Closed{% endif %}
+                  {% if space_request.status == "pending" and trip.active and trip.departure > now %}
+                    {% if space_request.weight_kg <= trip.remaining_kg %}
+                      <form method="post" action="{% url 'accept-space-request' trip.pk space_request.pk %}">
+                        {% csrf_token %}<button type="submit">Accept request</button>
+                      </form>
+                    {% else %}<p>Exceeds remaining capacity.</p>{% endif %}
+                  {% endif %}
+                </li>
               {% endfor %}
             </ul>
           {% endif %}

@@ -5,7 +5,8 @@ from urllib.parse import urlencode
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.db.models import Prefetch
+from django.db import transaction
+from django.db.models import F, Prefetch
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -51,10 +52,10 @@ def planner(request, *, offline=False):
         if travel_date:
             deadline = timezone.make_aware(datetime.combine(travel_date, shipment.latest_arrival))
             trips = (
-                listing.as_trip() for listing in DriverTrip.objects.filter(
+                listing.as_trip() for listing in DriverTrip.objects.with_capacity().filter(
                     active=True, pickup=shipment.pickup, dropoff=shipment.dropoff,
                     departure__gt=timezone.now(), departure__date=travel_date,
-                    arrival__lte=deadline, spare_kg__gte=shipment.weight_kg,
+                    arrival__lte=deadline, remaining_kg__gte=shipment.weight_kg,
                 )
             )
         evaluations = [evaluate_trip(shipment, trip) for trip in trips]
@@ -86,6 +87,7 @@ def driver_signup(request):
     return render(request, "fasal/driver_auth.html", {"form": form, "signup": True, "next": next_url})
 
 
+@never_cache
 @login_required
 @require_http_methods(["GET", "POST"])
 def driver_trips(request):
@@ -93,11 +95,26 @@ def driver_trips(request):
     if request.method == "POST" and form.is_valid():
         DriverTrip.objects.create(driver=request.user, **form.cleaned_data)
         return redirect("driver-trips")
+    return render_driver_trips(request, form=form)
+
+
+def render_driver_trips(request, *, form=None, error=None):
     return render(request, "fasal/driver_trips.html", {
-        "form": form,
-        "trips": DriverTrip.objects.filter(driver=request.user).order_by("-departure").prefetch_related(
+        "form": form if form is not None else DriverTripForm(),
+        "trips": DriverTrip.objects.with_capacity().filter(driver=request.user).order_by("-departure").prefetch_related(
             Prefetch("space_requests", queryset=SpaceRequest.objects.select_related("sender").order_by("pk")),
         ),
+        "now": timezone.now(),
+        "booking_error": error,
+    }, status=409 if error else 200)
+
+
+@never_cache
+@login_required
+@require_http_methods(["GET"])
+def my_requests(request):
+    return render(request, "fasal/my_requests.html", {
+        "requests": SpaceRequest.objects.filter(sender=request.user).select_related("trip").order_by("-pk"),
         "now": timezone.now(),
     })
 
@@ -105,14 +122,15 @@ def driver_trips(request):
 @never_cache
 @require_http_methods(["GET", "POST"])
 def request_space(request, pk):
-    trip = get_object_or_404(DriverTrip, pk=pk)
-    available = trip.active and trip.departure > timezone.now()
+    trip = get_object_or_404(DriverTrip.objects.with_capacity(), pk=pk)
+    open_trip = trip.active and trip.departure > timezone.now()
+    available = open_trip and trip.remaining_kg > 0
     if not request.user.is_authenticated:
-        if not available:
+        if not open_trip:
             raise Http404("This trip no longer takes requests.")
         target = urlencode({"next": request.get_full_path()})
         return render(request, "fasal/request_space.html", {
-            "trip": trip, "available": available,
+            "trip": trip, "available": available, "open_trip": open_trip,
             "login_url": f"{reverse('driver-login')}?{target}",
             "signup_url": f"{reverse('driver-signup')}?{target}",
         })
@@ -127,43 +145,87 @@ def request_space(request, pk):
         )
         if request.method == "POST" and form.is_valid():
             weight = form.cleaned_data["weight_kg"]
-            if weight > trip.spare_kg:
+            if weight > trip.remaining_kg:
                 form.add_error("weight_kg", "This trip does not have enough spare capacity for that load.")
             else:
                 trip.space_requests.get_or_create(sender=request.user, defaults={"weight_kg": weight})
                 return redirect("request-space", pk=pk)
     return render(request, "fasal/request_space.html", {
-        "trip": trip, "available": available, "own_trip": own_trip, "space_request": existing, "form": form,
+        "trip": trip, "available": available, "open_trip": open_trip, "own_trip": own_trip,
+        "space_request": existing, "form": form,
     })
+
+
+def lock_owned_trip(request, pk):
+    trips = DriverTrip.objects.filter(pk=pk, driver=request.user)
+    # Acquire the database write lock before reading reservations. This works on
+    # SQLite, where select_for_update() has no effect.
+    if not trips.update(spare_kg=F("spare_kg")):
+        raise Http404
+    return trips
+
+
+@login_required
+@require_POST
+def accept_space_request(request, pk, request_id):
+    error = None
+    with transaction.atomic():
+        trip = lock_owned_trip(request, pk).with_capacity().get()
+        item = get_object_or_404(trip.space_requests, pk=request_id)
+        if item.status == SpaceRequest.ACCEPTED:
+            return redirect("driver-trips")
+        if not trip.active or trip.departure <= timezone.now():
+            error = "This trip has closed. The request could not be accepted."
+        elif item.weight_kg > trip.remaining_kg:
+            error = "There is not enough remaining capacity to accept this request."
+        else:
+            item.status = SpaceRequest.ACCEPTED
+            item.save(update_fields=["status"])
+    if error:
+        return render_driver_trips(request, error=error)
+    return redirect("driver-trips")
 
 
 @never_cache
 @login_required
 @require_http_methods(["GET", "POST"])
 def edit_trip(request, pk):
-    trip = get_object_or_404(
-        DriverTrip, pk=pk, driver=request.user, active=True, departure__gt=timezone.now(),
-    )
-    form = DriverTripForm(
-        request.POST if request.method == "POST" else None,
-        initial={name: getattr(trip, name) for name in DriverTripForm.base_fields},
-    )
-    if request.method == "POST" and form.is_valid():
-        updated = DriverTrip.objects.filter(
-            pk=trip.pk, driver=request.user, active=True, departure__gt=timezone.now(),
-        ).update(**form.cleaned_data)
-        if not updated:
-            raise Http404("This listing can no longer be edited.")
-        return redirect("driver-trips")
-    return render(request, "fasal/driver_trip_edit.html", {"form": form})
+    if request.method == "POST":
+        with transaction.atomic():
+            trip = get_object_or_404(
+                lock_owned_trip(request, pk).with_capacity(), active=True, departure__gt=timezone.now(),
+            )
+            form = DriverTripForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+                if data["spare_kg"] < trip.reserved_kg:
+                    form.add_error("spare_kg", "Capacity cannot be lower than the weight already reserved.")
+                if trip.reserved_kg and any(
+                    data[field] != getattr(trip, field)
+                    for field in ("pickup", "dropoff", "departure", "arrival", "rate_per_kg")
+                ):
+                    form.add_error(None, "The route, times and rate are fixed after a request is accepted.")
+                if not form.errors:
+                    DriverTrip.objects.filter(pk=pk).update(**data)
+                    return redirect("driver-trips")
+    else:
+        trip = get_object_or_404(
+            DriverTrip.objects.with_capacity(), pk=pk, driver=request.user,
+            active=True, departure__gt=timezone.now(),
+        )
+        form = DriverTripForm(initial={name: getattr(trip, name) for name in DriverTripForm.base_fields})
+    return render(request, "fasal/driver_trip_edit.html", {"form": form, "reserved_kg": trip.reserved_kg})
 
 
 @login_required
 @require_POST
 def withdraw_trip(request, pk):
-    trip = get_object_or_404(DriverTrip, pk=pk, driver=request.user)
-    trip.active = False
-    trip.share_phone = False
-    trip.phone = ""
-    trip.save(update_fields=["active", "share_phone", "phone"])
+    with transaction.atomic():
+        trips = lock_owned_trip(request, pk)
+        trip = trips.with_capacity().get()
+        blocked = trip.departure > timezone.now() and trip.reserved_kg > 0
+        if not blocked:
+            trips.update(active=False, share_phone=False, phone="")
+    if blocked:
+        return render_driver_trips(request, error="An upcoming trip with accepted requests cannot be withdrawn.")
     return redirect("driver-trips")

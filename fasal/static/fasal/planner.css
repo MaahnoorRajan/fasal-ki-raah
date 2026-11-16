@@ -23,6 +23,7 @@ button, input, select { font: inherit; }
 .skip:focus { top: 8px; }
 .site-header { background: var(--white); border-bottom: 1px solid var(--line); }
 .header-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 76px; }
+.account-links { display: flex; flex-wrap: wrap; gap: 6px 12px; }
 .brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; font-weight: 750; }
 .brand small { display: block; width: fit-content; font-size: .86rem; color: var(--muted); line-height: 1.5; }
 .brand-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--green); color: #fff8e4; }
@@ -115,6 +116,8 @@ legend { padding-right: 9px; font-weight: 750; }
 }
 @media (max-width: 430px) {
   .wrap { width: calc(100% - 24px); }
+  .header-inner:has(.account-links) { flex-wrap: wrap; padding-block: 12px; gap: 10px; }
+  .account-links { flex-basis: 100%; }
   .panel { padding: 15px; }
   .fields { grid-template-columns: 1fr; }
 }

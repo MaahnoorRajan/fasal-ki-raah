@@ -1,7 +1,23 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import F, Q, Sum
+from django.db.models.functions import Round
 
 from .matching import Stop, Trip
+
+
+class DriverTripQuerySet(models.QuerySet):
+    def with_capacity(self):
+        return self.annotate(
+            reserved_kg=Sum(
+                "space_requests__weight_kg",
+                filter=Q(space_requests__status=SpaceRequest.ACCEPTED),
+                default=0,
+            ),
+        ).annotate(
+            # Round to the form's precision before SQLite compares decimal weights.
+            remaining_kg=Round(F("spare_kg") - F("reserved_kg"), precision=2),
+        )
 
 
 class DriverTrip(models.Model):
@@ -16,6 +32,8 @@ class DriverTrip(models.Model):
     share_phone = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
+    objects = DriverTripQuerySet.as_manager()
+
     def as_trip(self):
         from django.utils.timezone import localtime
 
@@ -23,17 +41,20 @@ class DriverTrip(models.Model):
             "Driver listing",
             (Stop(self.pickup, localtime(self.departure).time()),
              Stop(self.dropoff, localtime(self.arrival).time())),
-            self.spare_kg, self.rate_per_kg,
+            self.remaining_kg, self.rate_per_kg,
             contact_phone=self.phone if self.share_phone else "",
             listing_id=self.pk,
         )
 
 
 class SpaceRequest(models.Model):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+
     trip = models.ForeignKey(DriverTrip, on_delete=models.CASCADE, related_name="space_requests")
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     weight_kg = models.DecimalField(max_digits=7, decimal_places=2)
-    status = models.CharField(max_length=16, default="pending")
+    status = models.CharField(max_length=16, default=PENDING)
 
     class Meta:
         constraints = [

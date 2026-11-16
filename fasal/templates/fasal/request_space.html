@@ -6,14 +6,21 @@
   <h2>{{ trip.pickup }} → {{ trip.dropoff }}</h2>
   <p>Departs {{ trip.departure|date:"j M Y, H:i" }} · Arrives {{ trip.arrival|date:"H:i" }} (Pakistan time)</p>
   {% if space_request %}
-    <p>{{ space_request.weight_kg }} kg requested · <strong>{% if available %}{{ space_request.status|capfirst }}{% else %}Closed{% endif %}</strong></p>
-    {% if available %}<p>The driver can see your request. Capacity stays available while requests are pending.</p>{% endif %}
-  {% elif not available %}
+    <p>{{ space_request.weight_kg }} kg requested · <strong>{% if space_request.status == "accepted" or open_trip %}{{ space_request.status|capfirst }}{% else %}Closed{% endif %}</strong></p>
+    {% if space_request.status == "accepted" %}
+      <p>The driver reserved {{ space_request.weight_kg }} kg for your load.</p>
+    {% elif open_trip %}
+      <p>The driver can see your request. Capacity stays available while requests are pending.</p>
+    {% endif %}
+    <p><a href="{% url 'my-requests' %}">Your requests</a></p>
+  {% elif not open_trip %}
     <p>This trip no longer takes requests.</p>
   {% elif own_trip %}
     <p>This is your listing. Incoming requests appear under <a href="{% url 'driver-trips' %}">Your trips</a>.</p>
+  {% elif not available %}
+    <p>All of the listed space on this trip is reserved.</p>
   {% else %}
-    <p>{{ trip.spare_kg }} kg listed · PKR {{ trip.rate_per_kg }}/kg</p>
+    <p>{{ trip.remaining_kg|floatformat:"-2" }} kg available · PKR {{ trip.rate_per_kg }}/kg</p>
     {% if form %}
       <p>Your username and requested weight will appear on the driver's dashboard. Sending a request does not reserve space.</p>
       <form method="post" class="driver-form">

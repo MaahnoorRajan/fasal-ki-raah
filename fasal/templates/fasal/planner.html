@@ -19,7 +19,12 @@
         <span>Fasal Ki Raah<small lang="ur" dir="rtl">فصل کی راہ</small></span>
       </a>
       <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
-      {% if not offline %}<a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a driver trip{% endif %}</a>{% endif %}
+      {% if not offline %}
+        <nav class="account-links" aria-label="Account">
+          {% if driver_signed_in %}<a href="{% url 'my-requests' %}">Your requests</a>{% endif %}
+          <a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a driver trip{% endif %}</a>
+        </nav>
+      {% endif %}
     </div>
   </header>
   <main class="wrap">
@@ -36,7 +41,7 @@
       </div>
     </section>
     {% if travel_date %}
-      <div class="demo-note">Driver listings for {{ travel_date|date:"j M Y" }}. Confirm availability and rates directly. No bookings are made.</div>
+      <div class="demo-note">Driver listings for {{ travel_date|date:"j M Y" }}. Space is reserved when the driver accepts your request.</div>
     {% else %}
       <div class="demo-note">Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
     {% endif %}

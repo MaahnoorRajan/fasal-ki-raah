@@ -1,0 +1,13 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}Your requests{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Your requests</h1>
+  {% for item in requests %}
+    <article class="trip">
+      <h2><a href="{% url 'request-space' item.trip_id %}">{{ item.trip.pickup }} → {{ item.trip.dropoff }}</a></h2>
+      <p>{{ item.trip.departure|date:"j M Y, H:i" }} · {{ item.weight_kg }} kg · {% if item.status == "accepted" or item.trip.active and item.trip.departure > now %}{{ item.status|capfirst }}{% else %}Closed{% endif %}</p>
+    </article>
+  {% empty %}<p>You haven't requested space on any trips yet.</p>{% endfor %}
+</section>
+{% endblock %}

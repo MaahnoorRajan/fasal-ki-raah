@@ -34,7 +34,7 @@ class Stop:
 class Trip:
     name: str
     stops: tuple[Stop, ...]
-    spare_kg: int
+    spare_kg: int | Decimal
     rate_per_kg: int
     contact_phone: str = ""
     listing_id: int | None = None
