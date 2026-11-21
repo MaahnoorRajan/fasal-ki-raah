@@ -2,13 +2,14 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 
 from .views import (
-    accept_space_request, driver_signup, driver_trips, edit_trip, my_requests,
+    accept_space_request, booking_detail, driver_signup, driver_trips, edit_trip, my_requests,
     planner, request_space, withdraw_trip,
 )
 
 urlpatterns = [
     path("", planner, name="planner"),
     path("requests/", my_requests, name="my-requests"),
+    path("bookings/<int:pk>/", booking_detail, name="booking-detail"),
     path("trips/<int:pk>/request/", request_space, name="request-space"),
     path("drivers/signup/", driver_signup, name="driver-signup"),
     path("drivers/login/", auth_views.LoginView.as_view(

@@ -6,11 +6,12 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
-from django.db.models import F, Prefetch
+from django.db.models import F, Prefetch, Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods, require_POST
@@ -18,7 +19,7 @@ from django.views.decorators.http import require_http_methods, require_POST
 from .demo_data import DEMO_CASES, DEMO_SHIPMENT, DEMO_TRIPS
 from .forms import DriverTripForm, ShipmentForm, SpaceRequestForm
 from .matching import Shipment, evaluate_trip
-from .models import DriverTrip, SpaceRequest
+from .models import BookingEvent, DriverTrip, SpaceRequest
 
 
 @never_cache
@@ -156,6 +157,68 @@ def request_space(request, pk):
     })
 
 
+def booking_agreement(trip, weight):
+    return {
+        "pickup": trip.pickup, "dropoff": trip.dropoff,
+        "departure": timezone.localtime(trip.departure).isoformat(),
+        "arrival": timezone.localtime(trip.arrival).isoformat(),
+        "rate_per_kg": trip.rate_per_kg,
+        "freight_pkr": str(weight * trip.rate_per_kg),
+    }
+
+
+@never_cache
+@login_required
+@require_http_methods(["GET", "POST"])
+def booking_detail(request, pk):
+    error = None
+    if request.method == "POST":
+        item = get_object_or_404(
+            SpaceRequest.objects.filter(Q(sender=request.user) | Q(trip__driver=request.user)),
+            pk=pk,
+        )
+        with transaction.atomic():
+            # Authorize before locking, then serialize every transition against
+            # acceptance, trip edits and other changes to this trip's capacity.
+            DriverTrip.objects.filter(pk=item.trip_id).update(spare_kg=F("spare_kg"))
+            item = SpaceRequest.objects.select_related("trip").get(pk=pk)
+            action = request.POST.get("action")
+            target = {"cancel": SpaceRequest.CANCELLED, "collect": SpaceRequest.COLLECTED,
+                      "deliver": SpaceRequest.DELIVERED}.get(action)
+            permitted = (
+                action == "cancel"
+                or action == "collect" and item.trip.driver_id == request.user.pk
+                or action == "deliver" and item.sender_id == request.user.pk
+            )
+            valid = (
+                action == "cancel" and item.can_cancel
+                or action == "collect" and item.status == SpaceRequest.ACCEPTED and item.trip.active
+                or action == "deliver" and item.status == SpaceRequest.COLLECTED
+            )
+            if not target or not permitted:
+                error = "You cannot perform that action on this booking."
+            elif item.status == target:
+                return redirect("booking-detail", pk=pk)
+            elif not valid:
+                error = "The booking has changed. That action is no longer available."
+            else:
+                item.status = target
+                item.save(update_fields=["status"])
+                BookingEvent.objects.create(booking=item, actor=request.user, status=target)
+                return redirect("booking-detail", pk=pk)
+    item = get_object_or_404(
+        SpaceRequest.objects.filter(Q(sender=request.user) | Q(trip__driver=request.user)).select_related("trip"),
+        pk=pk,
+    )
+    return render(request, "fasal/booking_detail.html", {
+        "booking": item, "events": item.events.select_related("actor").order_by("created_at", "pk"),
+        "is_driver": item.trip.driver_id == request.user.pk,
+        "agreed_departure": parse_datetime(item.agreement.get("departure", "")),
+        "agreed_arrival": parse_datetime(item.agreement.get("arrival", "")),
+        "booking_error": error,
+    }, status=409 if error else 200)
+
+
 def lock_owned_trip(request, pk):
     trips = DriverTrip.objects.filter(pk=pk, driver=request.user)
     # Acquire the database write lock before reading reservations. This works on
@@ -172,15 +235,19 @@ def accept_space_request(request, pk, request_id):
     with transaction.atomic():
         trip = lock_owned_trip(request, pk).with_capacity().get()
         item = get_object_or_404(trip.space_requests, pk=request_id)
-        if item.status == SpaceRequest.ACCEPTED:
+        if item.status in SpaceRequest.RESERVING_STATUSES:
             return redirect("driver-trips")
-        if not trip.active or trip.departure <= timezone.now():
+        if item.status != SpaceRequest.PENDING:
+            error = "This request was cancelled and cannot be accepted."
+        elif not trip.active or trip.departure <= timezone.now():
             error = "This trip has closed. The request could not be accepted."
         elif item.weight_kg > trip.remaining_kg:
             error = "There is not enough remaining capacity to accept this request."
         else:
             item.status = SpaceRequest.ACCEPTED
-            item.save(update_fields=["status"])
+            item.agreement = booking_agreement(trip, item.weight_kg)
+            item.save(update_fields=["status", "agreement"])
+            BookingEvent.objects.create(booking=item, actor=request.user, status=item.status)
     if error:
         return render_driver_trips(request, error=error)
     return redirect("driver-trips")

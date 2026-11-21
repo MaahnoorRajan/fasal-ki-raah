@@ -1,0 +1,42 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}Booking {{ booking.pk }}{% endblock %}
+{% block content %}
+<section class="panel driver-auth">
+  <h1>Booking {{ booking.pk }}</h1>
+  <h2>{{ booking.trip.pickup }} → {{ booking.trip.dropoff }}</h2>
+  <p>{{ booking.weight_kg }} kg · <strong>{{ booking.display_status }}</strong></p>
+  {% if booking_error %}<p role="alert">{{ booking_error }}</p>{% endif %}
+  {% if booking.agreement %}
+    <h3>Accepted transport details</h3>
+    <p>{{ booking.agreement.pickup }} → {{ booking.agreement.dropoff }}</p>
+    <p>Departure {{ agreed_departure|date:"j M Y, H:i" }} · Arrival {{ agreed_arrival|date:"j M Y, H:i" }} (Pakistan time)</p>
+    <p>PKR {{ booking.agreement.rate_per_kg }}/kg · Freight PKR {{ booking.agreement.freight_pkr }}</p>
+    <p>Arrange loading, unloading and payment directly with the other party.</p>
+  {% endif %}
+  {% if booking.can_cancel %}
+    <form method="post">
+      {% csrf_token %}
+      <p>Cancellation releases any reserved space. Cancel before handing over the crop.</p>
+      <button type="submit" name="action" value="cancel">Cancel request</button>
+    </form>
+  {% endif %}
+  {% if is_driver and booking.status == "accepted" and booking.trip.active %}
+    <form method="post">
+      {% csrf_token %}
+      <p>Record collection after you have received the crop.</p>
+      <button type="submit" name="action" value="collect">Mark crop collected</button>
+    </form>
+  {% elif not is_driver and booking.status == "collected" %}
+    <form method="post">
+      {% csrf_token %}
+      <p>Confirm with your recipient that the crop arrived before completing this booking.</p>
+      <button type="submit" name="action" value="deliver">Confirm delivery</button>
+    </form>
+  {% endif %}
+  {% if events %}
+    <h3>Booking history</h3>
+    <ul>{% for event in events %}<li>{{ event.created_at|date:"j M Y, H:i" }} · {{ event.status|capfirst }} · {{ event.actor.username|default:"Former account" }}</li>{% endfor %}</ul>
+  {% endif %}
+  <p><a href="{% url 'my-requests' %}">Your requests</a> · <a href="{% url 'driver-trips' %}">Your trips</a></p>
+</section>
+{% endblock %}

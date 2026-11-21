@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from .demo_data import DEMO_SHIPMENT, DEMO_TRIPS, OKARA
 from .matching import evaluate_trip
-from .models import DriverTrip, SpaceRequest
+from .models import BookingEvent, DriverTrip, SpaceRequest
 
 
 class MatchingTests(SimpleTestCase):
@@ -355,3 +355,76 @@ class DriverListingTests(TestCase):
         self.assertContains(self.client.post(accept), "This trip has closed", status_code=409)
         item.refresh_from_db()
         self.assertEqual(item.status, SpaceRequest.PENDING)
+
+    def accepted_booking(self):
+        trip, edit = self.post_trip_for_edit()
+        item = trip.space_requests.create(sender=self.other, weight_kg=Decimal("150"))
+        accept = reverse("accept-space-request", args=[trip.pk, item.pk])
+        self.assertRedirects(self.client.post(accept), reverse("driver-trips"))
+        item.refresh_from_db()
+        return trip, item, reverse("booking-detail", args=[item.pk]), accept
+
+    def test_cancellation_restores_capacity_once_and_cannot_be_accepted_again(self):
+        trip, item, detail, accept = self.accepted_booking()
+        self.assertEqual(item.agreement["freight_pkr"], "1050.00")
+        self.client.force_login(self.other)
+        self.assertContains(self.client.get(detail), "Freight PKR 1050.00")
+        for _ in range(2):
+            self.assertRedirects(self.client.post(detail, {"action": "cancel"}), detail)
+        item.refresh_from_db()
+        self.assertEqual(item.status, SpaceRequest.CANCELLED)
+        self.assertEqual(item.events.filter(status="cancelled").count(), 1)
+        self.assertEqual(DriverTrip.objects.with_capacity().get(pk=trip.pk).remaining_kg, 200)
+        self.assertContains(self.search(weight_kg="200"), "Request space")
+        self.client.force_login(self.owner)
+        self.assertContains(self.client.post(accept), "cancelled", status_code=409)
+        self.assertEqual(item.events.count(), 2)
+
+    def test_collection_then_sender_delivery_preserves_history_and_capacity(self):
+        trip, item, detail, _ = self.accepted_booking()
+        self.client.force_login(self.other)
+        self.assertContains(self.client.post(detail, {"action": "deliver"}), "no longer available", status_code=409)
+        self.assertContains(self.client.post(detail, {"action": "collect"}), "cannot perform", status_code=409)
+        self.client.force_login(self.owner)
+        self.assertRedirects(self.client.post(detail, {"action": "collect"}), detail)
+        self.assertRedirects(self.client.post(detail, {"action": "collect"}), detail)
+        self.assertContains(self.client.post(detail, {"action": "cancel"}), "no longer available", status_code=409)
+        self.assertContains(self.client.post(detail, {"action": "deliver"}), "cannot perform", status_code=409)
+        self.client.force_login(self.other)
+        self.assertContains(self.client.get(detail), "Confirm delivery")
+        self.assertRedirects(self.client.post(detail, {"action": "deliver"}), detail)
+        self.assertRedirects(self.client.post(detail, {"action": "deliver"}), detail)
+        item.refresh_from_db()
+        self.assertEqual(item.status, SpaceRequest.DELIVERED)
+        self.assertEqual(list(item.events.order_by("pk").values_list("status", flat=True)),
+                         ["accepted", "collected", "delivered"])
+        self.assertEqual(DriverTrip.objects.with_capacity().get(pk=trip.pk).remaining_kg, 50)
+        self.assertContains(self.client.get(reverse("my-requests")), "Delivered")
+        self.assertNotContains(self.client.get(detail), "Cancel request")
+
+    def test_booking_is_private_and_post_requires_csrf(self):
+        trip, item, detail, _ = self.accepted_booking()
+        stranger = get_user_model().objects.create_user(username="stranger")
+        self.client.force_login(stranger)
+        self.assertEqual(self.client.get(detail).status_code, 404)
+        self.assertEqual(self.client.post(detail, {"action": "cancel"}).status_code, 404)
+        self.client.logout()
+        self.assertEqual(self.client.get(detail).status_code, 302)
+        secure = Client(enforce_csrf_checks=True)
+        secure.force_login(self.other)
+        self.assertEqual(secure.post(detail, {"action": "cancel"}).status_code, 403)
+
+    def test_pending_cancellation_and_driver_cancellation(self):
+        trip, item, detail, _ = self.accepted_booking()
+        self.assertRedirects(self.client.post(detail, {"action": "cancel"}), detail)
+        pending = trip.space_requests.create(sender=self.owner, weight_kg=Decimal("30"))
+        url = reverse("booking-detail", args=[pending.pk])
+        self.assertRedirects(self.client.post(url, {"action": "cancel"}), url)
+        self.assertEqual(DriverTrip.objects.with_capacity().get(pk=trip.pk).remaining_kg, 200)
+
+    def test_past_accepted_trip_keeps_accepted_status_until_action(self):
+        trip, item, detail, _ = self.accepted_booking()
+        DriverTrip.objects.filter(pk=trip.pk).update(departure=timezone.now() - timedelta(hours=2))
+        self.client.force_login(self.other)
+        self.assertContains(self.client.get(reverse("my-requests")), "Accepted")
+        self.assertContains(self.client.get(detail), "Accepted")

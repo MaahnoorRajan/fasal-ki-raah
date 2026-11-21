@@ -11,7 +11,7 @@ class DriverTripQuerySet(models.QuerySet):
         return self.annotate(
             reserved_kg=Sum(
                 "space_requests__weight_kg",
-                filter=Q(space_requests__status=SpaceRequest.ACCEPTED),
+                filter=Q(space_requests__status__in=SpaceRequest.RESERVING_STATUSES),
                 default=0,
             ),
         ).annotate(
@@ -50,13 +50,37 @@ class DriverTrip(models.Model):
 class SpaceRequest(models.Model):
     PENDING = "pending"
     ACCEPTED = "accepted"
+    COLLECTED = "collected"
+    DELIVERED = "delivered"
+    CANCELLED = "cancelled"
+    RESERVING_STATUSES = (ACCEPTED, COLLECTED, DELIVERED)
 
     trip = models.ForeignKey(DriverTrip, on_delete=models.CASCADE, related_name="space_requests")
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     weight_kg = models.DecimalField(max_digits=7, decimal_places=2)
     status = models.CharField(max_length=16, default=PENDING)
+    agreement = models.JSONField(default=dict, blank=True)
+
+    @property
+    def display_status(self):
+        from django.utils import timezone
+
+        if self.status == self.PENDING and (not self.trip.active or self.trip.departure <= timezone.now()):
+            return "Closed"
+        return self.status.capitalize()
+
+    @property
+    def can_cancel(self):
+        return self.status in (self.PENDING, self.ACCEPTED)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=["trip", "sender"], name="one_space_request_per_trip"),
         ]
+
+
+class BookingEvent(models.Model):
+    booking = models.ForeignKey(SpaceRequest, on_delete=models.CASCADE, related_name="events")
+    actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
+    status = models.CharField(max_length=16)
+    created_at = models.DateTimeField(auto_now_add=True)

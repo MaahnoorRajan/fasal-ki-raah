@@ -4,4 +4,6 @@ __pycache__/
 .env
 *.sqlite3
 *.log
+staticfiles/
+*.sqlite3.*
 Start local demo.cmd

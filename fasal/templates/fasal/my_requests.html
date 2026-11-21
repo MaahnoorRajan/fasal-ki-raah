@@ -6,7 +6,8 @@
   {% for item in requests %}
     <article class="trip">
       <h2><a href="{% url 'request-space' item.trip_id %}">{{ item.trip.pickup }} → {{ item.trip.dropoff }}</a></h2>
-      <p>{{ item.trip.departure|date:"j M Y, H:i" }} · {{ item.weight_kg }} kg · {% if item.status == "accepted" or item.trip.active and item.trip.departure > now %}{{ item.status|capfirst }}{% else %}Closed{% endif %}</p>
+      <p>{{ item.trip.departure|date:"j M Y, H:i" }} · {{ item.weight_kg }} kg · {{ item.display_status }}</p>
+      <p><a href="{% url 'booking-detail' item.pk %}">View booking</a></p>
     </article>
   {% empty %}<p>You haven't requested space on any trips yet.</p>{% endfor %}
 </section>

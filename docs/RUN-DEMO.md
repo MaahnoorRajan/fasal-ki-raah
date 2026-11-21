@@ -51,6 +51,15 @@ The offline demo still runs without Django and contains no driver listings. Djan
 
 Pending requests leave capacity available. An accepted request reserves weight for the whole trip. With a reservation in place, drivers can still change total capacity within the reserved limit and update WhatsApp sharing. The route, times and rate are locked, and withdrawal is unavailable until after departure. Pending requests display **Closed** when a trip is withdrawn or departs.
 
+## Complete or cancel a booking
+
+1. Open **View booking** beside a request on either dashboard.
+2. For a cancellation test, accept 150 kg on a 200 kg trip, then use **Cancel request** as either party. A new search should show 200 kg available. Submitting cancellation again keeps the same result.
+3. Use a separate request to test delivery. The driver accepts it and selects **Mark crop collected** after handover. The farmer opens the booking, checks with their recipient, and selects **Confirm delivery**.
+4. Check the accepted freight quote and booking history. The driver records collection, and the sender confirms delivery. Cancellation is available before collection. A cancelled request stays in the history and cannot be accepted again.
+
+Existing accepted requests get their protected trip details when you run migrations. History starts with changes recorded by this version. The offline HTML continues to show fictional price comparisons only.
+
 ## Learn by tracing one request
 
 1. The form in **fasal/templates/fasal/planner.html** sends the shipment.

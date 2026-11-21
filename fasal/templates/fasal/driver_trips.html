@@ -42,7 +42,8 @@
             <ul>
               {% for space_request in requests %}
                 <li>
-                  {{ space_request.sender.username }} · {{ space_request.weight_kg }} kg · {% if space_request.status == "accepted" or trip.active and trip.departure > now %}{{ space_request.status|capfirst }}{% else %}Closed{% endif %}
+                  {{ space_request.sender.username }} · {{ space_request.weight_kg }} kg · {{ space_request.display_status }}
+                  <p><a href="{% url 'booking-detail' space_request.pk %}">View booking</a></p>
                   {% if space_request.status == "pending" and trip.active and trip.departure > now %}
                     {% if space_request.weight_kg <= trip.remaining_kg %}
                       <form method="post" action="{% url 'accept-space-request' trip.pk space_request.pk %}">

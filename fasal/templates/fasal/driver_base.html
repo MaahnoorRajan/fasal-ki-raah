@@ -10,7 +10,11 @@
 <body>
   <header class="site-header"><div class="wrap header-inner">
     <a class="brand" href="{% url 'planner' %}">Fasal Ki Raah</a>
-    <a href="{% url 'planner' %}">Shipment planner</a>
+    <nav class="account-links" aria-label="Account">
+      <a href="{% url 'planner' %}">Shipment planner</a>
+      <a href="{% url 'my-requests' %}">Your requests</a>
+      <a href="{% url 'driver-trips' %}">Your trips</a>
+    </nav>
   </div></header>
   <main class="wrap driver-page">{% block content %}{% endblock %}</main>
 </body>

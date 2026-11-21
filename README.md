@@ -6,6 +6,10 @@ Working Urdu name for ReturnRoad. A student project by Maahnoor Rajan exploring 
 
 **Try it:** download [Open Fasal Ki Raah.html](Open%20Fasal%20Ki%20Raah.html) for the fictional examples. In the [local Django app](docs/RUN-DEMO.md), drivers can post trips and accept requests from their dashboard. Farmers can search by date, route, weight and deadline, then sign in to request space and check its status. Acceptance reserves the requested weight for the whole trip.
 
+Bookings now support cancellation before collection, driver-recorded collection and sender-confirmed delivery. Cancellation releases the reservation once. Each change records the account and time, and accepted bookings retain their route, schedule and freight quote. Delivery confirmation currently relies on the sender checking with their recipient.
+
+The [hosting guide](docs/DEPLOYMENT.md) covers the WSGI entry point, environment settings, static files and persistent database storage. Hosting and real shipment trials remain to be completed.
+
 ## Project constraints
 
 - At least two hours of development/learning time per week.
@@ -48,7 +52,7 @@ The first prototype will use a fixed ordered list of stops for one corridor. It 
 - Capacity must be available on every overlapping trip leg; shipments on separate legs may reuse space only if the model explicitly supports that.
 - Cancellation releases a reservation exactly once.
 
-The local prototype reserves weight for the whole trip. Per-leg reservations and cancellations remain future work.
+The local prototype reserves weight for the whole trip. Cancellation before collection releases space. Completed deliveries retain their reservation for the original trip, so the same capacity cannot be resold during that journey. Per-leg reservations remain future work.
 
 ## Proposed technology, subject to a small learning exercise
 
