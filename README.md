@@ -14,6 +14,8 @@ The **Price reference** page contains 681 public observations from Kaggle and th
 
 The deployment package includes pinned dependencies, WhiteNoise static-file serving, Waitress, a Docker recipe, startup database backups and a readiness endpoint. Deployment-mode server and asset checks are performed locally. The Docker image still needs a build on a machine with Docker installed.
 
+The interface follows the supplied Ahiki Acres design reference, using the requested cream, grey and terracotta palette with Open Sans and Averia Serif Libre. The homepage includes the shipment planner, and the same styles cover prices and bookings. The illustrative field photograph is [sourced through Unsplash](https://images.unsplash.com/photo-1500382017468-9049fed747ef); it does not document a project location. Fonts load through Google Fonts, with local serif and sans-serif fallbacks. The offline HTML embeds the photograph.
+
 ## Project constraints
 
 - At least two hours of development/learning time per week.

@@ -1,5 +1,6 @@
 """Build a single-file browser demo from the local Django planner."""
 import json
+import base64
 import os
 import re
 import sys
@@ -27,6 +28,8 @@ response = planner(request, offline=True)
 assert response.status_code == 200
 html = response.content.decode()
 css = (PROJECT / "fasal/static/fasal/planner.css").read_text(encoding="utf-8-sig")
+photo = base64.b64encode((PROJECT / "fasal/static/fasal/fields.jpg").read_bytes()).decode()
+css = css.replace('url("fields.jpg")', f'url("data:image/jpeg;base64,{photo}")')
 script = (PROJECT / "tools/fasal-offline.js").read_text(encoding="utf-8-sig")
 contact = (PROJECT / "fasal/static/fasal/contact.js").read_text(encoding="utf-8-sig")
 
@@ -55,7 +58,7 @@ html = replace_once(html, '<a href="/">Reset example</a>', '<a href="#" id="offl
 html = replace_once(html, 'id="results" aria-labelledby=', 'id="results" tabindex="-1" aria-labelledby=')
 html = replace_once(html, '<div class="baseline">', '<div id="offline-summary" aria-live="polite"><div class="baseline">')
 html = replace_once(html, 'outside this estimate.</p>', 'outside this estimate.</p></div>')
-html = replace_once(html, "Example only. Routes, available capacity and shared rates are fictional. No bookings are made.",
+html = replace_once(html, "Fictional demo. Example only. Routes, available capacity and shared rates are fictional. No bookings are made.",
                     "Offline demo. Routes, available capacity and shared rates are fictional. No bookings are made.")
 html = replace_once(html, '<script src="/static/fasal/contact.js" defer></script>', f"<script>\n{contact}\n</script>")
 html = replace_once(html, "</body>", f'<script type="application/json" id="demo-trips">{fixtures}</script>\n<script type="application/json" id="demo-cases">{cases}</script>\n<script id="offline-planner">\n{script}\n</script>\n</body>')

@@ -13,43 +13,52 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="{% url 'planner' %}" aria-label="Fasal Ki Raah home">
-        <span class="brand-icon" aria-hidden="true">
-          <svg viewBox="0 0 32 32" fill="none"><path d="M6 25c6 0 7-6 7-11 0-4 3-7 9-7v5c0 6-4 9-9 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 25h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </span>
-        <span>Fasal Ki Raah<small lang="ur" dir="rtl">فصل کی راہ</small></span>
+        Fasal Ki Raah
       </a>
-      <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
       {% if not offline %}
         <nav class="account-links" aria-label="Account">
+          <a href="{% url 'planner' %}" aria-current="page">Home</a>
+          <a href="#planner">Find transport</a>
           <a href="{% url 'market-prices' %}">Price reference</a>
           {% if driver_signed_in %}<a href="{% url 'my-requests' %}">Your requests</a>{% endif %}
-          <a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a driver trip{% endif %}</a>
+          <a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a trip{% endif %}</a>
         </nav>
       {% endif %}
     </div>
   </header>
-  <main class="wrap">
-    <section class="intro" aria-labelledby="intro-title">
-      <div>
-        <p class="eyebrow">FARM TO MANDI / POTATO SHIPMENT</p>
-        <h1 id="intro-title">Find a trip for your crop.</h1>
-        <p>See which vehicles have space on your route, then compare what you could take home from each option.</p>
-      </div>
-      <div class="route" aria-label="Example: Okara collection point to Sahiwal mandi">
-        <span class="route-dot" aria-hidden="true"></span><span>Okara<br><small>Collection point</small></span>
-        <span class="route-line" aria-hidden="true"></span>
-        <span class="route-dot end" aria-hidden="true"></span><span>Sahiwal<br><small>Mandi</small></span>
+  <main>
+    <section class="home-hero" aria-labelledby="intro-title">
+      <div class="hero-card">
+        <h1 id="intro-title">Fasal Ki Raah</h1>
+        <p>Shared transport for farmers in Sindh &amp; Punjab.</p>
+        <a class="button-primary" href="#planner">Find transport</a>
       </div>
     </section>
+    <section class="about" aria-labelledby="about-title">
+      <div class="about-copy">
+        <h2 id="about-title">From your field to the mandi.</h2>
+        <p>A small harvest still needs a way to market. Plan your shipment around spare space in a vehicle already making the journey, and compare shared freight with hiring a whole pickup.</p>
+      </div>
+      <div class="how-it-works">
+        <div><h3>Find a journey</h3><p>Choose your pickup point, destination, load and date. See which trips fit your shipment.</p></div>
+        <div><h3>Request your space</h3><p>Send a request to the driver. When they accept, your share of the vehicle's capacity is reserved.</p></div>
+        <div><h3>Follow your booking</h3><p>Check the agreed freight, collection status and delivery confirmation from your account.</p></div>
+      </div>
+    </section>
+    <section class="wrap planner-section" id="planner" aria-labelledby="planner-title">
+      <div class="planner-heading">
+        <h2 id="planner-title">Plan your crop's journey</h2>
+        <p>Find available space and compare estimated sale proceeds.</p>
+      </div>
     {% if travel_date %}
       <div class="demo-note">Driver listings for {{ travel_date|date:"j M Y" }}. Space is reserved when the driver accepts your request.</div>
     {% else %}
-      <div class="demo-note">Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
+      <div class="demo-note">Fictional demo. Example only. Routes, available capacity and shared rates are fictional. No bookings are made.</div>
     {% endif %}
     <nav class="example-links" aria-label="Shipment examples">
-      <a href="?example=punjab" data-example="punjab">Punjab · mandi</a>
-      <a href="?example=warehouse" data-example="warehouse">Punjab · warehouse</a>
-      <a href="?example=sindh" data-example="sindh">Sindh · mandi</a>
+      <a href="?example=punjab#planner" data-example="punjab">Punjab · mandi</a>
+      <a href="?example=warehouse#planner" data-example="warehouse">Punjab · warehouse</a>
+      <a href="?example=sindh#planner" data-example="sindh">Sindh · mandi</a>
     </nav>
     <details class="rate-notes">
       <summary>Where do the price examples come from?</summary>
@@ -59,7 +68,6 @@
     <div class="workspace">
       <section class="panel shipment" id="shipment" aria-labelledby="shipment-title">
         <div class="section-head">
-          <span class="step" aria-hidden="true">01</span>
           <div><h2 id="shipment-title">Your shipment</h2><p>Potatoes · one demo day · Pakistan time</p></div>
         </div>
         <form method="post" action="{% url 'planner' %}#results">
@@ -83,7 +91,7 @@
             </div>
           </fieldset>
           <div class="form-actions">
-            <button type="submit">Find trips <span aria-hidden="true">→</span></button>
+            <button type="submit">Find trips</button>
             <a href="{% url 'planner' %}">Reset example</a>
           </div>
         </form>
@@ -91,7 +99,6 @@
 
       <section class="panel results" id="results" aria-labelledby="results-title">
         <div class="section-head">
-          <span class="step" aria-hidden="true">02</span>
           <div><h2 id="results-title">Compare your options</h2><p>{% if is_example %}Example results · change the form to try your own numbers{% else %}Trip fit and estimated sale proceeds{% endif %}</p></div>
         </div>
         {% if shipment %}
@@ -154,8 +161,9 @@
         {% endif %}
       </section>
     </div>
+    </section>
   </main>
-  <footer class="wrap footer"><span>Fasal Ki Raah · Student prototype</span><span lang="ur" dir="rtl">کھیت سے منڈی تک، مشترکہ سفر</span></footer>
+  {% include "fasal/footer.html" %}
   <dialog id="carrier-dialog" aria-labelledby="carrier-title">
     <h2 id="carrier-title">Contact a carrier</h2>
     <p id="carrier-note">Demo trips have no assigned driver. Use a number from a carrier you already know or copy the inquiry to share yourself.</p>
