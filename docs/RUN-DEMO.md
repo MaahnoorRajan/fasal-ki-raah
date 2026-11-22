@@ -12,6 +12,7 @@ Open a terminal in the project folder. With Python 3.10 or newer available on yo
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py import_market_prices
 .\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8765
 ```
 
@@ -20,6 +21,8 @@ Open http://127.0.0.1:8765 in your browser. Stop the server with Ctrl+C. This is
 If the browser cannot connect, make sure the server command is still running and open the address in a regular desktop browser. Use the offline demo if you just want to try the workflow.
 
 ## Try three scenarios
+
+Choose **Price reference** to explore historical public data by crop, market and source. Read the period and price type before comparing records. This page is available in the Django app.
 
 1. Start with **Punjab · mandi**. A 150 kg load uses 30% of a dedicated 500 kg pickup. The morning van's illustrative PKR 10/kg rate gives PKR 1,500 freight versus the editable PKR 5,000 dedicated quote.
 2. Enter 20 kg in **Expected unsold after transport**. The morning van estimate drops from PKR 2,050 to PKR 1,550 after freight and fees. Freight still uses all 150 kg.

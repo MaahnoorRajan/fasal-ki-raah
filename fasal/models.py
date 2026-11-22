@@ -84,3 +84,29 @@ class BookingEvent(models.Model):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=16)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class MarketPrice(models.Model):
+    source = models.CharField(max_length=32)
+    crop = models.CharField(max_length=80)
+    market = models.CharField(max_length=80)
+    period = models.DateField()
+    frequency = models.CharField(max_length=8)
+    price_type = models.CharField(max_length=32)
+    original_price = models.DecimalField(max_digits=16, decimal_places=6)
+    original_unit = models.CharField(max_length=16)
+    pkr_per_kg = models.DecimalField(max_digits=14, decimal_places=4)
+
+    @property
+    def period_label(self):
+        return self.period.strftime("%Y" if self.frequency == "annual" else "%b %Y")
+
+    class Meta:
+        ordering = ["-period", "market", "crop"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["source", "crop", "market", "period", "price_type"],
+                name="unique_market_price",
+            ),
+            models.CheckConstraint(condition=Q(pkr_per_kg__gt=0), name="positive_market_price"),
+        ]

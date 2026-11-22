@@ -1,0 +1,30 @@
+{
+  "kaggle": {
+    "name": "Kaggle · Pakistan Food Prices 2022",
+    "url": "https://www.kaggle.com/datasets/amaanfaheem/pakistan-food-prices-2022",
+    "download_url": "https://www.kaggle.com/api/v1/datasets/download/amaanfaheem/pakistan-food-prices-2022?datasetVersionNumber=2",
+    "version": "Version 2 · November 2022",
+    "retrieved": "2026-11-22",
+    "license": "Uploader lists CC0. Original WFP/FAO attribution is retained.",
+    "description": "Amaan Faheem's public snapshot. Selected retail rice/wheat records from Karachi, Lahore and Multan since 2018, and national annual producer averages since 2007. Producer prices are converted from PKR/tonne. Potato producer observations end in 2010.",
+    "price_types": [
+      "Historical retail observation",
+      "National producer average"
+    ],
+    "archive_sha256": "5b07a4db4d2ba297aa72d795bbdd69117ce1d6414658f4ec8422dfdc08a50585"
+  },
+  "worldbank": {
+    "name": "World Bank · Pakistan food-price estimates",
+    "url": "https://microdata.worldbank.org/catalog/8667",
+    "download_url": "https://microdata.worldbank.org/api/downloads/download/PAK_2021_RTFP_v02_M/361892?filename=PAK_RTFP_mkt_2007_2026-11-17.zip",
+    "version": "Release 2026-11-17",
+    "retrieved": "2026-11-22",
+    "license": "World Bank dataset terms apply. Attribution: Bo Pieter Johannes Andree, Real Time Food Prices, PAK_2021_RTFP_v02_M.",
+    "terms_url": "https://microdata.worldbank.org/catalog/8667/get-microdata",
+    "description": "Selected monthly wheat closing estimates for Karachi, Lahore and Multan since January 2024. Values are in PKR/kg and include statistical modelling.",
+    "price_types": [
+      "Modelled monthly estimate"
+    ],
+    "archive_sha256": "98af74eed0c3314e347fdb7847f9e4fadbc2d575d7fcec3e73ad393d0728ef23"
+  }
+}

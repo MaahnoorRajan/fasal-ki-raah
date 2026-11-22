@@ -21,6 +21,7 @@
       <span class="tag"><span aria-hidden="true">●</span> Fictional demo</span>
       {% if not offline %}
         <nav class="account-links" aria-label="Account">
+          <a href="{% url 'market-prices' %}">Price reference</a>
           {% if driver_signed_in %}<a href="{% url 'my-requests' %}">Your requests</a>{% endif %}
           <a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a driver trip{% endif %}</a>
         </nav>

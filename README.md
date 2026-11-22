@@ -10,6 +10,10 @@ Bookings now support cancellation before collection, driver-recorded collection 
 
 The [hosting guide](docs/DEPLOYMENT.md) covers the WSGI entry point, environment settings, static files and persistent database storage. Hosting and real shipment trials remain to be completed.
 
+The **Price reference** page contains 681 public observations from Kaggle and the World Bank, with crop/market/source filters, original units, reporting periods and price-type labels. See the [dataset provenance](data/README.md). Retail observations and modelled estimates provide historical context for the editable shipment assumptions.
+
+The deployment package includes pinned dependencies, WhiteNoise static-file serving, Waitress, a Docker recipe, startup database backups and a readiness endpoint. Deployment-mode server and asset checks are performed locally. The Docker image still needs a build on a machine with Docker installed.
+
 ## Project constraints
 
 - At least two hours of development/learning time per week.

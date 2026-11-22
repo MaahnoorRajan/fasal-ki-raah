@@ -100,6 +100,11 @@ legend { padding-right: 9px; font-weight: 750; }
 .driver-auth { max-width: 580px; }
 .driver-auth { overflow-wrap: anywhere; }
 .driver-page form + form { margin-top: 18px; }
+.price-filters { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.price-filters label { display: grid; gap: 5px; }
+.price-filters select { max-width: 100%; padding: 9px; }
+.price-filters label { min-width: 0; max-width: 100%; }
+.price-filters > div { display: grid; gap: 5px; min-width: 0; max-width: 100%; }
 .driver-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .driver-form label { display: block; font-weight: 700; margin-bottom: 4px; }
 .driver-form input:not([type=checkbox]) { width: 100%; padding: 8px; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; }

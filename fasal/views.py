@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.db.models import F, Prefetch, Q
-from django.http import Http404
+from django.http import Http404, JsonResponse
+from django.core.paginator import Paginator
+from django.db import DatabaseError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -19,7 +21,34 @@ from django.views.decorators.http import require_http_methods, require_POST
 from .demo_data import DEMO_CASES, DEMO_SHIPMENT, DEMO_TRIPS
 from .forms import DriverTripForm, ShipmentForm, SpaceRequestForm
 from .matching import Shipment, evaluate_trip
-from .models import BookingEvent, DriverTrip, SpaceRequest
+from .models import BookingEvent, DriverTrip, MarketPrice, SpaceRequest
+from .market_data import SOURCES
+
+
+@require_http_methods(["GET"])
+def market_prices(request):
+    all_prices = MarketPrice.objects.all()
+    prices = all_prices
+    for field in ("crop", "market", "source"):
+        value = request.GET.get(field, "")
+        if value:
+            prices = prices.filter(**{field: value})
+    return render(request, "fasal/market_prices.html", {
+        "prices": Paginator(prices, 30).get_page(request.GET.get("page")),
+        "crops": all_prices.order_by("crop").values_list("crop", flat=True).distinct(),
+        "markets": all_prices.order_by("market").values_list("market", flat=True).distinct(),
+        "sources": SOURCES,
+        "filters": {name: request.GET.get(name, "") for name in ("crop", "market", "source")},
+    })
+
+
+@require_http_methods(["GET"])
+def health(request):
+    try:
+        ready = MarketPrice.objects.exists()
+    except DatabaseError:
+        ready = False
+    return JsonResponse({"status": "ready" if ready else "unavailable"}, status=200 if ready else 503)
 
 
 @never_cache

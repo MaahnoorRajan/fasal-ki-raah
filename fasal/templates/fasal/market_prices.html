@@ -1,0 +1,39 @@
+{% extends "fasal/driver_base.html" %}
+{% block title %}Price reference{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Pakistan price reference</h1>
+  <p>Historical public observations and modelled estimates. Check the period, market and price type when comparing records.</p>
+  <p>Retail prices describe consumer purchases. National producer averages describe a different stage of sale. Ask your buyer for a current crop quote before planning a shipment.</p>
+  <form method="get" class="price-filters">
+    <div><label for="price-crop">Crop</label><select id="price-crop" name="crop"><option value="">All crops</option>{% for crop in crops %}<option{% if filters.crop == crop %} selected{% endif %}>{{ crop }}</option>{% endfor %}</select></div>
+    <div><label for="price-market">Market</label><select id="price-market" name="market"><option value="">All markets</option>{% for market in markets %}<option{% if filters.market == market %} selected{% endif %}>{{ market }}</option>{% endfor %}</select></div>
+    <div><label for="price-source">Source</label><select id="price-source" name="source"><option value="">All sources</option>{% for key, source in sources.items %}<option value="{{ key }}"{% if filters.source == key %} selected{% endif %}>{{ source.name }}</option>{% endfor %}</select></div>
+    <button type="submit">Filter prices</button>
+    <a href="{% url 'market-prices' %}">Reset</a>
+  </form>
+  <p>{{ prices.paginator.count }} observations · Prices converted to PKR/kg. Annual and monthly periods are labelled below.</p>
+  {% for item in prices %}
+    <article class="trip">
+      <h2>{{ item.crop }} · {{ item.market }}</h2>
+      <p><strong>PKR {{ item.pkr_per_kg|floatformat:"2g" }}/kg</strong> · {{ item.period_label }} · {{ item.frequency|capfirst }}</p>
+      <p>{{ item.price_type }} · Original {{ item.original_price|floatformat:"-4g" }} {{ item.original_unit }}</p>
+      {% for key, source in sources.items %}{% if key == item.source %}<p><a href="{{ source.url }}">{{ source.name }}</a> · {{ source.version }}</p>{% endif %}{% endfor %}
+    </article>
+  {% empty %}<p>No observations match these filters.</p>{% endfor %}
+  <nav aria-label="Price pages">
+    {% if prices.has_previous %}<a href="?crop={{ filters.crop|urlencode }}&amp;market={{ filters.market|urlencode }}&amp;source={{ filters.source|urlencode }}&amp;page={{ prices.previous_page_number }}">Previous</a>{% endif %}
+    Page {{ prices.number }} of {{ prices.paginator.num_pages }}
+    {% if prices.has_next %}<a href="?crop={{ filters.crop|urlencode }}&amp;market={{ filters.market|urlencode }}&amp;source={{ filters.source|urlencode }}&amp;page={{ prices.next_page_number }}">Next</a>{% endif %}
+  </nav>
+</section>
+<section class="panel">
+  <h2>Sources and coverage</h2>
+  {% for key, source in sources.items %}
+    <p><a href="{{ source.url }}">{{ source.name }}</a> · {{ source.version }} · Retrieved {{ source.retrieved }}</p>
+    <p>{{ source.description }} {{ source.license }}</p>
+  {% endfor %}
+  <p>The bundled snapshot loads with the website. Its observation dates indicate its age; it does not fetch today's prices.</p>
+  <p>For district crop production, explore <a href="https://na.data.gov.pk/Crops/Home">Pakistan Bureau of Statistics</a>. For geographic data, see <a href="https://download.geofabrik.de/asia/pakistan/">OpenStreetMap Pakistan extracts</a>. These resources are provided for further research.</p>
+</section>
+{% endblock %}

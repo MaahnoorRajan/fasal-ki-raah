@@ -1,0 +1,682 @@
+source,crop,market,period,frequency,price_type,original_price,original_unit
+kaggle,Maize (corn),Pakistan (national),2007-01-01,annual,National producer average,11500.000000,PKR/tonne
+kaggle,Maize (corn),Pakistan (national),2008-01-01,annual,National producer average,11800.000000,PKR/tonne
+kaggle,Maize (corn),Pakistan (national),2009-01-01,annual,National producer average,17824.000000,PKR/tonne
+kaggle,Maize (corn),Pakistan (national),2010-01-01,annual,National producer average,19504.000000,PKR/tonne
+kaggle,Potatoes,Pakistan (national),2007-01-01,annual,National producer average,11500.000000,PKR/tonne
+kaggle,Potatoes,Pakistan (national),2008-01-01,annual,National producer average,10500.000000,PKR/tonne
+kaggle,Potatoes,Pakistan (national),2009-01-01,annual,National producer average,12928.000000,PKR/tonne
+kaggle,Potatoes,Pakistan (national),2010-01-01,annual,National producer average,15672.000000,PKR/tonne
+kaggle,Rice,Pakistan (national),2012-01-01,annual,National producer average,34725.000000,PKR/tonne
+kaggle,Rice,Pakistan (national),2013-01-01,annual,National producer average,48200.000000,PKR/tonne
+kaggle,Rice,Pakistan (national),2014-01-01,annual,National producer average,56950.000000,PKR/tonne
+kaggle,Rice,Pakistan (national),2015-01-01,annual,National producer average,34975.000000,PKR/tonne
+kaggle,Rice,Pakistan (national),2016-01-01,annual,National producer average,20200.000000,PKR/tonne
+kaggle,"Rice (basmati, broken)",Karachi,2018-01-01,monthly,Historical retail observation,78.42,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-02-01,monthly,Historical retail observation,78.46,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-03-01,monthly,Historical retail observation,80,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-04-01,monthly,Historical retail observation,80.38,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-05-01,monthly,Historical retail observation,80.43,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-06-01,monthly,Historical retail observation,80.51,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-07-01,monthly,Historical retail observation,80.58,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-08-01,monthly,Historical retail observation,82.6,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-09-01,monthly,Historical retail observation,83.05,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-10-01,monthly,Historical retail observation,83.32,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-11-01,monthly,Historical retail observation,84.65,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2018-12-01,monthly,Historical retail observation,85.38,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-01-01,monthly,Historical retail observation,85.54,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-02-01,monthly,Historical retail observation,85.58,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-03-01,monthly,Historical retail observation,85.68,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-04-01,monthly,Historical retail observation,85.77,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-05-01,monthly,Historical retail observation,85.77,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-06-01,monthly,Historical retail observation,85.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-07-01,monthly,Historical retail observation,85.96,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-08-01,monthly,Historical retail observation,87.31,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-09-01,monthly,Historical retail observation,87.91,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-10-01,monthly,Historical retail observation,88.21,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-11-01,monthly,Historical retail observation,88.8,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2019-12-01,monthly,Historical retail observation,89.07,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-01-01,monthly,Historical retail observation,90.99,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-02-01,monthly,Historical retail observation,92.2,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-03-01,monthly,Historical retail observation,92.28,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-04-01,monthly,Historical retail observation,92.66,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-05-01,monthly,Historical retail observation,93.69,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-06-01,monthly,Historical retail observation,94.12,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-07-01,monthly,Historical retail observation,94.74,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-08-01,monthly,Historical retail observation,95.59,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-09-01,monthly,Historical retail observation,95.74,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-10-01,monthly,Historical retail observation,97.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-11-01,monthly,Historical retail observation,99.43,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2020-12-01,monthly,Historical retail observation,99.43,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-01-01,monthly,Historical retail observation,99.43,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-02-01,monthly,Historical retail observation,103.29,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-03-01,monthly,Historical retail observation,107.56,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-04-01,monthly,Historical retail observation,110.06,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-05-01,monthly,Historical retail observation,110.79,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-06-01,monthly,Historical retail observation,112.3,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-07-01,monthly,Historical retail observation,115.05,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-08-01,monthly,Historical retail observation,116.19,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-09-01,monthly,Historical retail observation,116.19,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-10-01,monthly,Historical retail observation,116.65,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-11-01,monthly,Historical retail observation,116.8,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2021-12-01,monthly,Historical retail observation,116.8,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-01-01,monthly,Historical retail observation,116.95,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-02-01,monthly,Historical retail observation,120.68,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-03-01,monthly,Historical retail observation,123.94,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-04-01,monthly,Historical retail observation,124,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-05-01,monthly,Historical retail observation,128.41,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-06-01,monthly,Historical retail observation,136.95,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-07-01,monthly,Historical retail observation,139.11,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-08-01,monthly,Historical retail observation,143.13,PKR/kg
+kaggle,"Rice (basmati, broken)",Karachi,2022-09-01,monthly,Historical retail observation,151.94,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-01-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-02-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-03-01,monthly,Historical retail observation,74.8,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-04-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-05-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-06-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-07-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-08-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-09-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-10-01,monthly,Historical retail observation,74.9,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-11-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2018-12-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-01-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-02-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-03-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-04-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-05-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-06-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-07-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-08-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-09-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-10-01,monthly,Historical retail observation,74.82,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-11-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2019-12-01,monthly,Historical retail observation,76.03,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-01-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-02-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-03-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-04-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-05-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-06-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-07-01,monthly,Historical retail observation,74.71,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-08-01,monthly,Historical retail observation,75.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-09-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-10-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-11-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2020-12-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-01-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-02-01,monthly,Historical retail observation,76.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-03-01,monthly,Historical retail observation,80.1,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-04-01,monthly,Historical retail observation,82.06,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-05-01,monthly,Historical retail observation,88.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-06-01,monthly,Historical retail observation,88.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-07-01,monthly,Historical retail observation,88.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-08-01,monthly,Historical retail observation,88.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-09-01,monthly,Historical retail observation,89.64,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-10-01,monthly,Historical retail observation,91.14,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-11-01,monthly,Historical retail observation,93.34,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2021-12-01,monthly,Historical retail observation,97.93,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-01-01,monthly,Historical retail observation,98.39,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-02-01,monthly,Historical retail observation,98.51,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-03-01,monthly,Historical retail observation,98.51,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-04-01,monthly,Historical retail observation,99.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-05-01,monthly,Historical retail observation,105.73,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-06-01,monthly,Historical retail observation,122.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-07-01,monthly,Historical retail observation,123.95,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-08-01,monthly,Historical retail observation,124.78,PKR/kg
+kaggle,"Rice (basmati, broken)",Lahore,2022-09-01,monthly,Historical retail observation,125.28,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-01-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-02-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-03-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-04-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-05-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-06-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-07-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-08-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-09-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-10-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-11-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2018-12-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-01-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-02-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-03-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-04-01,monthly,Historical retail observation,87.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-05-01,monthly,Historical retail observation,88.16,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-06-01,monthly,Historical retail observation,88.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-07-01,monthly,Historical retail observation,88.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-08-01,monthly,Historical retail observation,88.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-09-01,monthly,Historical retail observation,88.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-10-01,monthly,Historical retail observation,88.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-11-01,monthly,Historical retail observation,87.92,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2019-12-01,monthly,Historical retail observation,88.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-01-01,monthly,Historical retail observation,88.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-02-01,monthly,Historical retail observation,88.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-03-01,monthly,Historical retail observation,88.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-04-01,monthly,Historical retail observation,88.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-05-01,monthly,Historical retail observation,88.44,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-06-01,monthly,Historical retail observation,91.5,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-07-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-08-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-09-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-10-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-11-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2020-12-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-01-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-02-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-03-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-04-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-05-01,monthly,Historical retail observation,93.75,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-06-01,monthly,Historical retail observation,97.07,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-07-01,monthly,Historical retail observation,98.13,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-08-01,monthly,Historical retail observation,99.18,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-09-01,monthly,Historical retail observation,100.4,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-10-01,monthly,Historical retail observation,100.87,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-11-01,monthly,Historical retail observation,101.43,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2021-12-01,monthly,Historical retail observation,103.14,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-01-01,monthly,Historical retail observation,104.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-02-01,monthly,Historical retail observation,104.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-03-01,monthly,Historical retail observation,104.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-04-01,monthly,Historical retail observation,104.33,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-05-01,monthly,Historical retail observation,108.68,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-06-01,monthly,Historical retail observation,113.03,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-07-01,monthly,Historical retail observation,115.14,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-08-01,monthly,Historical retail observation,116.01,PKR/kg
+kaggle,"Rice (basmati, broken)",Multan,2022-09-01,monthly,Historical retail observation,121.66,PKR/kg
+kaggle,Rice (coarse),Karachi,2018-07-01,monthly,Historical retail observation,53.27,PKR/kg
+kaggle,Rice (coarse),Karachi,2018-08-01,monthly,Historical retail observation,53.31,PKR/kg
+kaggle,Rice (coarse),Karachi,2018-09-01,monthly,Historical retail observation,53.73,PKR/kg
+kaggle,Rice (coarse),Karachi,2019-07-01,monthly,Historical retail observation,60.67,PKR/kg
+kaggle,Rice (coarse),Karachi,2019-08-01,monthly,Historical retail observation,60.9,PKR/kg
+kaggle,Rice (coarse),Karachi,2019-12-01,monthly,Historical retail observation,65.13,PKR/kg
+kaggle,Rice (coarse),Karachi,2020-03-01,monthly,Historical retail observation,67.8,PKR/kg
+kaggle,Rice (coarse),Karachi,2020-04-01,monthly,Historical retail observation,67.8,PKR/kg
+kaggle,Rice (coarse),Karachi,2020-09-01,monthly,Historical retail observation,69.64,PKR/kg
+kaggle,Rice (coarse),Karachi,2021-07-01,monthly,Historical retail observation,79.95,PKR/kg
+kaggle,Rice (coarse),Karachi,2021-08-01,monthly,Historical retail observation,80.03,PKR/kg
+kaggle,Rice (coarse),Karachi,2021-09-01,monthly,Historical retail observation,80.33,PKR/kg
+kaggle,Rice (coarse),Karachi,2022-07-01,monthly,Historical retail observation,85.18,PKR/kg
+kaggle,Rice (coarse),Karachi,2022-08-01,monthly,Historical retail observation,85.41,PKR/kg
+kaggle,Rice (coarse),Karachi,2022-09-01,monthly,Historical retail observation,88.35,PKR/kg
+kaggle,Rice (coarse),Lahore,2018-07-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Rice (coarse),Lahore,2018-08-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Rice (coarse),Lahore,2018-11-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Rice (coarse),Lahore,2018-12-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Rice (coarse),Lahore,2019-12-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Rice (coarse),Lahore,2020-07-01,monthly,Historical retail observation,56.66,PKR/kg
+kaggle,Rice (coarse),Lahore,2020-08-01,monthly,Historical retail observation,57.48,PKR/kg
+kaggle,Rice (coarse),Lahore,2020-09-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Lahore,2020-11-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Lahore,2021-07-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Lahore,2021-08-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Lahore,2021-11-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Lahore,2021-12-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Rice (coarse),Multan,2018-01-01,monthly,Historical retail observation,40,PKR/kg
+kaggle,Rice (coarse),Multan,2018-06-01,monthly,Historical retail observation,50,PKR/kg
+kaggle,Rice (coarse),Multan,2018-12-01,monthly,Historical retail observation,50,PKR/kg
+kaggle,Rice (coarse),Multan,2019-01-01,monthly,Historical retail observation,50,PKR/kg
+kaggle,Rice (coarse),Multan,2019-05-01,monthly,Historical retail observation,50,PKR/kg
+kaggle,Rice (coarse),Multan,2019-06-01,monthly,Historical retail observation,53.33,PKR/kg
+kaggle,Rice (coarse),Multan,2020-12-01,monthly,Historical retail observation,61.55,PKR/kg
+kaggle,Rice (coarse),Multan,2021-01-01,monthly,Historical retail observation,64.66,PKR/kg
+kaggle,Rice (coarse),Multan,2021-06-01,monthly,Historical retail observation,68.29,PKR/kg
+kaggle,Rice (coarse),Multan,2021-12-01,monthly,Historical retail observation,59.31,PKR/kg
+kaggle,Rice (coarse),Multan,2022-01-01,monthly,Historical retail observation,59.85,PKR/kg
+kaggle,Rice (coarse),Multan,2022-05-01,monthly,Historical retail observation,62.68,PKR/kg
+kaggle,Rice (coarse),Multan,2022-06-01,monthly,Historical retail observation,68.61,PKR/kg
+kaggle,Wheat,Karachi,2018-01-01,monthly,Historical retail observation,37.52,PKR/kg
+kaggle,Wheat,Karachi,2018-02-01,monthly,Historical retail observation,38,PKR/kg
+kaggle,Wheat,Karachi,2018-03-01,monthly,Historical retail observation,37.8,PKR/kg
+kaggle,Wheat,Karachi,2018-04-01,monthly,Historical retail observation,36.5,PKR/kg
+kaggle,Wheat,Karachi,2018-05-01,monthly,Historical retail observation,36,PKR/kg
+kaggle,Wheat,Karachi,2018-06-01,monthly,Historical retail observation,36.25,PKR/kg
+kaggle,Wheat,Karachi,2018-07-01,monthly,Historical retail observation,36.88,PKR/kg
+kaggle,Wheat,Karachi,2018-08-01,monthly,Historical retail observation,37.25,PKR/kg
+kaggle,Wheat,Karachi,2018-09-01,monthly,Historical retail observation,37.5,PKR/kg
+kaggle,Wheat,Karachi,2018-10-01,monthly,Historical retail observation,37.88,PKR/kg
+kaggle,Wheat,Karachi,2018-11-01,monthly,Historical retail observation,38.3,PKR/kg
+kaggle,Wheat,Karachi,2018-12-01,monthly,Historical retail observation,38.5,PKR/kg
+kaggle,Wheat,Karachi,2019-01-01,monthly,Historical retail observation,38.8,PKR/kg
+kaggle,Wheat,Karachi,2019-02-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat,Karachi,2019-03-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat,Karachi,2019-04-01,monthly,Historical retail observation,38.25,PKR/kg
+kaggle,Wheat,Karachi,2019-05-01,monthly,Historical retail observation,38.3,PKR/kg
+kaggle,Wheat,Karachi,2019-06-01,monthly,Historical retail observation,38.75,PKR/kg
+kaggle,Wheat,Karachi,2019-07-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat,Karachi,2019-08-01,monthly,Historical retail observation,39.6,PKR/kg
+kaggle,Wheat,Karachi,2019-09-01,monthly,Historical retail observation,40.5,PKR/kg
+kaggle,Wheat,Karachi,2019-10-01,monthly,Historical retail observation,41.4,PKR/kg
+kaggle,Wheat,Karachi,2019-11-01,monthly,Historical retail observation,44,PKR/kg
+kaggle,Wheat,Karachi,2019-12-01,monthly,Historical retail observation,46,PKR/kg
+kaggle,Wheat,Karachi,2020-01-01,monthly,Historical retail observation,51,PKR/kg
+kaggle,Wheat,Karachi,2020-02-01,monthly,Historical retail observation,50.75,PKR/kg
+kaggle,Wheat,Karachi,2020-03-01,monthly,Historical retail observation,47.67,PKR/kg
+kaggle,Wheat,Karachi,2020-04-01,monthly,Historical retail observation,45.87,PKR/kg
+kaggle,Wheat,Karachi,2020-05-01,monthly,Historical retail observation,44,PKR/kg
+kaggle,Wheat,Karachi,2020-06-01,monthly,Historical retail observation,45,PKR/kg
+kaggle,Wheat,Karachi,2020-07-01,monthly,Historical retail observation,47.6,PKR/kg
+kaggle,Wheat,Karachi,2020-08-01,monthly,Historical retail observation,51.5,PKR/kg
+kaggle,Wheat,Karachi,2020-09-01,monthly,Historical retail observation,53.67,PKR/kg
+kaggle,Wheat,Karachi,2020-10-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Wheat,Karachi,2020-11-01,monthly,Historical retail observation,53.5,PKR/kg
+kaggle,Wheat,Karachi,2020-12-01,monthly,Historical retail observation,54.6,PKR/kg
+kaggle,Wheat,Karachi,2021-01-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Wheat,Karachi,2021-02-01,monthly,Historical retail observation,57.5,PKR/kg
+kaggle,Wheat,Karachi,2021-03-01,monthly,Historical retail observation,57.5,PKR/kg
+kaggle,Wheat,Karachi,2021-04-01,monthly,Historical retail observation,55.8,PKR/kg
+kaggle,Wheat,Karachi,2021-05-01,monthly,Historical retail observation,58,PKR/kg
+kaggle,Wheat,Karachi,2021-06-01,monthly,Historical retail observation,57,PKR/kg
+kaggle,Wheat,Karachi,2021-07-01,monthly,Historical retail observation,56,PKR/kg
+kaggle,Wheat,Karachi,2021-08-01,monthly,Historical retail observation,56,PKR/kg
+kaggle,Wheat,Karachi,2021-09-01,monthly,Historical retail observation,60.25,PKR/kg
+kaggle,Wheat,Karachi,2021-10-01,monthly,Historical retail observation,64.17,PKR/kg
+kaggle,Wheat,Karachi,2021-11-01,monthly,Historical retail observation,66,PKR/kg
+kaggle,Wheat,Karachi,2021-12-01,monthly,Historical retail observation,66,PKR/kg
+kaggle,Wheat,Karachi,2022-01-01,monthly,Historical retail observation,67,PKR/kg
+kaggle,Wheat,Karachi,2022-02-01,monthly,Historical retail observation,64.5,PKR/kg
+kaggle,Wheat,Karachi,2022-03-01,monthly,Historical retail observation,60.12,PKR/kg
+kaggle,Wheat,Karachi,2022-04-01,monthly,Historical retail observation,61,PKR/kg
+kaggle,Wheat,Karachi,2022-05-01,monthly,Historical retail observation,67.67,PKR/kg
+kaggle,Wheat,Karachi,2022-06-01,monthly,Historical retail observation,75.18,PKR/kg
+kaggle,Wheat,Karachi,2022-07-01,monthly,Historical retail observation,82,PKR/kg
+kaggle,Wheat,Karachi,2022-08-01,monthly,Historical retail observation,82,PKR/kg
+kaggle,Wheat,Karachi,2022-09-01,monthly,Historical retail observation,92.68,PKR/kg
+kaggle,Wheat,Lahore,2018-01-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2018-02-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2018-03-01,monthly,Historical retail observation,34.8,PKR/kg
+kaggle,Wheat,Lahore,2018-04-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2018-05-01,monthly,Historical retail observation,32.75,PKR/kg
+kaggle,Wheat,Lahore,2018-06-01,monthly,Historical retail observation,32.75,PKR/kg
+kaggle,Wheat,Lahore,2018-07-01,monthly,Historical retail observation,32.75,PKR/kg
+kaggle,Wheat,Lahore,2018-08-01,monthly,Historical retail observation,33.5,PKR/kg
+kaggle,Wheat,Lahore,2018-09-01,monthly,Historical retail observation,34,PKR/kg
+kaggle,Wheat,Lahore,2018-10-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2018-11-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2018-12-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-01-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-02-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-03-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-04-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-05-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-06-01,monthly,Historical retail observation,34.75,PKR/kg
+kaggle,Wheat,Lahore,2019-07-01,monthly,Historical retail observation,35.5,PKR/kg
+kaggle,Wheat,Lahore,2019-08-01,monthly,Historical retail observation,35.5,PKR/kg
+kaggle,Wheat,Lahore,2019-09-01,monthly,Historical retail observation,35.5,PKR/kg
+kaggle,Wheat,Lahore,2019-10-01,monthly,Historical retail observation,35.5,PKR/kg
+kaggle,Wheat,Lahore,2019-11-01,monthly,Historical retail observation,36.75,PKR/kg
+kaggle,Wheat,Lahore,2019-12-01,monthly,Historical retail observation,43.1,PKR/kg
+kaggle,Wheat,Lahore,2020-01-01,monthly,Historical retail observation,48.08,PKR/kg
+kaggle,Wheat,Lahore,2020-02-01,monthly,Historical retail observation,45.17,PKR/kg
+kaggle,Wheat,Lahore,2020-03-01,monthly,Historical retail observation,43.43,PKR/kg
+kaggle,Wheat,Lahore,2020-04-01,monthly,Historical retail observation,44.8,PKR/kg
+kaggle,Wheat,Lahore,2020-05-01,monthly,Historical retail observation,41.38,PKR/kg
+kaggle,Wheat,Lahore,2020-06-01,monthly,Historical retail observation,47.44,PKR/kg
+kaggle,Wheat,Lahore,2020-07-01,monthly,Historical retail observation,51.32,PKR/kg
+kaggle,Wheat,Lahore,2020-08-01,monthly,Historical retail observation,54.5,PKR/kg
+kaggle,Wheat,Lahore,2020-09-01,monthly,Historical retail observation,55.1,PKR/kg
+kaggle,Wheat,Lahore,2020-10-01,monthly,Historical retail observation,60.4,PKR/kg
+kaggle,Wheat,Lahore,2020-11-01,monthly,Historical retail observation,57.81,PKR/kg
+kaggle,Wheat,Lahore,2020-12-01,monthly,Historical retail observation,54.75,PKR/kg
+kaggle,Wheat,Lahore,2021-01-01,monthly,Historical retail observation,61.08,PKR/kg
+kaggle,Wheat,Lahore,2021-02-01,monthly,Historical retail observation,60.25,PKR/kg
+kaggle,Wheat,Lahore,2021-03-01,monthly,Historical retail observation,60,PKR/kg
+kaggle,Wheat,Lahore,2021-04-01,monthly,Historical retail observation,54.14,PKR/kg
+kaggle,Wheat,Lahore,2021-05-01,monthly,Historical retail observation,51.58,PKR/kg
+kaggle,Wheat,Lahore,2021-06-01,monthly,Historical retail observation,52.88,PKR/kg
+kaggle,Wheat,Lahore,2021-07-01,monthly,Historical retail observation,52.83,PKR/kg
+kaggle,Wheat,Lahore,2021-08-01,monthly,Historical retail observation,52.84,PKR/kg
+kaggle,Wheat,Lahore,2021-09-01,monthly,Historical retail observation,55.75,PKR/kg
+kaggle,Wheat,Lahore,2021-10-01,monthly,Historical retail observation,59.89,PKR/kg
+kaggle,Wheat,Lahore,2021-11-01,monthly,Historical retail observation,61.46,PKR/kg
+kaggle,Wheat,Lahore,2021-12-01,monthly,Historical retail observation,61.5,PKR/kg
+kaggle,Wheat,Lahore,2022-01-01,monthly,Historical retail observation,65.52,PKR/kg
+kaggle,Wheat,Lahore,2022-02-01,monthly,Historical retail observation,63.96,PKR/kg
+kaggle,Wheat,Lahore,2022-03-01,monthly,Historical retail observation,63.12,PKR/kg
+kaggle,Wheat,Lahore,2022-04-01,monthly,Historical retail observation,61.88,PKR/kg
+kaggle,Wheat,Lahore,2022-05-01,monthly,Historical retail observation,63.94,PKR/kg
+kaggle,Wheat,Lahore,2022-06-01,monthly,Historical retail observation,69.78,PKR/kg
+kaggle,Wheat,Lahore,2022-07-01,monthly,Historical retail observation,75.62,PKR/kg
+kaggle,Wheat,Lahore,2022-08-01,monthly,Historical retail observation,75,PKR/kg
+kaggle,Wheat,Lahore,2022-09-01,monthly,Historical retail observation,84.8,PKR/kg
+kaggle,Wheat,Multan,2018-01-01,monthly,Historical retail observation,33,PKR/kg
+kaggle,Wheat,Multan,2018-02-01,monthly,Historical retail observation,32.63,PKR/kg
+kaggle,Wheat,Multan,2018-03-01,monthly,Historical retail observation,32.4,PKR/kg
+kaggle,Wheat,Multan,2018-04-01,monthly,Historical retail observation,30.75,PKR/kg
+kaggle,Wheat,Multan,2018-05-01,monthly,Historical retail observation,29.5,PKR/kg
+kaggle,Wheat,Multan,2018-06-01,monthly,Historical retail observation,32,PKR/kg
+kaggle,Wheat,Multan,2018-07-01,monthly,Historical retail observation,32.12,PKR/kg
+kaggle,Wheat,Multan,2018-08-01,monthly,Historical retail observation,32.5,PKR/kg
+kaggle,Wheat,Multan,2018-09-01,monthly,Historical retail observation,32.56,PKR/kg
+kaggle,Wheat,Multan,2018-10-01,monthly,Historical retail observation,32.75,PKR/kg
+kaggle,Wheat,Multan,2018-11-01,monthly,Historical retail observation,32.95,PKR/kg
+kaggle,Wheat,Multan,2018-12-01,monthly,Historical retail observation,33,PKR/kg
+kaggle,Wheat,Multan,2019-01-01,monthly,Historical retail observation,33.25,PKR/kg
+kaggle,Wheat,Multan,2019-02-01,monthly,Historical retail observation,33.75,PKR/kg
+kaggle,Wheat,Multan,2019-03-01,monthly,Historical retail observation,34,PKR/kg
+kaggle,Wheat,Multan,2019-04-01,monthly,Historical retail observation,32.52,PKR/kg
+kaggle,Wheat,Multan,2019-05-01,monthly,Historical retail observation,32.35,PKR/kg
+kaggle,Wheat,Multan,2019-06-01,monthly,Historical retail observation,34.56,PKR/kg
+kaggle,Wheat,Multan,2019-07-01,monthly,Historical retail observation,35,PKR/kg
+kaggle,Wheat,Multan,2019-08-01,monthly,Historical retail observation,35.1,PKR/kg
+kaggle,Wheat,Multan,2019-09-01,monthly,Historical retail observation,36.03,PKR/kg
+kaggle,Wheat,Multan,2019-10-01,monthly,Historical retail observation,36.28,PKR/kg
+kaggle,Wheat,Multan,2019-11-01,monthly,Historical retail observation,39.28,PKR/kg
+kaggle,Wheat,Multan,2019-12-01,monthly,Historical retail observation,40.75,PKR/kg
+kaggle,Wheat,Multan,2020-01-01,monthly,Historical retail observation,45.75,PKR/kg
+kaggle,Wheat,Multan,2020-02-01,monthly,Historical retail observation,42.22,PKR/kg
+kaggle,Wheat,Multan,2020-03-01,monthly,Historical retail observation,41.97,PKR/kg
+kaggle,Wheat,Multan,2020-04-01,monthly,Historical retail observation,38.3,PKR/kg
+kaggle,Wheat,Multan,2020-05-01,monthly,Historical retail observation,35.25,PKR/kg
+kaggle,Wheat,Multan,2020-06-01,monthly,Historical retail observation,40.63,PKR/kg
+kaggle,Wheat,Multan,2020-07-01,monthly,Historical retail observation,46.77,PKR/kg
+kaggle,Wheat,Multan,2020-08-01,monthly,Historical retail observation,51.75,PKR/kg
+kaggle,Wheat,Multan,2020-09-01,monthly,Historical retail observation,52.58,PKR/kg
+kaggle,Wheat,Multan,2020-10-01,monthly,Historical retail observation,55.75,PKR/kg
+kaggle,Wheat,Multan,2020-11-01,monthly,Historical retail observation,56.75,PKR/kg
+kaggle,Wheat,Multan,2020-12-01,monthly,Historical retail observation,56.75,PKR/kg
+kaggle,Wheat,Multan,2021-01-01,monthly,Historical retail observation,56.75,PKR/kg
+kaggle,Wheat,Multan,2021-02-01,monthly,Historical retail observation,57.12,PKR/kg
+kaggle,Wheat,Multan,2021-03-01,monthly,Historical retail observation,57.25,PKR/kg
+kaggle,Wheat,Multan,2021-04-01,monthly,Historical retail observation,48.12,PKR/kg
+kaggle,Wheat,Multan,2021-05-01,monthly,Historical retail observation,46.69,PKR/kg
+kaggle,Wheat,Multan,2021-06-01,monthly,Historical retail observation,48.75,PKR/kg
+kaggle,Wheat,Multan,2021-07-01,monthly,Historical retail observation,49.42,PKR/kg
+kaggle,Wheat,Multan,2021-08-01,monthly,Historical retail observation,49.58,PKR/kg
+kaggle,Wheat,Multan,2021-09-01,monthly,Historical retail observation,51,PKR/kg
+kaggle,Wheat,Multan,2021-10-01,monthly,Historical retail observation,55.79,PKR/kg
+kaggle,Wheat,Multan,2021-11-01,monthly,Historical retail observation,56.14,PKR/kg
+kaggle,Wheat,Multan,2021-12-01,monthly,Historical retail observation,57.25,PKR/kg
+kaggle,Wheat,Multan,2022-01-01,monthly,Historical retail observation,57.25,PKR/kg
+kaggle,Wheat,Multan,2022-02-01,monthly,Historical retail observation,58.94,PKR/kg
+kaggle,Wheat,Multan,2022-03-01,monthly,Historical retail observation,59.5,PKR/kg
+kaggle,Wheat,Multan,2022-04-01,monthly,Historical retail observation,57.22,PKR/kg
+kaggle,Wheat,Multan,2022-05-01,monthly,Historical retail observation,55.5,PKR/kg
+kaggle,Wheat,Multan,2022-06-01,monthly,Historical retail observation,57.36,PKR/kg
+kaggle,Wheat,Multan,2022-07-01,monthly,Historical retail observation,59.37,PKR/kg
+kaggle,Wheat,Multan,2022-08-01,monthly,Historical retail observation,65.39,PKR/kg
+kaggle,Wheat,Multan,2022-09-01,monthly,Historical retail observation,70.92,PKR/kg
+kaggle,Wheat,Pakistan (national),2007-01-01,annual,National producer average,10840.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2008-01-01,annual,National producer average,11390.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2009-01-01,annual,National producer average,24391.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2010-01-01,annual,National producer average,25100.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2012-01-01,annual,National producer average,24325.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2013-01-01,annual,National producer average,29050.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2014-01-01,annual,National producer average,30275.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2015-01-01,annual,National producer average,29525.000000,PKR/tonne
+kaggle,Wheat,Pakistan (national),2016-01-01,annual,National producer average,30000.000000,PKR/tonne
+kaggle,Wheat flour,Karachi,2018-01-01,monthly,Historical retail observation,44.27,PKR/kg
+kaggle,Wheat flour,Karachi,2018-02-01,monthly,Historical retail observation,44.2,PKR/kg
+kaggle,Wheat flour,Karachi,2018-03-01,monthly,Historical retail observation,43.8,PKR/kg
+kaggle,Wheat flour,Karachi,2018-04-01,monthly,Historical retail observation,42.33,PKR/kg
+kaggle,Wheat flour,Karachi,2018-05-01,monthly,Historical retail observation,41.59,PKR/kg
+kaggle,Wheat flour,Karachi,2018-06-01,monthly,Historical retail observation,41.86,PKR/kg
+kaggle,Wheat flour,Karachi,2018-07-01,monthly,Historical retail observation,43.07,PKR/kg
+kaggle,Wheat flour,Karachi,2018-08-01,monthly,Historical retail observation,43.57,PKR/kg
+kaggle,Wheat flour,Karachi,2018-09-01,monthly,Historical retail observation,43.89,PKR/kg
+kaggle,Wheat flour,Karachi,2018-10-01,monthly,Historical retail observation,44.12,PKR/kg
+kaggle,Wheat flour,Karachi,2018-11-01,monthly,Historical retail observation,44.41,PKR/kg
+kaggle,Wheat flour,Karachi,2018-12-01,monthly,Historical retail observation,44.73,PKR/kg
+kaggle,Wheat flour,Karachi,2019-01-01,monthly,Historical retail observation,45.08,PKR/kg
+kaggle,Wheat flour,Karachi,2019-02-01,monthly,Historical retail observation,45.12,PKR/kg
+kaggle,Wheat flour,Karachi,2019-03-01,monthly,Historical retail observation,45,PKR/kg
+kaggle,Wheat flour,Karachi,2019-04-01,monthly,Historical retail observation,42.58,PKR/kg
+kaggle,Wheat flour,Karachi,2019-05-01,monthly,Historical retail observation,43.92,PKR/kg
+kaggle,Wheat flour,Karachi,2019-06-01,monthly,Historical retail observation,45.75,PKR/kg
+kaggle,Wheat flour,Karachi,2019-07-01,monthly,Historical retail observation,47.48,PKR/kg
+kaggle,Wheat flour,Karachi,2019-08-01,monthly,Historical retail observation,48.03,PKR/kg
+kaggle,Wheat flour,Karachi,2019-09-01,monthly,Historical retail observation,52.82,PKR/kg
+kaggle,Wheat flour,Karachi,2019-10-01,monthly,Historical retail observation,54.71,PKR/kg
+kaggle,Wheat flour,Karachi,2019-11-01,monthly,Historical retail observation,55.15,PKR/kg
+kaggle,Wheat flour,Karachi,2019-12-01,monthly,Historical retail observation,54.42,PKR/kg
+kaggle,Wheat flour,Karachi,2020-01-01,monthly,Historical retail observation,59.88,PKR/kg
+kaggle,Wheat flour,Karachi,2020-02-01,monthly,Historical retail observation,55.76,PKR/kg
+kaggle,Wheat flour,Karachi,2020-03-01,monthly,Historical retail observation,54.15,PKR/kg
+kaggle,Wheat flour,Karachi,2020-04-01,monthly,Historical retail observation,53.83,PKR/kg
+kaggle,Wheat flour,Karachi,2020-05-01,monthly,Historical retail observation,53.81,PKR/kg
+kaggle,Wheat flour,Karachi,2020-06-01,monthly,Historical retail observation,55.88,PKR/kg
+kaggle,Wheat flour,Karachi,2020-07-01,monthly,Historical retail observation,60.18,PKR/kg
+kaggle,Wheat flour,Karachi,2020-08-01,monthly,Historical retail observation,67.64,PKR/kg
+kaggle,Wheat flour,Karachi,2020-09-01,monthly,Historical retail observation,67.06,PKR/kg
+kaggle,Wheat flour,Karachi,2020-10-01,monthly,Historical retail observation,70.1,PKR/kg
+kaggle,Wheat flour,Karachi,2020-11-01,monthly,Historical retail observation,60.59,PKR/kg
+kaggle,Wheat flour,Karachi,2020-12-01,monthly,Historical retail observation,60.49,PKR/kg
+kaggle,Wheat flour,Karachi,2021-01-01,monthly,Historical retail observation,61.89,PKR/kg
+kaggle,Wheat flour,Karachi,2021-02-01,monthly,Historical retail observation,63.99,PKR/kg
+kaggle,Wheat flour,Karachi,2021-03-01,monthly,Historical retail observation,64.01,PKR/kg
+kaggle,Wheat flour,Karachi,2021-04-01,monthly,Historical retail observation,61.01,PKR/kg
+kaggle,Wheat flour,Karachi,2021-05-01,monthly,Historical retail observation,64.47,PKR/kg
+kaggle,Wheat flour,Karachi,2021-06-01,monthly,Historical retail observation,62.39,PKR/kg
+kaggle,Wheat flour,Karachi,2021-07-01,monthly,Historical retail observation,61.88,PKR/kg
+kaggle,Wheat flour,Karachi,2021-08-01,monthly,Historical retail observation,62.77,PKR/kg
+kaggle,Wheat flour,Karachi,2021-09-01,monthly,Historical retail observation,68.12,PKR/kg
+kaggle,Wheat flour,Karachi,2021-10-01,monthly,Historical retail observation,73.41,PKR/kg
+kaggle,Wheat flour,Karachi,2021-11-01,monthly,Historical retail observation,72.61,PKR/kg
+kaggle,Wheat flour,Karachi,2021-12-01,monthly,Historical retail observation,66.6,PKR/kg
+kaggle,Wheat flour,Karachi,2022-01-01,monthly,Historical retail observation,57.62,PKR/kg
+kaggle,Wheat flour,Karachi,2022-02-01,monthly,Historical retail observation,55.58,PKR/kg
+kaggle,Wheat flour,Karachi,2022-03-01,monthly,Historical retail observation,60.51,PKR/kg
+kaggle,Wheat flour,Karachi,2022-04-01,monthly,Historical retail observation,71.72,PKR/kg
+kaggle,Wheat flour,Karachi,2022-05-01,monthly,Historical retail observation,76.81,PKR/kg
+kaggle,Wheat flour,Karachi,2022-06-01,monthly,Historical retail observation,86.22,PKR/kg
+kaggle,Wheat flour,Karachi,2022-07-01,monthly,Historical retail observation,94.37,PKR/kg
+kaggle,Wheat flour,Karachi,2022-08-01,monthly,Historical retail observation,95.31,PKR/kg
+kaggle,Wheat flour,Karachi,2022-09-01,monthly,Historical retail observation,105.06,PKR/kg
+kaggle,Wheat flour,Lahore,2018-01-01,monthly,Historical retail observation,39.5,PKR/kg
+kaggle,Wheat flour,Lahore,2018-02-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat flour,Lahore,2018-03-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat flour,Lahore,2018-04-01,monthly,Historical retail observation,38,PKR/kg
+kaggle,Wheat flour,Lahore,2018-05-01,monthly,Historical retail observation,36.38,PKR/kg
+kaggle,Wheat flour,Lahore,2018-06-01,monthly,Historical retail observation,35,PKR/kg
+kaggle,Wheat flour,Lahore,2018-07-01,monthly,Historical retail observation,39,PKR/kg
+kaggle,Wheat flour,Lahore,2018-08-01,monthly,Historical retail observation,38,PKR/kg
+kaggle,Wheat flour,Lahore,2018-09-01,monthly,Historical retail observation,38.56,PKR/kg
+kaggle,Wheat flour,Lahore,2018-10-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2018-11-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2018-12-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-01-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-02-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-03-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-04-01,monthly,Historical retail observation,39.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-05-01,monthly,Historical retail observation,39.85,PKR/kg
+kaggle,Wheat flour,Lahore,2019-06-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Lahore,2019-07-01,monthly,Historical retail observation,41,PKR/kg
+kaggle,Wheat flour,Lahore,2019-08-01,monthly,Historical retail observation,41.6,PKR/kg
+kaggle,Wheat flour,Lahore,2019-09-01,monthly,Historical retail observation,41,PKR/kg
+kaggle,Wheat flour,Lahore,2019-10-01,monthly,Historical retail observation,41,PKR/kg
+kaggle,Wheat flour,Lahore,2019-11-01,monthly,Historical retail observation,40.5,PKR/kg
+kaggle,Wheat flour,Lahore,2019-12-01,monthly,Historical retail observation,40.5,PKR/kg
+kaggle,Wheat flour,Lahore,2020-01-01,monthly,Historical retail observation,40.4,PKR/kg
+kaggle,Wheat flour,Lahore,2020-02-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Lahore,2020-03-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Lahore,2020-04-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Lahore,2020-05-01,monthly,Historical retail observation,40.5,PKR/kg
+kaggle,Wheat flour,Lahore,2020-06-01,monthly,Historical retail observation,49.75,PKR/kg
+kaggle,Wheat flour,Lahore,2020-07-01,monthly,Historical retail observation,47.57,PKR/kg
+kaggle,Wheat flour,Lahore,2020-08-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2020-09-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2020-10-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2020-11-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2020-12-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2021-01-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2021-02-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2021-03-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Lahore,2021-04-01,monthly,Historical retail observation,44.85,PKR/kg
+kaggle,Wheat flour,Lahore,2021-05-01,monthly,Historical retail observation,53.07,PKR/kg
+kaggle,Wheat flour,Lahore,2021-06-01,monthly,Historical retail observation,53.33,PKR/kg
+kaggle,Wheat flour,Lahore,2021-07-01,monthly,Historical retail observation,54.53,PKR/kg
+kaggle,Wheat flour,Lahore,2021-08-01,monthly,Historical retail observation,55.02,PKR/kg
+kaggle,Wheat flour,Lahore,2021-09-01,monthly,Historical retail observation,57.99,PKR/kg
+kaggle,Wheat flour,Lahore,2021-10-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2021-11-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2021-12-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2022-01-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2022-02-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2022-03-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Lahore,2022-04-01,monthly,Historical retail observation,50.79,PKR/kg
+kaggle,Wheat flour,Lahore,2022-05-01,monthly,Historical retail observation,54.13,PKR/kg
+kaggle,Wheat flour,Lahore,2022-06-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Lahore,2022-07-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Lahore,2022-08-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Lahore,2022-09-01,monthly,Historical retail observation,54.78,PKR/kg
+kaggle,Wheat flour,Multan,2018-01-01,monthly,Historical retail observation,37,PKR/kg
+kaggle,Wheat flour,Multan,2018-02-01,monthly,Historical retail observation,36.63,PKR/kg
+kaggle,Wheat flour,Multan,2018-03-01,monthly,Historical retail observation,36.4,PKR/kg
+kaggle,Wheat flour,Multan,2018-04-01,monthly,Historical retail observation,35,PKR/kg
+kaggle,Wheat flour,Multan,2018-05-01,monthly,Historical retail observation,31.75,PKR/kg
+kaggle,Wheat flour,Multan,2018-06-01,monthly,Historical retail observation,30.25,PKR/kg
+kaggle,Wheat flour,Multan,2018-07-01,monthly,Historical retail observation,37,PKR/kg
+kaggle,Wheat flour,Multan,2018-08-01,monthly,Historical retail observation,37,PKR/kg
+kaggle,Wheat flour,Multan,2018-09-01,monthly,Historical retail observation,37,PKR/kg
+kaggle,Wheat flour,Multan,2018-10-01,monthly,Historical retail observation,38.12,PKR/kg
+kaggle,Wheat flour,Multan,2018-11-01,monthly,Historical retail observation,37.5,PKR/kg
+kaggle,Wheat flour,Multan,2018-12-01,monthly,Historical retail observation,37.5,PKR/kg
+kaggle,Wheat flour,Multan,2019-01-01,monthly,Historical retail observation,37.8,PKR/kg
+kaggle,Wheat flour,Multan,2019-02-01,monthly,Historical retail observation,38,PKR/kg
+kaggle,Wheat flour,Multan,2019-03-01,monthly,Historical retail observation,37.96,PKR/kg
+kaggle,Wheat flour,Multan,2019-04-01,monthly,Historical retail observation,37.29,PKR/kg
+kaggle,Wheat flour,Multan,2019-05-01,monthly,Historical retail observation,37.4,PKR/kg
+kaggle,Wheat flour,Multan,2019-06-01,monthly,Historical retail observation,39.75,PKR/kg
+kaggle,Wheat flour,Multan,2019-07-01,monthly,Historical retail observation,41,PKR/kg
+kaggle,Wheat flour,Multan,2019-08-01,monthly,Historical retail observation,40.45,PKR/kg
+kaggle,Wheat flour,Multan,2019-09-01,monthly,Historical retail observation,40.43,PKR/kg
+kaggle,Wheat flour,Multan,2019-10-01,monthly,Historical retail observation,40.43,PKR/kg
+kaggle,Wheat flour,Multan,2019-11-01,monthly,Historical retail observation,40.43,PKR/kg
+kaggle,Wheat flour,Multan,2019-12-01,monthly,Historical retail observation,40.43,PKR/kg
+kaggle,Wheat flour,Multan,2020-01-01,monthly,Historical retail observation,42.1,PKR/kg
+kaggle,Wheat flour,Multan,2020-02-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Multan,2020-03-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Multan,2020-04-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Multan,2020-05-01,monthly,Historical retail observation,40.25,PKR/kg
+kaggle,Wheat flour,Multan,2020-06-01,monthly,Historical retail observation,49.44,PKR/kg
+kaggle,Wheat flour,Multan,2020-07-01,monthly,Historical retail observation,45.66,PKR/kg
+kaggle,Wheat flour,Multan,2020-08-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2020-09-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2020-10-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2020-11-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2020-12-01,monthly,Historical retail observation,47.77,PKR/kg
+kaggle,Wheat flour,Multan,2021-01-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2021-02-01,monthly,Historical retail observation,44.3,PKR/kg
+kaggle,Wheat flour,Multan,2021-03-01,monthly,Historical retail observation,43,PKR/kg
+kaggle,Wheat flour,Multan,2021-04-01,monthly,Historical retail observation,49.18,PKR/kg
+kaggle,Wheat flour,Multan,2021-05-01,monthly,Historical retail observation,53.18,PKR/kg
+kaggle,Wheat flour,Multan,2021-06-01,monthly,Historical retail observation,53.37,PKR/kg
+kaggle,Wheat flour,Multan,2021-07-01,monthly,Historical retail observation,53.68,PKR/kg
+kaggle,Wheat flour,Multan,2021-08-01,monthly,Historical retail observation,53.54,PKR/kg
+kaggle,Wheat flour,Multan,2021-09-01,monthly,Historical retail observation,57.32,PKR/kg
+kaggle,Wheat flour,Multan,2021-10-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2021-11-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2021-12-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2022-01-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2022-02-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2022-03-01,monthly,Historical retail observation,55,PKR/kg
+kaggle,Wheat flour,Multan,2022-04-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Multan,2022-05-01,monthly,Historical retail observation,54.39,PKR/kg
+kaggle,Wheat flour,Multan,2022-06-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Multan,2022-07-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Multan,2022-08-01,monthly,Historical retail observation,49,PKR/kg
+kaggle,Wheat flour,Multan,2022-09-01,monthly,Historical retail observation,54.78,PKR/kg
+worldbank,Wheat,Karachi,2024-01-01,monthly,Modelled monthly estimate,123,PKR/kg
+worldbank,Wheat,Karachi,2024-02-01,monthly,Modelled monthly estimate,120.5,PKR/kg
+worldbank,Wheat,Karachi,2024-03-01,monthly,Modelled monthly estimate,114,PKR/kg
+worldbank,Wheat,Karachi,2024-04-01,monthly,Modelled monthly estimate,102,PKR/kg
+worldbank,Wheat,Karachi,2024-05-01,monthly,Modelled monthly estimate,99.48,PKR/kg
+worldbank,Wheat,Karachi,2024-06-01,monthly,Modelled monthly estimate,89.51,PKR/kg
+worldbank,Wheat,Karachi,2024-07-01,monthly,Modelled monthly estimate,83,PKR/kg
+worldbank,Wheat,Karachi,2024-08-01,monthly,Modelled monthly estimate,82,PKR/kg
+worldbank,Wheat,Karachi,2024-09-01,monthly,Modelled monthly estimate,79,PKR/kg
+worldbank,Wheat,Karachi,2024-10-01,monthly,Modelled monthly estimate,81,PKR/kg
+worldbank,Wheat,Karachi,2024-11-01,monthly,Modelled monthly estimate,84.5,PKR/kg
+worldbank,Wheat,Karachi,2024-12-01,monthly,Modelled monthly estimate,82.5,PKR/kg
+worldbank,Wheat,Karachi,2025-01-01,monthly,Modelled monthly estimate,81.5,PKR/kg
+worldbank,Wheat,Karachi,2025-02-01,monthly,Modelled monthly estimate,79,PKR/kg
+worldbank,Wheat,Karachi,2025-03-01,monthly,Modelled monthly estimate,78,PKR/kg
+worldbank,Wheat,Karachi,2025-04-01,monthly,Modelled monthly estimate,70.25,PKR/kg
+worldbank,Wheat,Karachi,2025-05-01,monthly,Modelled monthly estimate,64.5,PKR/kg
+worldbank,Wheat,Karachi,2025-06-01,monthly,Modelled monthly estimate,65,PKR/kg
+worldbank,Wheat,Karachi,2025-07-01,monthly,Modelled monthly estimate,65.5,PKR/kg
+worldbank,Wheat,Karachi,2025-08-01,monthly,Modelled monthly estimate,72.47,PKR/kg
+worldbank,Wheat,Karachi,2025-09-01,monthly,Modelled monthly estimate,74.96,PKR/kg
+worldbank,Wheat,Karachi,2025-10-01,monthly,Modelled monthly estimate,86.92,PKR/kg
+worldbank,Wheat,Karachi,2025-11-01,monthly,Modelled monthly estimate,98.19,PKR/kg
+worldbank,Wheat,Karachi,2025-12-01,monthly,Modelled monthly estimate,102,PKR/kg
+worldbank,Wheat,Karachi,2026-01-01,monthly,Modelled monthly estimate,109,PKR/kg
+worldbank,Wheat,Karachi,2026-02-01,monthly,Modelled monthly estimate,105,PKR/kg
+worldbank,Wheat,Karachi,2026-03-01,monthly,Modelled monthly estimate,95,PKR/kg
+worldbank,Wheat,Karachi,2026-04-01,monthly,Modelled monthly estimate,95,PKR/kg
+worldbank,Wheat,Karachi,2026-05-01,monthly,Modelled monthly estimate,104,PKR/kg
+worldbank,Wheat,Karachi,2026-06-01,monthly,Modelled monthly estimate,107,PKR/kg
+worldbank,Wheat,Karachi,2026-07-01,monthly,Modelled monthly estimate,118,PKR/kg
+worldbank,Wheat,Karachi,2026-08-01,monthly,Modelled monthly estimate,125,PKR/kg
+worldbank,Wheat,Karachi,2026-09-01,monthly,Modelled monthly estimate,130,PKR/kg
+worldbank,Wheat,Karachi,2026-10-01,monthly,Modelled monthly estimate,144.89,PKR/kg
+worldbank,Wheat,Karachi,2026-11-01,monthly,Modelled monthly estimate,142.8,PKR/kg
+worldbank,Wheat,Lahore,2024-01-01,monthly,Modelled monthly estimate,130,PKR/kg
+worldbank,Wheat,Lahore,2024-02-01,monthly,Modelled monthly estimate,113.35,PKR/kg
+worldbank,Wheat,Lahore,2024-03-01,monthly,Modelled monthly estimate,107.31,PKR/kg
+worldbank,Wheat,Lahore,2024-04-01,monthly,Modelled monthly estimate,96.15,PKR/kg
+worldbank,Wheat,Lahore,2024-05-01,monthly,Modelled monthly estimate,93.8,PKR/kg
+worldbank,Wheat,Lahore,2024-06-01,monthly,Modelled monthly estimate,84.51,PKR/kg
+worldbank,Wheat,Lahore,2024-07-01,monthly,Modelled monthly estimate,83.1,PKR/kg
+worldbank,Wheat,Lahore,2024-08-01,monthly,Modelled monthly estimate,78.79,PKR/kg
+worldbank,Wheat,Lahore,2024-09-01,monthly,Modelled monthly estimate,74.38,PKR/kg
+worldbank,Wheat,Lahore,2024-10-01,monthly,Modelled monthly estimate,77.5,PKR/kg
+worldbank,Wheat,Lahore,2024-11-01,monthly,Modelled monthly estimate,81.25,PKR/kg
+worldbank,Wheat,Lahore,2024-12-01,monthly,Modelled monthly estimate,81.85,PKR/kg
+worldbank,Wheat,Lahore,2025-01-01,monthly,Modelled monthly estimate,80,PKR/kg
+worldbank,Wheat,Lahore,2025-02-01,monthly,Modelled monthly estimate,80,PKR/kg
+worldbank,Wheat,Lahore,2025-03-01,monthly,Modelled monthly estimate,80.6,PKR/kg
+worldbank,Wheat,Lahore,2025-04-01,monthly,Modelled monthly estimate,73.1,PKR/kg
+worldbank,Wheat,Lahore,2025-05-01,monthly,Modelled monthly estimate,65.6,PKR/kg
+worldbank,Wheat,Lahore,2025-06-01,monthly,Modelled monthly estimate,66.2,PKR/kg
+worldbank,Wheat,Lahore,2025-07-01,monthly,Modelled monthly estimate,64.95,PKR/kg
+worldbank,Wheat,Lahore,2025-08-01,monthly,Modelled monthly estimate,72.14,PKR/kg
+worldbank,Wheat,Lahore,2025-09-01,monthly,Modelled monthly estimate,82.51,PKR/kg
+worldbank,Wheat,Lahore,2025-10-01,monthly,Modelled monthly estimate,94.91,PKR/kg
+worldbank,Wheat,Lahore,2025-11-01,monthly,Modelled monthly estimate,100,PKR/kg
+worldbank,Wheat,Lahore,2025-12-01,monthly,Modelled monthly estimate,105,PKR/kg
+worldbank,Wheat,Lahore,2026-01-01,monthly,Modelled monthly estimate,115,PKR/kg
+worldbank,Wheat,Lahore,2026-02-01,monthly,Modelled monthly estimate,117,PKR/kg
+worldbank,Wheat,Lahore,2026-03-01,monthly,Modelled monthly estimate,108,PKR/kg
+worldbank,Wheat,Lahore,2026-04-01,monthly,Modelled monthly estimate,105,PKR/kg
+worldbank,Wheat,Lahore,2026-05-01,monthly,Modelled monthly estimate,103,PKR/kg
+worldbank,Wheat,Lahore,2026-06-01,monthly,Modelled monthly estimate,105,PKR/kg
+worldbank,Wheat,Lahore,2026-07-01,monthly,Modelled monthly estimate,116,PKR/kg
+worldbank,Wheat,Lahore,2026-08-01,monthly,Modelled monthly estimate,125,PKR/kg
+worldbank,Wheat,Lahore,2026-09-01,monthly,Modelled monthly estimate,125,PKR/kg
+worldbank,Wheat,Lahore,2026-10-01,monthly,Modelled monthly estimate,126.64,PKR/kg
+worldbank,Wheat,Lahore,2026-11-01,monthly,Modelled monthly estimate,134.65,PKR/kg
+worldbank,Wheat,Multan,2024-01-01,monthly,Modelled monthly estimate,120,PKR/kg
+worldbank,Wheat,Multan,2024-02-01,monthly,Modelled monthly estimate,120,PKR/kg
+worldbank,Wheat,Multan,2024-03-01,monthly,Modelled monthly estimate,112.83,PKR/kg
+worldbank,Wheat,Multan,2024-04-01,monthly,Modelled monthly estimate,98.84,PKR/kg
+worldbank,Wheat,Multan,2024-05-01,monthly,Modelled monthly estimate,83.92,PKR/kg
+worldbank,Wheat,Multan,2024-06-01,monthly,Modelled monthly estimate,78.79,PKR/kg
+worldbank,Wheat,Multan,2024-07-01,monthly,Modelled monthly estimate,77.5,PKR/kg
+worldbank,Wheat,Multan,2024-08-01,monthly,Modelled monthly estimate,73.54,PKR/kg
+worldbank,Wheat,Multan,2024-09-01,monthly,Modelled monthly estimate,63.09,PKR/kg
+worldbank,Wheat,Multan,2024-10-01,monthly,Modelled monthly estimate,66.12,PKR/kg
+worldbank,Wheat,Multan,2024-11-01,monthly,Modelled monthly estimate,72.49,PKR/kg
+worldbank,Wheat,Multan,2024-12-01,monthly,Modelled monthly estimate,73.74,PKR/kg
+worldbank,Wheat,Multan,2025-01-01,monthly,Modelled monthly estimate,73.74,PKR/kg
+worldbank,Wheat,Multan,2025-02-01,monthly,Modelled monthly estimate,73.74,PKR/kg
+worldbank,Wheat,Multan,2025-03-01,monthly,Modelled monthly estimate,73.74,PKR/kg
+worldbank,Wheat,Multan,2025-04-01,monthly,Modelled monthly estimate,65.87,PKR/kg
+worldbank,Wheat,Multan,2025-05-01,monthly,Modelled monthly estimate,59.84,PKR/kg
+worldbank,Wheat,Multan,2025-06-01,monthly,Modelled monthly estimate,61.24,PKR/kg
+worldbank,Wheat,Multan,2025-07-01,monthly,Modelled monthly estimate,61.24,PKR/kg
+worldbank,Wheat,Multan,2025-08-01,monthly,Modelled monthly estimate,71.56,PKR/kg
+worldbank,Wheat,Multan,2025-09-01,monthly,Modelled monthly estimate,78.15,PKR/kg
+worldbank,Wheat,Multan,2025-10-01,monthly,Modelled monthly estimate,90.65,PKR/kg
+worldbank,Wheat,Multan,2025-11-01,monthly,Modelled monthly estimate,91,PKR/kg
+worldbank,Wheat,Multan,2025-12-01,monthly,Modelled monthly estimate,90.66,PKR/kg
+worldbank,Wheat,Multan,2026-01-01,monthly,Modelled monthly estimate,110,PKR/kg
+worldbank,Wheat,Multan,2026-02-01,monthly,Modelled monthly estimate,117,PKR/kg
+worldbank,Wheat,Multan,2026-03-01,monthly,Modelled monthly estimate,108,PKR/kg
+worldbank,Wheat,Multan,2026-04-01,monthly,Modelled monthly estimate,93.28,PKR/kg
+worldbank,Wheat,Multan,2026-05-01,monthly,Modelled monthly estimate,96,PKR/kg
+worldbank,Wheat,Multan,2026-06-01,monthly,Modelled monthly estimate,106,PKR/kg
+worldbank,Wheat,Multan,2026-07-01,monthly,Modelled monthly estimate,116,PKR/kg
+worldbank,Wheat,Multan,2026-08-01,monthly,Modelled monthly estimate,121,PKR/kg
+worldbank,Wheat,Multan,2026-09-01,monthly,Modelled monthly estimate,121,PKR/kg
+worldbank,Wheat,Multan,2026-10-01,monthly,Modelled monthly estimate,116.4,PKR/kg
+worldbank,Wheat,Multan,2026-11-01,monthly,Modelled monthly estimate,123.24,PKR/kg

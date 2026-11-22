@@ -16,6 +16,7 @@ ROOT_URLCONF = "fasal.urls"
 INSTALLED_APPS = ["django.contrib.auth", "django.contrib.contenttypes", "django.contrib.sessions", "django.contrib.staticfiles", "fasal"]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -27,6 +28,10 @@ TEMPLATES = [
 ]
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedStaticFilesStorage"},
+}
 WSGI_APPLICATION = "fasal.wsgi.application"
 LANGUAGE_CODE = "en"
 TIME_ZONE = "Asia/Karachi"
@@ -36,9 +41,12 @@ DATABASES = {"default": {
     "NAME": os.environ.get("FASAL_DATABASE_PATH", str(BASE_DIR / "db.sqlite3")),
     "OPTIONS": {"timeout": 20},
 }}
+if not DEBUG and not os.environ.get("FASAL_DATABASE_PATH"):
+    raise ImproperlyConfigured("Set FASAL_DATABASE_PATH to a database on persistent storage.")
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 SECURE_SSL_REDIRECT = not DEBUG
+SECURE_REDIRECT_EXEMPT = [r"^health/$"]
 SECURE_HSTS_SECONDS = 3600 if not DEBUG else 0
 SECURE_CONTENT_TYPE_NOSNIFF = True
 # Enable only behind a proxy that strips client-supplied forwarded headers.

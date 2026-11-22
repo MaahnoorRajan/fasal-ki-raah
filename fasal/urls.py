@@ -3,11 +3,13 @@ from django.contrib.auth import views as auth_views
 
 from .views import (
     accept_space_request, booking_detail, driver_signup, driver_trips, edit_trip, my_requests,
-    planner, request_space, withdraw_trip,
+    health, market_prices, planner, request_space, withdraw_trip,
 )
 
 urlpatterns = [
     path("", planner, name="planner"),
+    path("market-prices/", market_prices, name="market-prices"),
+    path("health/", health, name="health"),
     path("requests/", my_requests, name="my-requests"),
     path("bookings/<int:pk>/", booking_detail, name="booking-detail"),
     path("trips/<int:pk>/request/", request_space, name="request-space"),
