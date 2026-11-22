@@ -5,11 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Drivers{% endblock %} · Fasal Ki Raah</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'fasal/wheat.svg' %}">
   <link rel="stylesheet" href="{% static 'fasal/planner.css' %}">
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
-    <a class="brand" href="{% url 'planner' %}">Fasal Ki Raah</a>
+    <a class="brand" href="{% url 'planner' %}">{% include "fasal/wheat_icon.html" %}Fasal Ki Raah</a>
     <nav class="account-links" aria-label="Account">
       <a href="{% url 'market-prices' %}">Price reference</a>
       <a href="{% url 'planner' %}">Shipment planner</a>

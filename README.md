@@ -14,7 +14,9 @@ The **Price reference** page contains 681 public observations from Kaggle and th
 
 The deployment package includes pinned dependencies, WhiteNoise static-file serving, Waitress, a Docker recipe, startup database backups and a readiness endpoint. Deployment-mode server and asset checks are performed locally. The Docker image still needs a build on a machine with Docker installed.
 
-The interface follows the supplied Ahiki Acres design reference, using the requested cream, grey and terracotta palette with Open Sans and Averia Serif Libre. The homepage includes the shipment planner, and the same styles cover prices and bookings. The illustrative field photograph is [sourced through Unsplash](https://images.unsplash.com/photo-1500382017468-9049fed747ef); it does not document a project location. Fonts load through Google Fonts, with local serif and sans-serif fallbacks. The offline HTML embeds the photograph.
+The interface follows the supplied Ahiki Acres design reference, using the requested cream, grey and terracotta palette with Open Sans and Averia Serif Libre. The homepage includes the shipment planner, and the same styles cover prices and bookings. The brand and browser icon use an original wheat-ear design. Fonts load through Google Fonts, with local serif and sans-serif fallbacks. The offline HTML embeds both farm photographs and the icon.
+
+The hero and regional photographs depict actual farmland in Pakistan. [Punjab wheat fields](https://commons.wikimedia.org/wiki/File:View_of_wheat_fields_and_mountains_in_Punjab,_Pakistan.jpg), photographed by Umairjaved on 23 May 2015, are used under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). [Farmland near Hyderabad, Sindh](https://commons.wikimedia.org/wiki/File:Hyderabad_(Wheat_Farms).jpg), photographed by Farhan / Fantaz on 29 March 2008, is used under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). The downloaded photographs are unchanged; responsive display frames crop their visible area. Their original licences apply to the photographs. They provide geographic context for this student prototype.
 
 ## Project constraints
 
