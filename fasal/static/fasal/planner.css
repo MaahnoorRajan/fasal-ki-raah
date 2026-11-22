@@ -59,9 +59,7 @@ h3 { font-size: 24px; }
 h4 { font-size: 19.6px; margin-bottom: 12px; }
 p { margin: 0 0 24px; }
 small { font-size: 14px; line-height: 1.6; }
-.home-hero { position: relative; min-height: 700px; display: grid; place-items: center; padding: 80px 24px; background: url("fields.jpg") center 58% / cover; }
-.hero-credit { position: absolute; bottom: 12px; left: 24px; right: 24px; width: fit-content; max-width: calc(100% - 48px); margin: 0; padding: 4px 12px; background: #6c6965; color: #fbf6f1; font-size: 12px; line-height: 1.6; }
-.hero-credit a { color: inherit; text-decoration: underline; }
+.home-hero { position: relative; min-height: 700px; display: grid; place-items: center; padding: 80px 24px; background: url("home-farm.png") center 60% / cover; }
 .regional-farms { max-width: 1024px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px auto 0; text-align: left; }
 .regional-farms figure { margin: 0; min-width: 0; }
 .regional-farms img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: center 75%; }
