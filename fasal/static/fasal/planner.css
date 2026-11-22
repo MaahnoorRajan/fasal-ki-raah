@@ -59,14 +59,17 @@ h3 { font-size: 24px; }
 h4 { font-size: 19.6px; margin-bottom: 12px; }
 p { margin: 0 0 24px; }
 small { font-size: 14px; line-height: 1.6; }
-.home-hero { position: relative; min-height: 700px; display: grid; place-items: center; padding: 80px 24px; background: url("home-farm.png") center 60% / cover; }
+.home-hero { position: relative; min-height: 700px; display: grid; place-items: center; padding: 80px 24px; background: url("home-farm.jpg") center 60% / cover; overflow: hidden; }
 .regional-farms { max-width: 1024px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px auto 0; text-align: left; }
 .regional-farms figure { margin: 0; min-width: 0; }
 .regional-farms img { display: block; width: 100%; height: 260px; object-fit: cover; object-position: center 75%; }
 .regional-farms figcaption { padding-top: 12px; font-size: 14px; line-height: 1.85; }
 .regional-farms figcaption a { text-decoration: underline; }
-.hero-card { width: min(560px, 100%); padding: 40px; text-align: center; background: var(--surface-1); }
-.hero-card h1 { margin-bottom: 24px; }
+.hero-card { position: relative; isolation: isolate; width: min(600px, 100%); padding: 40px; text-align: center; }
+.hero-card::before { content: ""; position: absolute; inset: -80px -100px; z-index: -1; background: radial-gradient(ellipse closest-side, #fbf6f1 0%, #fbf6f1fa 42%, #fbf6f1e6 62%, #fbf6f180 82%, #fbf6f100 100%); }
+.hero-card h1 { margin-bottom: 12px; }
+.hero-wheat { display: flex; justify-content: center; margin: 0 0 12px; }
+.hero-wheat .wheat-icon { width: 42px; height: 61px; flex-basis: 42px; color: var(--surface-2); transform: rotate(-12deg); }
 .hero-card p { color: var(--muted-2); margin-bottom: 24px; }
 .hero-card .button-primary { margin-top: 8px; }
 .about { padding: 80px 40px; background: var(--surface-1); text-align: center; }
@@ -175,6 +178,7 @@ legend { padding-right: 12px; font-weight: 600; }
   .planner-section, .driver-page { padding-block: 40px; }
   .panel, .driver-page > .panel { padding: 24px; }
   .hero-card { padding: 40px 24px; }
+  .hero-card::before { inset: -80px -48px; }
   h1 { font-size: 45.696px; }
   .about-copy h2, .planner-heading h2 { font-size: 30.567px; }
 }
