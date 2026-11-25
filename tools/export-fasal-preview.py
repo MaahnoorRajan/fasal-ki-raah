@@ -28,14 +28,17 @@ response = planner(request, offline=True)
 assert response.status_code == 200
 html = response.content.decode()
 css = (PROJECT / "fasal/static/fasal/planner.css").read_text(encoding="utf-8-sig")
-photo = base64.b64encode((PROJECT / "fasal/static/fasal/fields.jpg").read_bytes()).decode()
-hero = base64.b64encode((PROJECT / "fasal/static/fasal/home-farm.jpg").read_bytes()).decode()
-css = css.replace('url("home-farm.jpg")', f'url("data:image/jpeg;base64,{hero}")')
-html = html.replace('src="/static/fasal/fields.jpg"', f'src="data:image/jpeg;base64,{photo}"')
-sindh_photo = base64.b64encode((PROJECT / "fasal/static/fasal/sindh-farms.jpg").read_bytes()).decode()
-html = html.replace('src="/static/fasal/sindh-farms.jpg"', f'src="data:image/jpeg;base64,{sindh_photo}"')
-icon = base64.b64encode((PROJECT / "fasal/static/fasal/wheat.svg").read_bytes()).decode()
-html = html.replace('href="/static/fasal/wheat.svg"', f'href="data:image/svg+xml;base64,{icon}"')
+# Embed local images wherever they occur, including repeated route thumbnails.
+def inline_image(match):
+    attr, filename = match.groups()
+    formats = {".jpg": "image/jpeg", ".webp": "image/webp", ".svg": "image/svg+xml"}
+    image = PROJECT / "fasal/static/fasal" / filename
+    mime = formats[image.suffix]
+    encoded = base64.b64encode(image.read_bytes()).decode("ascii")
+    return f'{attr}="data:{mime};base64,{encoded}"'
+
+
+html = re.sub(r'(src|href)="/static/fasal/([\w-]+\.(?:jpg|webp|svg))"', inline_image, html)
 script = (PROJECT / "tools/fasal-offline.js").read_text(encoding="utf-8-sig")
 contact = (PROJECT / "fasal/static/fasal/contact.js").read_text(encoding="utf-8-sig")
 

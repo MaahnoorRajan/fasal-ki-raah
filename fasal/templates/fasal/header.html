@@ -1,0 +1,24 @@
+<div class="region-strip">
+  <div class="wrap"><span>Farm-to-market transport</span><span><span aria-hidden="true">⌖</span> Sindh &amp; Punjab, Pakistan</span></div>
+</div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{% url 'planner' %}" aria-label="Fasal Ki Raah home">
+      {% include "fasal/wheat_icon.html" %}
+      <span>Fasal <b>Ki Raah</b></span>
+    </a>
+    <nav class="account-links" aria-label="Main navigation">
+      {% if home %}
+        <a href="#intro-title" aria-current="page">Home</a>
+        <a href="#routes">Example routes</a>
+      {% else %}
+        <a href="{% url 'planner' %}#planner">Shipment planner</a>
+      {% endif %}
+      {% if not offline %}
+        <a href="{% url 'market-prices' %}">Price reference</a>
+        {% if driver_signed_in or not home %}<a href="{% url 'my-requests' %}">Your requests</a>{% endif %}
+        <a class="nav-action" href="{% url 'driver-trips' %}">{% if driver_signed_in or not home %}Your trips{% else %}Post a trip{% endif %} <span aria-hidden="true">↗</span></a>
+      {% endif %}
+    </nav>
+  </div>
+</header>

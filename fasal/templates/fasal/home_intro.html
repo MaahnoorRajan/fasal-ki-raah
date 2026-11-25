@@ -1,0 +1,48 @@
+{% load static %}
+<section class="wrap harvest-hero" aria-labelledby="intro-title">
+  <div class="hero-copy">
+    <h1 id="intro-title">From your farm<br><em>to the mandi.</em></h1>
+    <p>Find spare space for your harvest on vehicles already heading to market. Compare freight for just the kilos you need to move.</p>
+    <div class="hero-actions">
+      <a class="button-primary" href="#planner">Find transport <span aria-hidden="true">→</span></a>
+      <a class="text-action" href="#how">How it works <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <img src="{% static 'fasal/harvest-crate.webp' %}" width="1040" height="693" fetchpriority="high" alt="A wooden crate of potatoes, onions and fresh produce with ears of wheat">
+  </div>
+</section>
+<section class="wrap freight-story" id="how" aria-labelledby="story-title">
+  <img class="story-photo" src="{% static 'fasal/home-farm.jpg' %}" alt="Farm workers gathering a wheat harvest" width="678" height="452">
+  <div class="story-copy">
+    <h2 id="story-title">Share a pickup.</h2>
+    <p>Choose a route, compare freight, then request space on a driver’s listing. Once accepted, you can follow your load through collection and delivery.</p>
+  </div>
+  <div class="load-example">
+    <p>Example pickup load</p>
+    <strong>150 <small>/ 500 kg</small></strong>
+    <div class="load-meter" aria-hidden="true"></div>
+    <span>30% of a pickup for one farmer’s potatoes</span>
+  </div>
+</section>
+<section class="wrap routes-section" id="routes" aria-labelledby="routes-title">
+  <h2 id="routes-title">Try an example route</h2>
+  <p>Open a fictional 150 kg shipment and adjust the numbers for your harvest.</p>
+  <div class="route-grid">
+    <a class="route-card" href="?example=punjab#planner" data-example="punjab">
+      <img src="{% static 'fasal/fields.jpg' %}" alt="" width="1280" height="720" loading="lazy">
+      <span class="route-detail"><small>Punjab · Wholesale market</small><strong>Okara to Sahiwal mandi</strong><span class="route-arrow" aria-hidden="true">↗</span></span>
+    </a>
+    <a class="route-card" href="?example=warehouse#planner" data-example="warehouse">
+      <img src="{% static 'fasal/home-farm.jpg' %}" alt="" width="678" height="452" loading="lazy">
+      <span class="route-detail"><small>Punjab · Storage</small><strong>Okara to Sahiwal warehouse</strong><span class="route-arrow" aria-hidden="true">↗</span></span>
+    </a>
+    <a class="route-card" href="?example=sindh#planner" data-example="sindh">
+      <img src="{% static 'fasal/sindh-farms.jpg' %}" alt="" width="2048" height="1536" loading="lazy">
+      <span class="route-detail"><small>Sindh · Wholesale market</small><strong>Karachi to Hyderabad mandi</strong><span class="route-arrow" aria-hidden="true">↗</span></span>
+    </a>
+  </div>
+  <details class="photo-credits"><summary>Field photography</summary>
+    <p>Punjab wheat fields by <a href="https://commons.wikimedia.org/wiki/File:View_of_wheat_fields_and_mountains_in_Punjab,_Pakistan.jpg">Umairjaved</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Farmland near Hyderabad by <a href="https://commons.wikimedia.org/wiki/File:Hyderabad_(Wheat_Farms).jpg">Farhan / Fantaz</a> · <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>. The harvesting photograph was supplied for this project.</p>
+  </details>
+</section>

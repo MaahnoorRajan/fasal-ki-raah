@@ -4,60 +4,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Compare fictional farm-to-market trips and sale proceeds for a potato shipment.">
+  <meta name="description" content="Plan shared crop transport in Sindh and Punjab. Compare freight, explore example routes, and request spare space on a driver’s trip.">
   <title>Trip planner · Fasal Ki Raah</title>
   <link rel="icon" type="image/svg+xml" href="{% static 'fasal/wheat.svg' %}">
   <link rel="stylesheet" href="{% static 'fasal/planner.css' %}">
 </head>
 <body>
   <a class="skip" href="#shipment">Skip to shipment form</a>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="{% url 'planner' %}" aria-label="Fasal Ki Raah home">
-        {% include "fasal/wheat_icon.html" %}
-        Fasal Ki Raah
-      </a>
-      {% if not offline %}
-        <nav class="account-links" aria-label="Account">
-          <a href="{% url 'planner' %}" aria-current="page">Home</a>
-          <a href="#planner">Find transport</a>
-          <a href="{% url 'market-prices' %}">Price reference</a>
-          {% if driver_signed_in %}<a href="{% url 'my-requests' %}">Your requests</a>{% endif %}
-          <a href="{% url 'driver-trips' %}">{% if driver_signed_in %}Your driver trips{% else %}Post a trip{% endif %}</a>
-        </nav>
-      {% endif %}
-    </div>
-  </header>
+  {% include "fasal/header.html" with home=True %}
   <main>
-    <section class="home-hero" aria-labelledby="intro-title">
-      <div class="hero-card">
-        <h1 id="intro-title">Fasal Ki Raah</h1>
-        <div class="hero-wheat">{% include "fasal/wheat_icon.html" %}</div>
-        <p>Shared transport for farmers in Sindh &amp; Punjab.</p>
-        <a class="button-primary" href="#planner">Find transport</a>
-      </div>
-    </section>
-    <section class="about" aria-labelledby="about-title">
-      <div class="about-copy">
-        <h2 id="about-title">From your field to the mandi.</h2>
-        <p>A small harvest still needs a way to market. Plan your shipment around spare space in a vehicle already making the journey, and compare shared freight with hiring a whole pickup.</p>
-      </div>
-      <div class="how-it-works">
-        <div><h3>Find a journey</h3><p>Choose your pickup point, destination, load and date. See which trips fit your shipment.</p></div>
-        <div><h3>Request your space</h3><p>Send a request to the driver. When they accept, your share of the vehicle's capacity is reserved.</p></div>
-        <div><h3>Follow your booking</h3><p>Check the agreed freight, collection status and delivery confirmation from your account.</p></div>
-      </div>
-      <div class="regional-farms">
-        <figure>
-          <img src="{% static 'fasal/fields.jpg' %}" alt="Golden wheat fields with trees and distant hills in Punjab, Pakistan" width="1280" height="720" loading="lazy">
-          <figcaption>Punjab · Wheat fields<br><a href="https://commons.wikimedia.org/wiki/File:View_of_wheat_fields_and_mountains_in_Punjab,_Pakistan.jpg">Umairjaved</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></figcaption>
-        </figure>
-        <figure>
-          <img src="{% static 'fasal/sindh-farms.jpg' %}" alt="Agricultural wheat fields and rural buildings on the outskirts of Hyderabad, Sindh, Pakistan" width="2048" height="1536" loading="lazy">
-          <figcaption>Sindh · Farmland near Hyderabad<br><a href="https://commons.wikimedia.org/wiki/File:Hyderabad_(Wheat_Farms).jpg">Farhan / Fantaz</a> · <a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a></figcaption>
-        </figure>
-      </div>
-    </section>
+    {% include "fasal/home_intro.html" %}
     <section class="wrap planner-section" id="planner" aria-labelledby="planner-title">
       <div class="planner-heading">
         <h2 id="planner-title">Plan your crop's journey</h2>
